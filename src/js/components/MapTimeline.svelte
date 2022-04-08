@@ -5,6 +5,8 @@
   import Map from './Map.svelte';
   import MapLayer from './MapLayer.svelte';
   import MapLayerType from './MapLayerType.svelte';
+  import MapTimelineStyles from './MapTimelineStyles.svelte'
+
   // import MapLegend from './MapLegend.svelte';
   import MapSection from './MapSection.svelte';
   import MapSource from './MapSource.svelte';
@@ -212,12 +214,29 @@
   let mapId = "choroplethMap"
   let mapLoaded = false;
 
+  let layerOrder = [
+    'investor-sfrs',
+    'north-carolina-outline',
+    'north-carolina-fill'
+  ]
+
+  let paintStyles;
+  let layoutStyles;
 </script>
+
+<MapTimelineStyles
+  bind:paintStyles
+  bind:layoutStyles
+/>
+
 {#if progress <= 1 && progress >= 0}
 <div class="timeline">
   {`${currentDate.getFullYear()}-${("0" + (currentDate.getMonth() + 1)).slice(-2)}-${("0" + currentDate.getDate()).slice(-2)}`}
 </div>
 {/if}
+
+
+
 
 <div id="choropleth-scroller">
   <Scroller bind:progress>
@@ -237,8 +256,8 @@
             promoteId={northCarolinaBounds.code}
             mapId={mapId}
             maxzoom={24}>
-            <MapLayerType layerType="line" mapId={mapId} id="north-carolina-outline"/>
-            <MapLayerType layerType="fill" mapId={mapId} id="north-carolina-fill"  drawBelow="north-carolina-outline"/>
+            <MapLayerType layerType="line" mapId={mapId} id="north-carolina-outline" {paintStyles} {layoutStyles} {layerOrder}/>
+            <MapLayerType layerType="fill" mapId={mapId} id="north-carolina-fill" {paintStyles} {layoutStyles} {layerOrder}/>
           </MapSource>
          
           <MapSource
@@ -247,9 +266,8 @@
             type="geojson"
             data={residences}
             promoteId={residencesBounds.code}
-            bind:loaded={residencesLoaded}
             maxzoom={24}>
-            <MapLayerType layerType="circle" {progress} mapId={mapId} highlighted={highlighted} id="investor-sfrs" drawBelow="north-carolina-outline"/>
+            <MapLayerType layerType="circle" mapId={mapId} highlighted={highlighted} id="investor-sfrs" {paintStyles} {layoutStyles} {layerOrder}/>
           </MapSource>
           {/if}
 

@@ -45,20 +45,15 @@
 <svelte:window bind:scrollY bind:innerHeight bind:outerHeight bind:innerWidth/>
 <Fonts/>
 
+ <MapTimeline
+	{dataPath}
+	{scrollY}
+/>
 
 <MapStatewide
 	{dataPath}
 	{scrollY}
 />
-
-
-<!--  <MapTimeline
-	{dataPath}
-	{scrollY}
-/>
- -->
-
-
 
 <style>
 	:global(.fullscreen) {

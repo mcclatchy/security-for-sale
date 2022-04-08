@@ -4,7 +4,7 @@
 
   export let id = null;
   export let layerType = null;
-  export let layerOrder = null;
+  export let layerOrder = [];
   export let mapId = "map";
   export let drawn = false;
   export let highlighted = null;
@@ -88,8 +88,6 @@
   }
 
   let drawBelow = getLayerAbove(id, layerOrder);
-
-  console.log(id, highlighted)
 </script>
 
 {#if $layersDrawn.includes(drawBelow) || !drawBelow && layerType}
