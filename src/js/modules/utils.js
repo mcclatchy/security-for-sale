@@ -224,11 +224,38 @@ export function execResizeCallbackWithSuspend(elements, resizeObserver, callback
   });
 }
 
-export async function getTopo(url, layer) {
+export async function getTopoLayer(url, layer) {
   let response = await fetch(url);
   let json = await response.json();
   let geojson = await feature(json, layer);
   return geojson;
+}
+
+export async function getJsonData(url, layer) {
+  let response = await fetch(url);
+  let json = await response.json();
+  return json;
+}
+
+export async function formatTopojsonLayer(json, layer, colorField=null, colors=null, breaks=null, colorDict=null, defaultColor="rgba(242,242,242,1)") {
+  let topojson = await feature(json, layer);
+  if (colorField) {
+    topojson.features.forEach(d => {
+      let colorValue = d.properties[colorField]
+      if (colors && breaks) {
+        d.properties.color = getColor(colorValue, breaks, colors)
+      } else if (colorDict) {
+        d.properties.color = colorDict.hasOwnProperty(colorValue) ? colorDict[colorValue] : defaultColor;
+      }
+    });
+  }
+  return topojson;
+}
+
+export async function getAndFormatTopojsonData(url, layer, colorField=null, colors=null, breaks=null, colorDict=null, defaultColor="rgba(242,242,242,1)") {
+  let json = await getJsonData(url);
+  let formattedTopojson = formatTopojsonLayer(json, layer, colorField, colors, breaks, colorDict, defaultColor)
+  return formattedTopojson;
 }
 
 
@@ -242,7 +269,12 @@ function rgbToHex(r, g, b) {
 } 
 
    
-
+export function getUnixTimestamp() {
+  const dateStr = '2022-06-22';
+  const date = new Date(dateStr);
+  const timestampInMs = date.getTime();
+  const unixTimestamp = Math.floor(date.getTime() / 1000);
+}
 
 // SOURCE: https://github.com/narroviz/article-wnba-season-history/blob/master/src/js/graphic.js
 export function makeColors(primaryColor, numDarker=4, numLighter=4, pctDarker=0.64, pctLighter=0.64) {

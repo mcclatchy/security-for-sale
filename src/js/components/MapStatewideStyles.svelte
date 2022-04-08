@@ -2,7 +2,7 @@
   import { makeColors } from "../modules/utils.js";
 
   let primaryColor = "#ffa4b1"
-  let colors = makeColors(primaryColor, 1, 3, 0.1, 0.8)
+  let colors = ["#eecb9b", "#e7b48f", "#e09c85", "#da867b", "#c16677"] //makeColors(primaryColor, 1, 3, 0.1, 0.8)
   let stateOutlineColor = makeColors(primaryColor, 0, 10, 0.95, 0.95)[3]
 	let stateBackgroundColor = makeColors(primaryColor, 0, 10, 0.97, 0.97)[0]
 	let borderColor = 'rgb(213, 213, 213)'
@@ -140,12 +140,12 @@
 			'line-width': 1
     },
     "home-fill": {
-		  'fill-color': ["interpolate",["linear"],["zoom"],3,"rgba(125,125,125,0)",13,colors[3],14,['get', 'investorColor'],15,['get', 'investorColor']],
+		  'fill-color': ["interpolate",["linear"],["zoom"],3,"rgba(125,125,125,0)",13,colors[3],14,['get', 'color'],15,['get', 'color']],
 		  'fill-opacity': ["interpolate",["linear"],["zoom"],3,0,13,0,14,1,15,1],
 		  "fill-opacity-transition": {"duration": 300,"delay": 0}
     },
     "home-line": {
-			'line-color': ["interpolate",["linear"],["zoom"],3,"rgba(125,125,125,0)",13,colors[3],14,['get', 'investorColor'],15,['get', 'investorColor']],
+			'line-color': ["interpolate",["linear"],["zoom"],3,"rgba(125,125,125,0)",13,colors[3],14,['get', 'color'],15,['get', 'color']],
 			'line-opacity': ["interpolate",["linear"],["zoom"],3,0,13,0,14,0.7,15,1],
 			"line-opacity-transition": {"duration": 300,"delay": 0}
     },

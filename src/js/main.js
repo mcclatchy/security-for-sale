@@ -17,6 +17,15 @@ const deadpool = [
     'section.bottom-nav'
 ];
 
+if (pageInfo['marketInfo.allow_ads'] === 'false') {
+    deadpool.push(
+      '#zone-el-2',
+      '#zone-el-102',
+      '#zone-el-104',
+      '.zone.grid.combo'
+    );
+}
+
 removeNodes(deadpool);
 removeCardsBelowStory();
 

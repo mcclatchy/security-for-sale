@@ -53,6 +53,21 @@
       "text-color": "rgba(118, 116, 108, 1)",
       "text-halo-color": "rgba(255,255,255,0.7)",
       "text-halo-width": 0.8
+    },
+    "heatmap": {
+      // Increase the heatmap weight based on frequency and property magnitude
+      'heatmap-weight': ['step',['get', 'point_count'],1,50,2,100,1],
+      // Increase the heatmap color weight weight by zoom level
+      // heatmap-intensity is a multiplier on top of heatmap-weight
+      'heatmap-intensity': ['interpolate',['linear'],['zoom'],0,1,9,3],
+      // Color ramp for heatmap.  Domain is 0 (low) to 1 (high).
+      // Begin color ramp at 0-stop with a 0-transparancy color
+      // to create a blur-like effect.
+      'heatmap-color': ['interpolate',['linear'],['heatmap-density'],0,"#FFFCF8",0.2,"#eecb9b",0.4,"#e7b48f",0.6,"#e09c85",0.8,"#da867b",1,"#c16677"],
+      // Adjust the heatmap radius by zoom level
+      'heatmap-radius': ['interpolate',['linear'],['zoom'],0,2,9,10],
+      // Transition from heatmap to circle layer by zoom level
+      'heatmap-opacity': ['interpolate',['linear'],['zoom'],7,1,9,0]
     }
   }
 
