@@ -1,0 +1,85 @@
+.story-body header.header {
+  display: none;
+}
+
+html, body {
+  position: relative;
+  width: 100%;
+  /*background-color: #fefaf7;*/
+  background-color:  white;
+}
+
+body {
+  color: #333;
+  margin: 0 !important;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+.embed-infographic {
+  margin-bottom:  0px !important;
+}
+
+.video-js {
+  position: relative;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.video-js .vjs-tech {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+video-js video {
+  border-radius: 100px;
+  height: 100%;
+  left: 50%;
+  object-fit: cover;
+  overflow: hidden;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  z-index: 0;
+}
+
+.vjs-seeking .vjs-loading-spinner {
+  display: none;
+}
+
+svelte-scroller-foreground {
+  z-index: 4 !important;
+  pointer-events: none !important;
+}
+
+.responsive-image {
+  display: none;
+}
+
+/* Attempt to remove any appearance of video play button */
+video::-internal-media-controls-overlay-cast-button {
+  display: none;
+}
+
+video::-webkit-media-controls-overlay-play-button {
+  display: none;
+}
+
+video::-webkit-media-controls-panel {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
+/* Old shadow dom for play button */
+video::-webkit-media-controls-play-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
+/* New shadow dom for play button */
+video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
