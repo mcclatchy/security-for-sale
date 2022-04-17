@@ -1,18 +1,21 @@
 <script>
   import { onMount } from 'svelte';
-  import { isMobile, isTablet, roundNum } from '../modules/utils.js';
+  import { isMobile, isTablet } from '../modules/utils.js';
   import { windowWidth, windowHeight, isFirstVideoLoaded, isPortrait } from '../modules/store.js';
+  import { enableScroll } from '../modules/scroll';
   import Loader from './Loader.svelte'
 
+  export let videoData;
   export let scrollY = 0;
   export let offset = 0;
-  export let isFirstVideo = false;
-  export let videoNode;
-  export let duration = 0;
-  export let height = 0;
-
-  let frameRate = 30;
-  let pixelsPerFrame = 20;
+  export let width = "100%";
+  export let isFirstVideo = false;;
+  export let assetPath;
+  export let videoPath;
+  export let objectFit = "cover";
+  export let position = "absolute";
+  export let loaderEnabled = true
+  export let zIndexVideo = 0;
 
   let video;
   let isActive = false;
@@ -21,13 +24,12 @@
   let videoLoaded = false;
   let buffered;
   let isBuffered = false;
+  let duration;
+  let height;
 
   let wideDesktopBreakpoint = 1200;
 
   onMount(() => {
-    document.getElementById('video-container').appendChild(videoNode);
-    video = videoNode
-
     if (isMobile.any()) {
       const userTouchedScreen = () => {
         hasUserInteractedOnMobile = true;
@@ -38,8 +40,6 @@
 
     video.addEventListener('loadedmetadata', (event) => {
       videoLoaded = true;
-        duration = videoNode.duration
-        height = duration * frameRate * pixelsPerFrame;
         video.pause();
         video.currentTime = 0;
         if (isMobile.any()) {
@@ -62,6 +62,28 @@
     }
   });
 
+  $: config = $isPortrait ? videoData.portrait : videoData.landscape
+  $: duration = config.duration;
+  $: height = config.height;
+  $: filepath = `${assetPath}/${config.filename}`;
+  $: posterFilepath = `${assetPath}/${config.posterFilename}`;
+
+  $: if (isActive && video && buffered && time <= duration) {
+    let bufferedLen = video.buffered.length;
+    while (bufferedLen--)
+    {
+      let buffStart = video.buffered.start(bufferedLen)
+      let buffEnd   = video.buffered.end((bufferedLen));
+      if (time >= buffStart && time <= buffEnd)
+      {
+        isBuffered = true;
+        break;
+      } else {
+        isBuffered  = false;
+      }
+    }
+  }
+
   // Split block reactive statement into two clean if statements
   $: if (
     scrollY >= offset &&
@@ -77,28 +99,67 @@
     const offsetScrollY = scrollY - offset;
     time = duration * offsetScrollY / height;
     if (time <= duration) {
-      video.currentTime = roundNum(time, 2);
+      video.currentTime = time;
     }
   }
-
-    
-
 
 </script>
 
 <!-- HTML5 Videos -->
 <div
   class="video-container"
-  id="video-container"
   style={`opacity: ${isActive ? 1 : 1}`}
 >
+  {#if isFirstVideo && isMobile.any()}
+    <img
+      alt=""
+      style={`visibility: ${
+        videoLoaded && hasUserInteractedOnMobile ? 'hidden' : 'visible'
+      }; object-fit: ${objectFit}; position: ${position};`}
+      src={posterFilepath}
+    />
+  {/if}
 
+  <video
+    bind:this={video}
+    bind:buffered
+    id={videoData.id}
+    preload="metadata"
+    muted="true"
+    playsinline="true"
+    autoplay="true"
+    poster={posterFilepath}
+    src={filepath}
+    type="video/mp4"
+    style={`
+      width: ${width};
+      opacity: ${isActive ? 1 : 1};
+      object-fit: ${objectFit};
+      position: ${position};
+      z-index: ${zIndexVideo};
+    `}
+  />
 
+  {#if loaderEnabled && isActive && !isBuffered && $isFirstVideoLoaded && scrollY > 0 && scrollY < (offset + height)}
+    <div class="outer-loader-container" style={`width: ${width}; position: ${position}`}> 
+      <Loader
+        desktopSize={100}
+        mobileSize={100}
+        color="white"
+        displayText={false}
+        position="relative"
+        width="100%"
+        loaderShadow={true}
+      />
+    </div>
+  {/if}
 </div>
 
 <!-- WARNING: this is only for debugging - don't deploy this actively -->
-<p class="debug" style={`opacity: ${isActive ? 1 : 0}; margin: 0;`}>
-  time: {Math.round(time * 100) / 100 < duration ? Math.round(time * 100) / 100 : duration}
+<p class="debug" style={`opacity: ${isActive ? 1 : 0}`}>
+  {videoData?.id}
+  <br />
+  {Math.round(time * 100) / 100 < duration ? Math.round(time * 100) / 100 : duration}
 </p>
 
 <style>
@@ -113,12 +174,14 @@
   }
 
   .debug {
+    margin: 0 !important;
+
     text-align: right;
     position: fixed;
     top: 0;
-    left: 0;
-    font-size: 20px;
-    padding: 10px;
+    right: 0;
+    font-size: 30px;
+    padding-right: 20px;
     color: black;
     background-color: white;
     z-index: 1000000;

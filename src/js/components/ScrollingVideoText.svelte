@@ -1,7 +1,9 @@
 <script>
+  import throttle from 'underscore/modules/throttle';
+
   import { onMount } from 'svelte'
   import { isMobile, isTablet, amlToHTML } from '../modules/utils.js'
-  import { windowWidth, windowHeight, storeInnerHeight, isPortrait } from '../modules/store.js';
+  import { windowWidth, windowHeight, storeInnerHeight, storeOuterHeight, isPortrait } from '../modules/store.js';
   // textOffset & seconds help dictate the location & timing of the appearing text
   // textOffset = window.innerHeight        seconds = 0 ---> top of scroll-box will be at the bottom of the screen at 0 seconds
   // textOffset = window.innerHeight / 2    seconds = 0 ---> top of scroll-box will be at the middle of the screen at 0 seconds
@@ -9,43 +11,67 @@
   export let videoData;
   export let scrollingText;
   export let removeBreaks = false;
+  export let scrollY;
+  export let progress;
   
   
-  function getAttribute(attr, text, video, defaultValue) {
-    if (scrollingText.hasOwnProperty(attr)) {
-      return scrollingText[attr];
+  function getAttribute(attr, textStyles, videoStyles, defaultValue) {
+    if (textStyles.hasOwnProperty(attr)) {
+      return textStyles[attr];
     }
-    if (videoData.hasOwnProperty(attr)) {
-      return videoData[attr];
+    if (videoStyles.hasOwnProperty(attr)) {
+      return videoStyles[attr];
     }
     return defaultValue;
   }
 
-  let fontSize = getAttribute("fontSize", scrollingText, videoData, 20)
-  let fontColor = getAttribute("fontColor", scrollingText, videoData, "black")
-  let lineHeight = 1.5
-  let backgroundColor = getAttribute("backgroundColor", scrollingText, videoData, "white")
-  let borderColor = getAttribute("borderColor", scrollingText, videoData, "black")
-  let borderWidth = getAttribute("borderWidth", scrollingText, videoData, 1)
-  let horizontalPosition = getAttribute("horizontalPosition", scrollingText, videoData, "center")
-  let boxWidth = getAttribute("boxWidth", scrollingText, videoData, 600)
+  $: stylePrefix = $isPortrait ? "portrait" : "landscape";
+  $: videoStyles = stylePrefix && videoData[stylePrefix];
+  $: textStyles = stylePrefix && scrollingText[stylePrefix];
 
+  $: fontSize = getAttribute("fontSize", textStyles, videoStyles, 20);
+  $: fontColor = getAttribute("fontColor", textStyles, videoStyles, "black");
+  $: lineHeight = 1.5
+  $: backgroundColor = getAttribute("backgroundColor", textStyles, videoStyles, "white");
+  $: borderColor = getAttribute("borderColor", textStyles, videoStyles, "black");
+  $: borderWidth = getAttribute("borderWidth", textStyles, videoStyles, 1);
+  $: horizontalPosition = getAttribute("horizontalPosition", textStyles, videoStyles, "center");
+  $: boxWidth = getAttribute("boxWidth", textStyles, videoStyles, 600);
+  $: left = getAttribute("left", textStyles, videoStyles, "0%");
+  $: width = getAttribute("width", textStyles, videoStyles, "100%");
 
-  
-  let seconds;
-  let duration;
-  let height;
+  $: seconds = $isPortrait ? scrollingText.portraitSeconds : scrollingText.seconds;
+  $: endSeconds = $isPortrait ? scrollingText.portraitEndSeconds : scrollingText.endSeconds;
 
-  $: offsetHeight = isTablet.ipad() && $isPortrait ? $storeInnerHeight : $windowHeight
+  $: duration = videoData[stylePrefix].duration;
+  $: height = videoData[stylePrefix].height;
+  $: offsetHeight = $windowHeight;
+
+  $: startPixel = (duration && height && offsetHeight) && Math.round(offsetHeight + (height) * (seconds / duration));
+  $: endPixel = (duration && height && offsetHeight) && Math.round(offsetHeight + (height) * (endSeconds / duration));
+  $: opacity = topPct > 1.2 ? 0 : 1
+
+  let top;
+  let topPct;
+  let topPixel;
+  let progressPixel;
+
+  $: progressPixel = Math.round(offsetHeight + (height) * (progress));
+  $: topPct = Math.round((progressPixel - startPixel) /  (endPixel - startPixel) * 1000) / 1000 >= 1 ? 1 : Math.round((progressPixel - startPixel) /  (endPixel - startPixel) * 1000) / 1000;
+  $: parallaxShift = Math.round(topPct * ((endPixel - startPixel)) - topPct * ($windowHeight));
+  $: position = endPixel ? "absolute" : "absolute";
 
 </script>
 
 <div
-  class={`scroll-box ${horizontalPosition}`}
+  class={`scroll-box`}
   style={`
-    top: ${offsetHeight + (videoData.height) * (scrollingText.seconds / videoData.duration)}px;
+    top: ${startPixel}px;
+    transform: translate3d(0, ${parallaxShift}px, 0);
+    position: ${position};
     max-width: min(100%, ${boxWidth}px) !important;
-    width: fit-content;
+    width: ${width};
+    left: ${left};
   `}
 >
   {#if scrollingText?.text}
@@ -59,6 +85,7 @@
         font-size: ${fontSize}px;
         color: ${fontColor};
         line-height: ${lineHeight};
+        opacity: ${opacity};
       `}>
         <span>
           {@html amlToHTML(scrollingText.text, removeBreaks)}
@@ -71,7 +98,6 @@
 <style>
   .scroll-box {
     height: 1px;
-    position: absolute;
     display: flex;
     display: -webkit-flex;
     align-items: flex-end;
@@ -89,6 +115,9 @@
   .scroll-text p {
     margin: 0 !important;
     font-family:  'Libre Franklin';
+    transition: opacity .25s ease-in-out;
+    -moz-transition: opacity .25s ease-in-out;
+    -webkit-transition: opacity .25s ease-in-out;
   }
 
   .subtext {

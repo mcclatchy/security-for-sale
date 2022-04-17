@@ -7,6 +7,11 @@
 	export let section;
 	export let map;
 	export let speed = section?.speed ? section.speed : 0.6;
+	export let bounds = section?.bounds;
+	export let opacity = 1;
+	export let fade = false;
+	export let fixed = false;
+	let boxWidth = 600;
 
   const options = {
     rootMargin: `-20px`,
@@ -29,32 +34,64 @@
 		}
 	};
 
-	$: isInView && isPortrait && $windowWidth && debounce(fitBounds(map, section.bounds, speed), 500)
+	$: isInView && $isPortrait && $windowWidth && debounce(fitBounds(map, section.bounds, speed), 500)
+
+	// IF POSITION IS STATIC
+	$: if (fade) {
+		opacity = isInView ? 1 : 0
+	}
 </script>
 
-<section class={section.horizontalPosition} id={section.id} use:inview={options} on:change={handleChange}>
-	<p style={`background-color: rgba(255, 255, 255, 1)`}>
-		{@html amlToHTML(section.text)}
-	</p>
+{#if fixed}
+	<section class={section.horizontalPosition} id={section.id} use:inview={options} on:change={handleChange}>
+		<div
+		style={`
+			position: fixed;
+			bottom: ${$isPortrait ? "10%" : "0%"};
+			left: ${$isPortrait ? "50%" : "0%"};
+			width: ${boxWidth}px;
+			opacity: ${opacity};
+			max-width: 100%;
+			transform:  ${$isPortrait ? "translate(-50%, 0%)" : "translate(0,0)"};
+		`}>
+			<p style={`
+				background-color: rgba(255, 255, 255, 1);
+				opacity: ${opacity};
+				text-align: ${$isPortrait ? "center" : "left"};
+			`}>
+				{@html amlToHTML(section.text)}
+			</p>
+		</div>
+	</section>
+{:else}
+	<section class={section.horizontalPosition} id={section.id} use:inview={options} on:change={handleChange}>
+		<p style={`background-color: rgba(255, 255, 255, 1)`}>
+			{@html amlToHTML(section.text)}
+		</p>
+	</section>
+{/if}
 
-</section>
+
+
+
 
 <style>
 	section {
-		color: red;
 		max-width: 100%;
-		width: 600px;
+		margin: 0 !important;
 	}
 
 	section p {
     font-family: 'Libre Franklin';
     line-height: 27px;
-		border:  1px solid black;
-    border-radius: 20px;
+		/*border:  1px solid black;*/
+    /*border-radius: 20px;*/
     color: black;
 		padding: 20px;
     margin:  20px;
     pointer-events: all;
+    transition: opacity 0.6s;
+  	-webkit-transition: opacity 0.6s;
 	}
 
   .left {

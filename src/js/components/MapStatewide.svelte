@@ -8,7 +8,7 @@
   // import MapLegend from './MapLegend.svelte';
   import MapSection from './MapSection.svelte';
   import MapSource from './MapSource.svelte';
-  import MapTitle from './MapTitle.svelte';
+  import MapStatewideTitle from './MapStatewideTitle.svelte';
   import MapTooltip from './MapTooltip.svelte';
   import MapStatewideStyles from './MapStatewideStyles.svelte'
   import Scroller from "./Scroller.svelte";
@@ -22,7 +22,8 @@
 
   let hovered;
   let bounds = { 
-    north_carolina: [[ -84.821869, 33.842316 ], [-74.960621, 36.588117]],
+    // north_carolina: [[ -84.821869, 33.842316 ], [-74.960621, 36.588117]],
+    north_carolina: [[ -84.521988, 33.645 ], [-75.1994, 37.2881695]],
     charlotte: [[ -81.090043, 35.551569], [ -80.491228, 34.958323]],
     neighborhood: [[-80.98297119140625,35.31751515265763], [-80.9691846370697,35.30852397576001]],
     raleigh: [[-79.1445,36.1579], [-78.1306,35.4883]],
@@ -267,7 +268,7 @@
             {progress}
           /> -->
 
-          <!-- <MapTitle/> -->
+          <!-- <MapStatewideTitle/> -->
 
           <!-- STATE NAMES -->
           <MapSource

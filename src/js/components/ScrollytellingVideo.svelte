@@ -1,12 +1,11 @@
 <script>
-  import first from 'underscore/modules/first';
   import { inview } from 'svelte-inview';
 	import { onMount } from 'svelte';
 	import Scroller from "./Scroller.svelte";
-  import ScrollingVideo from './ScrollingVideo.svelte';
   import ScrollingVideoText from './ScrollingVideoText.svelte';
+  import ScrollingVideo from './ScrollingVideo.svelte';
 	import { windowWidth, windowHeight, storeInnerHeight, isPortrait } from '../modules/store.js';
-	import { isMobile, isTablet, execResizeCallbackWithSuspend, addDataToVideoElement } from "../modules/utils.js";
+	import { isMobile, isTablet, execResizeCallbackWithSuspend } from "../modules/utils.js";
 
 	// Resizing more responsively with ResizeObserver to accommodate scrolling videos
   let videoElement;
@@ -27,30 +26,20 @@
 	resizeObserver.observe(document.body);
 
 
+	export let videoData;
 	export let scrollY;
-	export let videoNode;
+	export let assetPath;
+	export let videoPath;
 	export let isFirstVideo = false;
+
+	export let removeBreaks = false;
 	export let lazyLoad = false;
 	export let lazyLoadOffset = 6000;
-	export let amlFile;
-	let videoData;
 
-	$: if (amlFile) {
-		const content = amlFile?.content;
-		const video = first(content
-      .filter(item => item.type === 'scrolling-video')
-      .map(item => addDataToVideoElement(
-      	item.value,
-      	30,
-      	20
-      )));
-		videoData = addDataToVideoElement(video)
-	}
 
 
 
   let isInView;
-  let videoHeight;
   let options = {
   	unobserveOnEnter: true
   }
@@ -75,42 +64,48 @@
   $: if (scrollY > triggerPixel) {
     shouldLoad = true;
   }
+  
+  $: height = 
+  	$isPortrait && isTablet.ipad() ? videoData.portrait.height + $storeInnerHeight : 
+  	$isPortrait ? videoData.portrait.height + $windowHeight : 
+  	videoData.landscape.height + $windowHeight;
+
+  let progress;
 </script>
 
-{#if videoNode}
-	<div bind:this={videoElement} use:inview="{options}" on:change="{handleChange}"></div>
-	<Scroller bottom={1} top={0}>
-		<div slot="background" style={`height: ${$windowHeight}px; width: 100%`}>
+<div bind:this={videoElement} use:inview="{options}" on:change="{handleChange}"></div>
+<Scroller bottom={1} top={0} bind:progress>
+	<div slot="background" style={`height: ${$windowHeight}px; width: 100%`}>
 
-			{#if (shouldLoad || isInView || !lazyLoad)}
-		    <ScrollingVideo
-		    	bind:height={videoHeight}
-		      {videoNode}
-		      offset={videoOffset}
-		      {scrollY}
-		      {isFirstVideo}
-		    />
-		   {/if}
-		 </div>
-		<div slot="foreground" style={`height: ${$isPortrait && isTablet.ipad() ? videoHeight + $storeInnerHeight : $isPortrait ? videoHeight + $windowHeight : videoHeight + $windowHeight}px; width: 100%;`}>
-				<div>
-					{#if amlFile && videoData}
-						{#each videoData.scrollingTexts as scrollingText, j}
-				      <ScrollingVideoText
-				        {videoData}
-				        {scrollingText}
-				      />
-				    {/each}
-				  {/if}
+		{#if (shouldLoad || isInView || !lazyLoad)}
+	    <ScrollingVideo
+	      {videoData}
+	      {assetPath}
+	      {videoPath}
+	      offset={videoOffset}
+	      {scrollY}
+	      {isFirstVideo}
+	    />
+	   {/if}
+	 </div>
+	<div slot="foreground" style={`height: ${height}px; width: 100%;`}>
+				<div id={`${videoData.id}`}>
+					{#each videoData.scrollingTexts as scrollingText, j}
+			      <ScrollingVideoText
+			        {videoData}
+			        {scrollingText}
+					    {removeBreaks}
+					    {scrollY}
+					    {progress}
+			      />
+			    {/each}
 			  </div>
 		</div>
-
-	</Scroller>
-{/if}
+</Scroller>
 
 <style>
 	[slot="background"] {
-		background-color: rgba(255,62,0,0.05);
+		background-color: white;
 		overflow:  hidden;
 		pointer-events: all;
 	}

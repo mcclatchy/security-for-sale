@@ -1,0 +1,584 @@
+{
+    "content": [
+    {
+        "type": "scrolling-video",
+        "value":
+        {
+            "id": "trailer",
+            "landscape":
+            {
+                "filename": "scrollVideoOne.mp4",
+                "posterFilename": "scrollVideoOne.jpg",
+                "duration": "30.00",
+                "fontSize": "21",
+                "fontColor": "#000000",
+                "backgroundColor": "none",
+                "borderColor": "none",
+                "borderWidth": "0",
+                "horizontalPosition": "center",
+                "boxWidth": "600"
+            },
+            "portrait":
+            {
+                "filename": "scrollVideoOnePortrait.mp4",
+                "posterFilename": "scrollVideoOnePortrait.jpg",
+                "duration": "17.13",
+                "fontSize": "16",
+                "fontColor": "#000000",
+                "backgroundColor": "none",
+                "borderColor": "none",
+                "borderWidth": "0",
+                "horizontalPosition": "center",
+                "boxWidth": "600"
+            },
+            "scrollingTexts": [
+            {
+                "text": "A powerful machine has cranked up in our communities, largely out of sight…<br><br>On the surface it looks simple. But underneath it’s far more complex.",
+                "landscape":
+                {
+                    "timestamp": "00:04.90",
+                    "endTimestamp": "00:07.20",
+                    "left": "47%",
+                    "width": "35%"
+                },
+                "portrait":
+                {
+                    "timestamp": "00:01.60",
+                    "endTimestamp": "00:05.43",
+                    "left": "35%",
+                    "width": "60%"
+                }
+            },
+            {
+                "text": "From the rubble of the Great Recession, Wall Street firms and other institutional investors began amassing single-family homes and renting them out..",
+                "landscape":
+                {
+                    "timestamp": "00:9.19",
+                    "endTimestamp": "00:12.88",
+                    "width": "45%",
+                    "left": "10%"
+                },
+                "portrait":
+                {
+                    "timestamp": "00:4.75",
+                    "endTimestamp": "00:8.57",
+                    "width": "60%"
+                }
+            },
+            {
+                "text": "But these companies are more than just landlords. They are optimized and efficient, equipped to squeeze every drop of profit out of their houses.",
+                "landscape":
+                {
+                    "timestamp": "00:16.82",
+                    "endTimestamp": "00:19.97",
+                    "left": "50%",
+                    "width": "45%"
+                },
+                "portrait":
+                {
+                    "timestamp": "00:08.64",
+                    "endTimestamp": "00:12.46",
+                    "left": "30%",
+                    "width": "65%"
+                }
+            },
+            {
+                "text": "These giant investment firms have bought up more than 37,000 homes in North Carolina. Their impacts aren’t obvious, but they are deep and growing. And they could extend for generations.",
+                "landscape":
+                {
+                    "timestamp": "00:24.66",
+                    "endTimestamp": "00:27.30",
+                    "left": "5%",
+                    "width": "45%"
+                },
+                "portrait":
+                {
+                    "timestamp": "00:13.15",
+                    "endTimestamp": "00:16.97",
+                    "left": "0%",
+                    "width": "60%"
+                }
+            }]
+        }
+    },
+    {
+        "type": "text-section",
+        "value":
+        {
+            "id": "text-section-0",
+            "items": [
+            {
+            	"text": "This is how Wall Street built a machine to mine the American Dream."
+            }]
+        }
+    },
+    {
+        "type": "intro",
+        "value":
+        {
+            "id": "intro",
+            "title": "Security for Sale",
+            "subtitle": "Corporate investors own more North Carolina homes than previously known.",
+            "byline": "By [Tyler Dukes](mailto:mtdukes@newsobserver.com), [Payton Guion](mailto:pguion@charlotteobserver.com) & [Gordon Rago](mailto:grago@charlotteobserver.com)",
+            "date": "May 1, 2022"
+        }
+    },
+    {
+        "type": "text-section",
+        "value":
+        {
+            "id": "text-section-1",
+            "items": [
+            {
+                "text": "As houses go, the one at 4053 Laurel Glen Drive in Raleigh isn't especially remarkable."
+            },
+            {
+                "text": "Clad in tan vinyl siding, the three-bedroom, two-and-a-half-bath is typical of the single-family homes built in early-2000s era subdivisions along the outskirts of North Carolina cities."
+            },
+            {
+                "text": "But when the property went on the market on a Tuesday night in mid-March, it wasn't long before the offers came flooding in."
+            },
+            {
+                "text": "It didn't matter much that prospective buyers couldn't arrange to see it in person. Or that the only photo on the \"coming soon\" listing was a single image of the exterior taken when the house was built about 15 years ago."
+            },
+            {
+                "text": "Raleigh realtor Brittany Jones got the first offer around dinner time the next day. The second came less than an hour later. And the third arrived that night, less than 24 hours after she posted the property."
+            },
+            {
+                "text": "The buyers had a lot in common. They offered all cash and bids well over the $330,000 list price. They'd take the property as is – no inspection necessary. And all three had out-of-state addresses and obscure names marked with abbreviations and numerals – like \"MCH SFR NC Owner 3\" and \"IH 6 Property North Carolina.\""
+            },
+            {
+                "text": "Jones has seen names like these plenty of times before in her 3 years selling Triangle real estate, which like Charlotte and other cities have become hotbeds for investor activity. The sellers' agents don't say much about their clients."
+            },
+            {
+                "text": "But they make it clear they have money in the bank."
+            },
+            {
+                "text": "\"When you relay that to a client, that's all they want to know,\" Jones said."
+            },
+            {
+                "text": "When they wrapped up negotiations just days later, the new owner wasn't a person. It wasn't another family looking to plant a permanent stake in the Triangle. To build wealth that since the Second World War has become one of the only ways middle-class Americans can actually do so."
+            },
+            {
+                "text": "It was a corporation called SFR JV-2 PROPERTY LLC, which paid about $18,000 over asking."
+            },
+            {
+                "text": "Though it only became a North Carolina company officially in June, the company has been busy. It gobbled up more than 100 homes in the Triangle as of early April. In the Charlotte area, it owns another 350 or so single-family houses."
+            },
+            {
+                "text": "But SFR JV-2 PROPERTY LLC isn't really a company. Not in the traditional sense. It's a subsidiary of a massive publicly traded firm called Tricon Residential, just one of a handful of corporations, shored up by mountains of Wall Street cash, that have amassed tens of thousands of homes in North Carolina."
+            }]
+        }
+    },
+    {
+        "type": "text-section",
+        "value":
+        {
+            "id": "text-section-2",
+            "items": [
+            {
+                "text": "A months-long analysis by The News & Observer and The Charlotte Observer has revealed, for the first time, the scale and scope of this buying spree across the entire state, where almost 40,000 single-family properties are now consolidated in the hands of around a dozen companies."
+            },
+            {
+                "text": "Nowhere is that consolidation more evident than in Charlotte, where these firms now own more than half of all the rental homes in the city. The N&O and Observer analysis shows that 1 home out of every 20 in the Queen City is now owned by these companies."
+            },
+            {
+                "text": "These purchases, which have vastly accelerated since the crash of the housing market during the Great Recession, are remaking the very fabric of North Carolina neighborhoods and the broader housing market."
+            },
+            {
+                "text": "That change is what the market demanded, says David Howard, executive director of the National Rental Home Council, the trade association that represents some of the largest corporate single-family rental firms across the country."
+            },
+            {
+                "text": "\"Historically, let's face it: when it comes to housing, there have been two options. You can buy a single-family home or you can rent an apartment,\" Howard said. \"What our member companies are doing are coming in and saying, 'Look, you have a third option.'\""
+            },
+            {
+                "text": "But many think it’s a move for the worse."
+            },
+            {
+                "text": "Some tenants complain about slow and shoddy maintenance, steadily rising rents and fees explicitly designed to wring them for profit. Home buyers say they're finding it increasingly difficult to outbid firms that wield technology and near limitless cash reserves to buy as fast as possible. And communities are beginning to turn to local leaders for solutions to curb these companies' growth."
+            },
+            {
+                "text": "But the state of North Carolina itself has contributed to their expansion, directly and indirectly in the companies themselves – as well as a new financial instrument designed to infuse these firms with more home-buying cash."
+            },
+            {
+                "text": "A decade after these companies first started operating, the true size of their footprint is becoming a lot more evident."
+            },
+            {
+                "text": "What it means for people looking for a place to live, though, remains unclear."
+            }]
+        }
+    },
+    {
+        "type": "text-section",
+        "value":
+        {
+            "id": "text-section-3",
+            "items": [
+            {
+                "text": "On a sunny afternoon in January, about 170 miles away from the house on Laurel Glen, Jonathan Osman brought his Jeep Grand Cherokee to a stop in the 6300 block of Downfield Wood Drive in Charlotte and pulled out his iPad. The screen lit up with a map of real estate listings."
+            },
+            {
+                "text": "To his left sat a two-story, 2,000-square-foot home with a garage built in 1995. Osman could see from his table that a married couple bought it about a week before Christmas for $370,000."
+            },
+            {
+                "text": "As the longtime Charlotte realtor swiped his fingers across the screen, he pulled up a listing for a home just down the block. This one was also built in 1995. It also has 2,000 square feet across two stories and a garage, like so many others on the street."
+            },
+            {
+                "text": "But when it sold just six years ago for $172,000, the new owner was a subsidiary of Invitation Homes, now the nation's largest single-family rental company."
+            },
+            {
+                "text": "The company owns two other homes on the block in the Highland Creek subdivision in northeast Charlotte, according to the N&O and Observer database. In all, Invitation and two other single-family rental companies – American Homes 4 Rent and Amherst Residential – own eight homes on Downfield Wood Drive."
+            },
+            {
+                "text": "For years, Osman has been watching as these companies purchased homes across Charlotte."
+            },
+            {
+                "text": "In the first few years after the 2008 housing crisis, he said the purchases came as welcome news. No one was buying homes back then. Plus, Osman and others figured the firms would sell off the properties after five to seven years."
+            },
+            {
+                "text": "That never happened."
+            },
+            {
+                "text": "Now, on a block like Downfield Wood Drive, Osman can paint a picture of what the buying spree has done in Charlotte, where hundreds of thousands of dollars in equity that could otherwise have been in the hands of homeowners are instead sitting with a large company."
+            },
+            {
+                "text": "“The number one way we transfer wealth and accumulate wealth is through real estate ownership,” Osman said. “There’s equity that is going to corporations that could have been going to people.”"
+            },
+            {
+                "text": "Zoom out from the one block in Highland Creek and you’ll find clusters of investor-owned homes across the region. In Charlotte and its outlying communities, investors own more than 25,000 homes across Mecklenburg, Union, Cabarrus, Iredell and Gaston counties."
+            },
+            {
+                "text": "The investors have even found their way into Osman’s own neighborhood."
+            },
+            {
+                "text": "Last year, he represented a seller on the street where he lives, in a subdivision across town from Highland Creek."
+            },
+            {
+                "text": "They eventually sold in November to Invitation Homes, which offered $330,000 – 11% above asking."
+            },
+            {
+                "text": "The four-bedroom, 1,800-square-foot home needed some work done, Osman said, and the sellers were looking to get the most out of the deal."
+            },
+            {
+                "text": "While the home isn’t yet being rented out, Osman found listings on websites like Zillow and Realtor.com that show the rent listed at $2,350 a month."
+            },
+            {
+                "text": "He said that value is the equivalent of a $450,000 mortgage, way above what the company paid."
+            },
+            {
+                "text": "It was frustrating, Osman said. Over his career, he's worked to make clients aware of the impact the companies could have on the housing market."
+            },
+            {
+                "text": "But for some people selling their home, it’s hard to walk away."
+            },
+            {
+                "text": "The extra $30,000 or $40,000 that comes with an investor offer could be money needed to battle it out in this market to get another home."
+            },
+            {
+                "text": "“They see it as a once-in-a-lifetime opportunity,” Osman said."
+            }]
+        }
+    },
+    {
+        "type": "text-section",
+        "value":
+        {
+            "id": "text-section-4",
+            "items": [
+            {
+                "text": "To understand where the extra money comes from, how that money moves, whether it's helping to snap up a home in Charlotte, Raleigh, Atlanta, or Phoenix, it’s vital to understand both a little recent history and the role of the \"asset-backed security.\""
+            },
+            {
+                "text": "On a basic level, says N.C. State finance professor Richard Warre, an asset-backed security can be anything that carries the promise of future income, says N.C. State finance professor Richard Warre."
+            },
+            {
+                "text": "The concept itself isn't new."
+            },
+            {
+                "text": "In the late 1990s, rock icon David Bowie securitized his music catalog, selling his songs' subsequent royalties. These so-called \"Bowie bonds\" earned the artist $55 million, [according to the BBC](https://www.bbc.com/news/business-35280945), as investors scrambled to buy up chunks of prospective earnings on songs like \"The Man Who Sold the World.\""
+            },
+            {
+                "text": "\"At the end of the day, there aren't that many things. There's stocks. There's bonds. There's real estate. That's about it, right?\" Warre said. \"And so Wall Street is all about how to create products like these to basically slice and dice and manipulate the products to create more money for somebody and add fees.\""
+            },
+            {
+                "text": "Mortgage-backed securities, which in part doomed the housing market ahead of the Great Recession in the mid-2000s, took the same approach to home loans, bundling them up with the promise of future mortgage payments."
+            },
+            {
+                "text": "In 2012, the federal government, trying to help the housing market rise from its crash, created a program in 2012 that …But in 2013, financiers came up with a wholly new security: This time backed by rent checks.rental payments."
+            },
+            {
+                "text": "Buy a bunch of properties and rent them, like a few fledgling companies started doing with foreclosed properties through a federally-backed program in 2012, and you can sell the future rental income to investors. For the seller, the payoff earns them one large sum immediately, instead of waiting for the rent checks to roll in month after month."
+            },
+            {
+                "text": "\"If these are decent properties and they're well maintained, they can continue generating income for the foreseeable future,\" Warre said. \"So that's a much simpler product than a mortgage product.\""
+            },
+            {
+                "text": "TThe first rental-backed security in 2013 bundled more than 3,200 single-family homes across the country, and earned owner Invitation Homes, formed just a year earlier, $479 million."
+            },
+            {
+                "text": "To Elora Raymond, assistant professor of city and regional planning at Georgia Tech, it's this infusion of capital that not only fueled the rise of the single-family rental industry, but made it attractive in the first place."
+            },
+            {
+                "text": "\"The securitization – they never would have done it without that,\" Raymond said. \"It's the ability to access cheap capital and keep replicating this business that makes it worth their while.\""
+            },
+            {
+                "text": "In the 10 years since, a handful of companies that look like landlords to renters, neighbors and elected officials comm like landlords – Invitation and others like Amherst Residential, American Homes 4 Rent and Progress Residential – have sold more than 100 of these securities for hundreds of millions of dollars through banks like Goldman Sachs and Morgan Stanley."
+            },
+            {
+                "text": "And although the wealthy who buy these securities in bulk from companies like Invitation and others like Amherst Residential, American Homes 4 Rent and Progress Residential are largely unknown, they're safe enough investments for public pension funds."
+            },
+            {
+                "text": "That includes the North Carolina Retirement System's pension fund, managed by State Treasurer Dale Folwell, who recently said he’d never even heard of the house-deed backed securities and had no idea that the fund invested in them."
+            },
+            {
+                "text": "As of the latest data at the end of 2021, the state owns assets valued at $20.1 million in seven different rental backed-securities. That came as news to Folwell."
+            },
+            {
+                "text": "\"I try to be fluent in all types of sayings and acronyms. I've never heard the term 'rental-backed security' until just now,\" Folwell said, in an interview with the N&O and Observer in April."
+            },
+            {
+                "text": "All of those investments are part of larger portfolios managed by outside firms. His office invests money with those firms, which then independently decide how to allocate it."
+            },
+            {
+                "text": "“What I've often said, generally, about alternative kinds of investments is: we don't own them any more than they own us,” Folwell said. “We say, ‘We're gonna give you $200 million. You can draw it out over a five-year period of time.’ Once that decision is made, we’re just a passenger.”"
+            },
+            {
+                "text": "These rental-backed securities, tucked as they are amid a larger portfolio, have been good for the state pension, earning the retirement fund a 3 to 4% return."
+            },
+            {
+                "text": "But that return, year after year, comes in part from the rent paid by hundreds of North Carolina residents whose homes are bundled up in these securities."
+            },
+            {
+                "text": "Renters like 23-year-old Madison Swope."
+            }]
+        }
+    },
+    {
+        "type": "text-section",
+        "value":
+        {
+            "id": "text-section-5",
+            "items": [
+            {
+                "text": "The house on Scofield Drive in Raleigh where Swope, her fiance and their roommate live is owned by Amherst Residential, a private equity firm actively buying across the state. Deed records show the address was securitized with more than a dozen other Wake County properties – and another 2,500 across the country. In exchange for that future rental income, Amherst earned $443 million in late 2019."
+            },
+            {
+                "text": "Swope's been in the 3-bedroom, 2-and-a-half bath home since June 2021, renting from Amherst's management entity, Main Street Renewal."
+            },
+            {
+                "text": "She loved the house the moment she saw it. She still loves it, in fact."
+            },
+            {
+                "text": "The rent has gone up in the last year – now $1,530 compared to $1,395 when they first moved in. But she said it would be a lot worse if they weren't existing tenants."
+            },
+            {
+                "text": "\"If we were to leave and they were to lease this house out new, it would be $1,870,\" Swope said."
+            },
+            {
+                "text": "They want to be here, in this Raleigh suburb, like thousands of others who have migrated to the Triangle and Charlotte in recent years."
+            },
+            {
+                "text": "That demand is one of the reasons why occupancy rates at these corporate-owned, single-family rentals in Charlotte and Raleigh are the highest in the country, according to the National Rental Home Council's David Howard."
+            },
+            {
+                "text": "\"Why should it be the case that the only people who can live in those neighborhoods are the people who can afford to buy, who have the wealth and the circumstances to come up with a 20% down payment and to purchase a home in those neighborhoods?\" Howard said."
+            },
+            {
+                "text": "For many of these renters – whether they're newly arrived and learning about the area, saving for a down payment or only planning to stay short-term – Howard said homeownership isn't the best option. And Americans in general are becoming more comfortable with renting."
+            },
+            {
+                "text": "\"Nobody thinks twice about the fact that you have a leased car in your driveway. I have a daughter in college, she rents dresses to go to parties,\" Howard said. \"Renting and leasing is becoming a part of the culture, and I think that's extending to the housing market.\""
+            },
+            {
+                "text": "But homes aren't the same as other kinds of rentals, says Georgia Tech's Elora Raymond – they’re an essential part of the American middle class."
+            },
+            {
+                "text": "\"Homeownership has increasingly become the cornerstone of the American dream as wages have eroded. You can make money off of housing wealth. You can retire on that, right? When you retire, you sell your home, you downsize, that's a big part of your nest egg,\" Raymond said. \"You used to have a pension for that. This replaces the pension. This replaces the high income job that you used to have. And now that's going away.\""
+            },
+            {
+                "text": "Home equity accounts for half the household wealth for the typical American, Raymond said. Without it, it's entire generations that will lose."
+            },
+            {
+                "text": "\"We don't have to have a middle class in this country,\" Raymond said. \"We really don't.\""
+            },
+            {
+                "text": "Swope said she's been mostly happy with the rental experience so far, even though it carries with it some level of uncertainty."
+            },
+            {
+                "text": "\"They could not offer to renew, right? There's no reason they wouldn't for us, but what if they did? Or what if they decided to sell?\" Swope said. \"It does make you kind of insecure. Like, well, I guess we'll rent forever and pay double what we would on a mortgage.\""
+            },
+            {
+                "text": "She doesn't want to rent forever."
+            },
+            {
+                "text": "She's getting married in October, and they'd buy their current house if Amherst would be willing to sell it."
+            },
+            {
+                "text": "But she also knows the neighborhood – and just how ubiquitous single-family rental companies are on the block. Amherst has another house across the street, and another two doors down. Her neighbor's property is owned by Progress Residential, another major player in the market."
+            },
+            {
+                "text": "\"I like this area enough to buy a house here, but I probably can't,\" Swope said. \"Because they own it.\""
+            }]
+        }
+    },
+    {
+        "type": "text-section",
+        "value":
+        {
+            "id": "text-section-6",
+            "items": [
+            {
+                "text": "All told, the N&O and Observer analysis shows, large corporate landlords own more than 37,000 properties across the state. That vast majority of those homes, purchased over the past decade, are in the hands of hundreds of subsidiaries that trace back through mailing addresses and corporation paperwork to just a dozen or so major firms."
+            },
+            {
+                "text": "That number is far higher than previous estimates, some of which have also included much smaller investor firms and other local companies without the same purchasing power as Tricon, Progress, Invitation and their competitors."
+            },
+            {
+                "text": "Given the complexities of these companies’ ownership structures, the figures are likely a lower bound, says David Szakonyi, an assistant professor of political science at Georgetown University who reviewed the N&O and Observer’s findings. He co-founded the [Anti-Corruption Data Collective](https://acdatacollective.org/), a research and advocacy group that began examining how money flows through the private investment and real estate market in 2021."
+            },
+            {
+                "text": "He called the N&O and Observer’s analysis the \"best exercise I've ever seen trying to identify properties owned by large institutional investments.\" But it’s only a starting point, Szakonyi said."
+            },
+            {
+                "text": "\"American real estate, historically, has been owned by individuals and families. We're seeing hints that the whole state of play is changing,” Szakonyi said. “Having a number about how accurate these investments are helps us to understand in what direction that trend is going and how big of an issue this potentially is.\""
+            },
+            {
+                "text": "But the sheer scale of ownership – especially in Charlotte, where the homes account for 5% of all single-family homes and half of all rentals, according to the N&O and Observer analysis – have already prompted concern from experts who have watched the rise of the industry over the last 10 years."
+            },
+            {
+                "text": "“It definitely raises questions about monopolization and the ways they’re able to alter the logic of the market,” Desiree Fields, assistant professor of geography and global metropolitan studies at the University California, Berkeley, said."
+            },
+            {
+                "text": "Howard calls such assessments \"absurd,\" and says he's seen no data to show that the presence of single-family homes have had detrimental impacts on the market or that they're pricing out regular homebuyers in a \"pervasive, systemic\" way."
+            },
+            {
+                "text": "Homeownership in Charlotte, he said, is actually up over previous years, a sign of a healthy market."
+            },
+            {
+                "text": "\"Housing markets are not monolithic. And they're not controlled by a monopoly, an oligarchy, of companies or individuals,\" Howard said. \"There's too much happening in those markets.\""
+            },
+            {
+                "text": "And although the industry is still poised for more growth, he said it would take a lot more than the 15,000 they own in Mecklenburg County alone to start causing problems."
+            },
+            {
+                "text": "\"I mean, look, if it got to the point where anybody had any level of concentration, whereby they were purchasing 100% of the housing stock, then yeah, that could be an issue,\" Howard said. \"We are nowhere near that point.\""
+            },
+            {
+                "text": "He also bristled at the notion that these companies extract wealth from neighborhoods, adding that companies often pour thousands into renovations before renting out newly purchased homes to tenants for the first time"
+            },
+            {
+                "text": "\"This isn't the tobacco industry of the 1970s. This is a pretty straightforward, simplistic business,\" Howard said. \"You have companies who are purchasing homes where demand for rental housing is the greatest. And the companies who are doing it are committed to those neighborhoods, and they're committed to those communities.\""
+            },
+            {
+                "text": "Yet the companies have acknowledged that business model themselves in SEC filings and communications with shareholders."
+            },
+            {
+                "text": "From 2019 to 2021, the number of houses owned by American Homes 4 Rent increased about 8.5%, from 52,552 to 57,024. Over the same period, rental revenue was up 16.4%. But far outpacing rent growth was fee revenue, which jumped 63.8%, according to the company's SEC filings."
+            },
+            {
+                "text": "In its 2021 annual report, the company acknowledged charging higher fees to tenants as a way of boosting revenue. And company leaders have said they intend to continue to use fees as a way to make money."
+            },
+            {
+                "text": "\"We're really pleased you've seen some really nice increases in contribution from other income this year,\" Bryan Smith, chief operating officer of American Homes 4 Rent, said on an earnings call last year. \"We put a pet program in place as one example, and we're continuing to roll that out through the program. I think if you look at it from a long-term perspective, we're very excited about the opportunities we're going to have for ancillary revenue on the communities.\""
+            },
+            {
+                "text": "These companies, Georgia Tech's Raymond said, are doing what they're built to do: make money. But in an environment with very few protections for tenants, renting from them can be a bad deal."
+            },
+            {
+                "text": "\"Housing is a basic need,\" she said. \"And we've completely commodified it.\""
+            }]
+        }
+    },
+    {
+        "type": "text-section",
+        "value":
+        {
+            "id": "text-section-7",
+            "items": [
+            {
+                "text": "As for the property on Laurel Glen in Raleigh, the one that had three offers before any interior photos were posted online? Tricon posted aiats rental listing within days of the closing date."
+            },
+            {
+                "text": "The sellers weren't actually out yet. They were still packing for the move – one of the perks of the deal was that they could stay another two weeks for free while they wrapped up the details on their next home."
+            },
+            {
+                "text": "The posting itself had no photos. Not yet anyway. Just the basics about bedrooms, bathrooms and square footage."
+            },
+            {
+                "text": "It did include a warning, in all caps, that the property was \"currently being enjoyed by another resident.\""
+            },
+            {
+                "text": "\"PLEASE RESPECT THEIR PRIVACY AND DO NOT DISTURB.\""
+            },
+            {
+                "text": "On May 19, one month after the departure of the only owners this home has ever had, it will rent for $1,849 a month. That's about $500 above median rent for a three-bedroom in its area of Wake County."
+            },
+            {
+                "text": "And it's enough to afford a mortgage of around $340,000."
+            },
+            {
+                "text": "For this property, that would have been about $10,000 over the $330,000 asking price."
+            },
+            {
+                "text": "But not that probably wouldn’t have been enough to edge out Tricon. The company bought the property for $347,900."
+            }]
+        }
+    },
+    {
+        "type": "scrolling-map",
+        "value":
+        {
+            "id": "scrolling-map-1",
+            "layers": [
+            {
+                "filename": "surrounding_states.json",
+                "id": "surrounding-states"
+            },
+            {
+                "filename": "deep_south.json",
+                "id": "deep-south"
+            },
+            {
+                "filename": "zipcodes.json",
+                "id": "zipcodes"
+            }],
+            "bounds": [
+            {
+                "bbox": "-92.097619, 30.063388, -78.081697, 35.317402",
+                "id": "bounds-deep-south"
+            },
+            {
+                "bbox": "-81.066228, 34.070228, -80.987300, 34.021805",
+                "id": "bounds-29203"
+            }],
+            "sequence": [
+            {
+                "text": "Several factors in north Columbia’s 29203 make it one of the most medically dangerous communities in the Deep South.",
+                "boundId": "bounds-deep-south",
+                "layerId": "",
+                "highlightIds": []
+            },
+            {
+                "text": "Its diabetic residents, many of whom are Black and low-income, are losing toes, feet and legs at a startling rate that surpasses that of ZIP codes the same size or larger in neighboring states, according to an analysis by The State Media Co.",
+                "bounds": "bounds-deep-south",
+                "layerId": "",
+                "highlightIds": []
+            }]
+        }
+    },
+    {
+        "type": "outro",
+        "value":
+        {
+            "sections": [
+            {
+                "text": "This project…",
+                "title": "Acknowledgements"
+            },
+            {
+                "text": "Data repository…",
+                "title": "Data methodology"
+            }]
+        }
+    }]
+}

@@ -93,20 +93,29 @@ export function timestampToSeconds(ts) {
 }
 
 // TODO: pixelsPerFrame=5 for gallery slide videos
-export function addDataToVideoElement(video, frameRate=30, pixelsPerFrame=20) {
-  const videoDuration = parseFloat(video?.duration, 10);
+export function addDataToVideoElement(video, frameRate=30, pixelsPerFrame=20, portraitPixelsPerFrame=10) {
+  const videoDuration = parseFloat(video?.landscape?.duration, 10);
+  const portraitDuration = parseFloat(video?.portrait?.duration, 10);
 
   if ('scrollingTexts' in video) {
     video.scrollingTexts = video.scrollingTexts.map(item => {
-      item.seconds = timestampToSeconds(item.timestamp);
+      item.seconds = timestampToSeconds(item?.landscape?.timestamp);
+      item.portraitSeconds = timestampToSeconds(item?.portrait?.timestamp);
+
+      // For tracking text items from bottom to top
+      item.endSeconds = item?.landscape?.endTimestamp && timestampToSeconds(item?.landscape?.endTimestamp);
+      item.portraitEndSeconds = item?.portrait?.endTimestamp && timestampToSeconds(item?.portrait?.endTimestamp);
+
       return item;
     });
   }
   
-  video.height = videoDuration * frameRate * pixelsPerFrame;
+  video.landscape.height = videoDuration * frameRate * pixelsPerFrame;
+  video.portrait.height = portraitDuration * frameRate * portraitPixelsPerFrame;
   video.time = 0;
   return video;
 }
+
 
 
 export function getPixelHeightFromTimestamp(timestamp, video, windowHeight) {
@@ -200,7 +209,7 @@ export const isTablet = {
 }
 
 // SOURCE: https://blog.elantha.com/resizeobserver-loop-limit-exceeded/
-export function execResizeCallbackWithSuspend(elements, resizeObserver, callback) {
+export async function execResizeCallbackWithSuspend(elements, resizeObserver, callback) {
   const initialSizes = elements.map(element => 
     element.getBoundingClientRect()
   );
@@ -328,4 +337,67 @@ export function makeColors(primaryColor, numDarker=4, numLighter=4, pctDarker=0.
   darkerColors.shift()
   const colorScale = [lighterColors.reverse(), darkerColors].flat(1);
   return colorScale
+}
+
+
+// Expects bbox to be this format: [[lon,lat], [lon,lat]]
+export function getBBoxAspectRatio(bbox) {
+  const lon1 = bbox[0][0];
+  const lon2 = bbox[1][0];
+
+  const lat1 = bbox[0][1];
+  const lat2 = bbox[1][1];
+
+  const horizontalSide = getDistanceFromLatLonInKm(lon1, lat1, lon2, lat1);
+  const verticalSide = getDistanceFromLatLonInKm(lon1, lat1, lon1, lat2);
+
+  const aspectRatio = Math.round(horizontalSide / verticalSide * 100) / 100;
+  return aspectRatio;
+}
+
+
+function getDistanceFromLatLonInKm(lon1, lat1, lon2, lat2) {
+  var R = 6371; // Radius of the earth in km
+  var dLat = deg2rad(lat2-lat1);  // deg2rad below
+  var dLon = deg2rad(lon2-lon1); 
+  var a = 
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+    Math.sin(dLon/2) * Math.sin(dLon/2)
+    ; 
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+  var d = R * c; // Distance in km
+  return d;
+}
+
+function deg2rad(deg) {
+  return deg * (Math.PI/180)
+}
+
+export function getDivAspectRatio(div) {
+  return Math.round(div.offsetWidth / div.offsetHeight * 100) / 100;
+}
+
+// SOURCE: https://github.com/watson/nearest-date
+// Sorted assumes it's sorted in ascending order
+export function nearestDate(dates, target, sorted=true) {
+  if (!target) target = Date.now()
+  else if (target instanceof Date) target = target.getTime()
+
+  var nearest = Infinity
+  var winner = -1
+
+  for (var index = 0; index < dates.length; index++) {
+    let date = dates[index]
+    if (date instanceof Date) date = date.getTime()
+    var distance = Math.abs(date - target)
+    if (distance < nearest) {
+      nearest = distance
+      winner = index
+    }
+    if (sorted && distance > nearest) {
+      break;
+    }
+  }
+  return winner
 }

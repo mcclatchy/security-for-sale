@@ -42,7 +42,7 @@
 					</figcaption>
 				</figure>
 			{:else}
-				<p>{@html amlToHTML(item.text)}</p>
+				<p style>{@html amlToHTML(item.text)}</p>
 			{/if}
 		{/each}
 	</div>
@@ -99,10 +99,11 @@
 
 	.section-body p {
 		margin: auto;
-		max-width: 1000px;
+		max-width: 500px;
 		padding-top: 40px;
-		font-size: 20px;
-		line-height: 30px;
+		font-weight: 200;
+		font-size: 17px;
+		line-height: 24px;
 		font-family: 'Libre Franklin';
 	}
 
@@ -180,7 +181,7 @@
 		}*/
 
 		.section-body p {
-			font-size: 16px;
+			font-size: 15px;
 			line-height: 24px;
 			padding-top: 13px;
 		}
