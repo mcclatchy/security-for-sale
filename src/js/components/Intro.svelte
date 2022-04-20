@@ -1,5 +1,6 @@
 <script>
 	import { amlToHTML } from "../modules/utils.js";
+	import { inview } from 'svelte-inview';
 
 	export let assetPath;
 	export let intro;
@@ -8,23 +9,39 @@
 	let byline = amlToHTML(intro?.byline)
 	let date = amlToHTML(intro?.date)
 
+	let isInView;
+  const options = {
+    rootMargin: `-40%`,
+    unobserveOnEnter: false,
+  };
+	const handleChange = ({ detail }) => {
+		isInView = detail.inView
+	};
 
+
+	$: opacity = isInView ? 1 : 0
 </script>
 
-<div class="title-logo">
-	<img class="contain" src={`${assetPath}/intro_logo.png`}>
-</div>
+<div class="intro-container" style={`opacity: ${opacity}`} use:inview={options} on:enter={handleChange}>
+	<div class="title-logo">
+		<img class="contain" src={`${assetPath}/intro_logo.png`}>
+	</div>
 
-<div class="title-pipe">
-	<img class="contain" src={`${assetPath}/intro_pipe.png`}>
-</div>
+	<div class="title-pipe">
+		<img class="contain" src={`${assetPath}/intro_pipe.png`}>
+	</div>
 
-<div class="text-container">
-	<p class="subtitle">{@html subtitle}</p>
-	<p class="byline">{@html byline} &nbsp;&nbsp; {@html date}</p>
+	<div class="text-container">
+		<p class="subtitle">{@html subtitle}</p>
+		<p class="byline">{@html byline} &nbsp;&nbsp; {@html date}</p>
+	</div>
 </div>
 
 <style>
+	.intro-container {
+		transition: opacity 0.4s;
+  	-webkit-transition: opacity 0.4s;
+	}
 	.title-logo {
 		min-width: min(350px, 100%);
 		width: 50%;
@@ -32,9 +49,10 @@
 	  margin: 0 auto;
 	  display: flex;
 	  padding: 10px;
+
 	}
 	.title-pipe {
-		min-width: min(200px, 100%);
+		min-width: min(275px, 100%);
 		width: 30%;
 		max-width: 400px;
 	  object-fit: contain;

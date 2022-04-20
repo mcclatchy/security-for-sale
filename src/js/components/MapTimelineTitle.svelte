@@ -19,7 +19,7 @@
 
 <style>
 .title-container {
-    max-width: 45%;
+    max-width: 65%;
     /*margin: 0 auto;*/
     display: block;
     pointer-events: all;
@@ -47,6 +47,7 @@
     text-align: left;
     font-weight: normal;
     padding-top: 10px;
+    line-height: 1.25;
 }
 
 

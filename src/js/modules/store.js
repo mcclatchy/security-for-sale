@@ -2,6 +2,7 @@ import { writable, derived, readable } from 'svelte/store';
 import { isMobile, isTablet } from './utils.js';
 
 export const activeVideo = writable('');
+export const droneTriggerElement = writable(null)
 export const isFirstVideoLoaded = writable(false);
 export const isIntroLoaded = writable(false)
 
@@ -28,7 +29,7 @@ export const orientation = derived(
 )
 export const isPortrait = derived(
     orientation,
-    $orientation => $orientation === "portrait"
+    $orientation => $orientation === "portrait" || $orientation === "middle"
 )
 export const storeInnerHeight = writable(window.innerHeight);
 export const storeOuterHeight = writable(window.outerHeight);

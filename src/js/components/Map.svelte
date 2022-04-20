@@ -45,7 +45,7 @@
 	
 	// Interpret location
 	if (location.bounds) {
-		options = { bounds: location.bounds };
+		options = { bounds: location.bounds};
 	} else if (typeof location.lng == 'number' && typeof location.lat == 'number') {
 		options = {
 			center: [location.lng, location.lat],

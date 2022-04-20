@@ -17,15 +17,19 @@
 
   export let dataPath;
   export let scrollY;
+  export let mapData;
 
-  let styleUrl = import.meta.env.PROD ? `${dataPath}/style-osm-grey.json` : `${dataPath}/style-osm-grey-dev.json`
+  let styleUrl = import.meta.env.PROD ? `${dataPath}/style.json` : `${dataPath}/styleDev.json`
 
   let hovered;
   let bounds = { 
     // north_carolina: [[ -84.821869, 33.842316 ], [-74.960621, 36.588117]],
     north_carolina: [[ -84.521988, 33.645 ], [-75.1994, 37.2881695]],
     charlotte: [[ -81.090043, 35.551569], [ -80.491228, 34.958323]],
-    neighborhood: [[-80.98297119140625,35.31751515265763], [-80.9691846370697,35.30852397576001]],
+    // neighborhood: [[-80.98297119140625,35.31751515265763], [-80.9691846370697,35.30852397576001]],
+    // neighborhood_zoom: [[-80.883012,35.295040], [-80.877740,35.295040]],
+    neighborhood_zoom: [[-80.882474,35.294037], [-80.878985,35.293901]],
+    neighborhood: [[-80.88741,35.29696], [-80.87243,35.28751]],
     raleigh: [[-79.1445,36.1579], [-78.1306,35.4883]],
     fuquay: [[-78.916888, 35.697333], [-78.687336, 35.527515]]
   };
@@ -55,38 +59,44 @@
   let zoomedHexagons;
   let mecklenburgHexagons;
   let mecklenburgGrid;
+  let mecklenburgHighways;
   let triangleHexagons; 
   let triangleGrid;
+  let triangleHighways;
   let turningCircles;
   let surroundingStates;
   let northCarolina;
-  let roads;
+  let northCarolinaHighways;
+  let highways;
   let streets;
   let mecklenburg;
   let triangle;
   let allDataLoaded = false;
   async function getAllData() {
-    labels = await getJsonData(`${dataPath}/labels.json`, "state");
+    labels = await getJsonData(`${dataPath}/labelsStatewide.json`, "state");
     stateNames = await formatTopojsonLayer(labels, "state");
     cityNames = await formatTopojsonLayer(labels, "city");
     areaNames = await formatTopojsonLayer(labels, "area");
 
-    surroundingStates = await getAndFormatTopojsonData(`${dataPath}/surrounding_states.json`, "surrounding_states");
-    northCarolina = await getAndFormatTopojsonData(`${dataPath}/north_carolina.json`, "north_carolina");
+    surroundingStates = await getAndFormatTopojsonData(`${dataPath}/surroundingStates.json`, "surroundingStates");
+    northCarolina = await getAndFormatTopojsonData(`${dataPath}/northCarolina.json`, "northCarolina");
+    northCarolinaHighways = await getAndFormatTopojsonData(`${dataPath}/northCarolinaHighways.json`, "northCarolinaHighways");
     hexagons = await getAndFormatTopojsonData(`${dataPath}/hexagons.json`, 'hexagons', "count", colors, breaks)
     zoomedHexagons = await getAndFormatTopojsonData(`${dataPath}/zoomedHexagons.json`, 'hexagons', "count", backgroundColors, zoomedBreaks)
 
     mecklenburgHexagons = await getAndFormatTopojsonData(`${dataPath}/mecklenburgHexagons.json`, 'hexagons', "count", colors, zoomedBreaks)
     mecklenburgGrid = await getAndFormatTopojsonData(`${dataPath}/mecklenburgGrid.json`, 'hexagons', "count", colors, zoomedBreaks)
     mecklenburg = await getAndFormatTopojsonData(`${dataPath}/mecklenburgOutline.json`, "mecklenburgOutline");
-    homes = await getAndFormatTopojsonData(`${dataPath}/homes.json`, 'homes', "investor", null, null, investorColors)
+    mecklenburgHighways = await getAndFormatTopojsonData(`${dataPath}/mecklenburgHighways.json`, "mecklenburgHighways");
+    homes = await getAndFormatTopojsonData(`${dataPath}/homes.json`, 'homes', "investor", null, null, investorColors, "#d5cc80")
 
     triangleHexagons = await getAndFormatTopojsonData(`${dataPath}/triangleHexagons.json`, 'hexagons', "count", colors, zoomedBreaks)
     triangleGrid = await getAndFormatTopojsonData(`${dataPath}/triangleGrid.json`, 'hexagons', "count", colors, zoomedBreaks)
     triangle = await getAndFormatTopojsonData(`${dataPath}/triangle.json`, "triangle");
+    triangleHighways = await getAndFormatTopojsonData(`${dataPath}/triangleHighways.json`, "triangleHighways");
 
-    turningCircles = await getAndFormatTopojsonData(`${dataPath}/turning_circles.json`, "turning_circles");
-    roads = await getAndFormatTopojsonData(`${dataPath}/roads.json`, "roads");
+    turningCircles = await getAndFormatTopojsonData(`${dataPath}/turningCircles.json`, "turningCircles");
+    highways = await getAndFormatTopojsonData(`${dataPath}/highways.json`, "highways");
     streets = await getAndFormatTopojsonData(`${dataPath}/streets.json`, "streets");
     allDataLoaded = true;
   }
@@ -124,56 +134,21 @@
     hoverableIds = []
   }
 
-  $: sections = $windowWidth && [
-    {
-      text: "Across North Carolina, just a handful of major firms own at least 37,000 single-family homes.",
-      id: "first",
-      bounds: bounds.north_carolina,
-      horizontalPosition: "left",
-      speed: 0.7,
-    },
-    {
-      text: "Their portfolios are especially concentrated in the Charlotte metropolitan area, where at least 1 in 20 single-family houses are owned by six of these firms.",
-      id: "second",
-      bounds: bounds.charlotte,
-      horizontalPosition: "left",
-      speed: 0.7,
-    },
-    {
-      text: "In some neighborhoods, like this one along the northwest edge of Mecklenburg County, corporations control half of all the total housing units.",
-      id: "third",
-      bounds: bounds.neighborhood,
-      horizontalPosition: "left",
-      speed: 0.7,
-    },
-    {
-      text: "But Charlotte's not alone.",
-      id: "third",
-      bounds: bounds.charlotte,
-      horizontalPosition: "left",
-      speed: 0.7,
-    },
-    {
-      text: "About 130 miles away in the Triangle, companies own more than 5,000 single-family homes, concentrated on the east side of Wake County.",
-      id: "third",
-      bounds: bounds.raleigh,
-      horizontalPosition: "left",
-      speed: 0.7,
-    },
-    {
-      text: "In the suburbs and in communities like Fuquay-Varina and Holly Springs, these firms have turned some starter neighborhoods into largely rental communities.",
-      id: "third",
-      bounds: bounds.fuquay,
-      horizontalPosition: "left",
-      speed: 0.7,
+
+  $: sections = $windowWidth && mapData && mapData.sections.map((section) => {
+    return {
+      text: section.text,
+      id: section?.id,
+      bounds: bounds[section.bounds],
+      horizontalPosition: section.horizontalPosition,
+      speed: section.speed,
+      pitch: section?.pitch || 0,
+      bearing: section?.bearing || 0
     }
-  ]
-
-
-
+  });
 
   let isInView;
-  let offset = 5000;
+  let offset = 3000;
   const options = {
     rootMargin: `${offset}px`,
     unobserveOnEnter: true,
@@ -213,6 +188,10 @@
     'surrounding-state-line',
     'surrounding-state-fill',
 
+    'mecklenburg-highway',
+    'mecklenburg-highway-border',
+    'triangle-highway',
+    'triangle-highway-border',
 
     "investor-sfr-hexagon-line",
     "mecklenburg-hexagon-line",
@@ -232,16 +211,15 @@
     "mecklenburg-grid-line",
     "the-triangle-grid-line",
 
-
     "mecklenburg-grid-fill",
     "the-triangle-grid-fill",
-
-
+    
+    'nc-highway',
     'highway',
     'street',
     "turning-circle-fill",
 
-    
+    'nc-highway-border',
     'highway-border',
     'street-border',
     'turning-circle-border',
@@ -256,7 +234,7 @@
   bind:layoutStyles
 />
 
-<div id="choropleth-scroller">
+<div id="statewide-scroller">
   <Scroller bind:progress>
     <div slot="background" style={`width: 100%; height: ${$windowHeight}px; pointer-events: ${pointerEvents}`}>
 
@@ -311,8 +289,21 @@
               data={northCarolina}
               promoteId={"GEOID"}
               maxzoom={24}>
-              <MapLayerType {layerOrder} layerType="line" {mapId} id="north-carolina-outline" paintStyles={paintStyles}/>
-              <MapLayerType {layerOrder} layerType="fill" {mapId} id="north-carolina-fill" paintStyles={paintStyles}/>
+              <MapLayerType {layerOrder} layerType="line" {mapId} id="north-carolina-outline" {paintStyles}/>
+              <MapLayerType {layerOrder} layerType="fill" {mapId} id="north-carolina-fill" {paintStyles}/>
+            </MapSource>
+
+            <!-- NC HIGHWAYS -->
+            <MapSource
+              {mapId}
+              id="nc-highways"
+              type="geojson"
+              data={northCarolinaHighways}
+              promoteId={"FULLNAME"}
+              maxzoom={24}
+              >
+              <MapLayerType {layerOrder} layerType="line" {mapId} id="nc-highway" {paintStyles} {layoutStyles}/>
+              <MapLayerType {layerOrder} layerType="line" {mapId} id="nc-highway-border" {paintStyles} {layoutStyles}/>
             </MapSource>
 
             <!-- HIGHWAYS -->
@@ -320,12 +311,12 @@
               {mapId}
               id="highways"
               type="geojson"
-              data={roads}
+              data={highways}
               promoteId={"highway"}
               maxzoom={24}
               >
-              <MapLayerType {layerOrder} layerType="line" {mapId} id="highway" paintStyles={paintStyles}/>
-              <MapLayerType {layerOrder} layerType="line" {mapId} id="highway-border" paintStyles={paintStyles}/>
+              <MapLayerType {layerOrder} layerType="line" {mapId} id="highway" {paintStyles}/>
+              <MapLayerType {layerOrder} layerType="line" {mapId} id="highway-border" {paintStyles}/>
             </MapSource>
 
             <!-- SURROUNDING STATES -->
@@ -351,7 +342,7 @@
               data={mecklenburg}
               promoteId={"id"}
             >
-              <MapLayerType {layerOrder} layerType="line" {mapId} {highlighted} id="mecklenburg-outline" paintStyles={paintStyles}/>
+              <MapLayerType {layerOrder} layerType="line" {mapId} {highlighted} id="mecklenburg-outline" {paintStyles}/>
             </MapSource>
 
             <MapSource
@@ -377,6 +368,19 @@
               <MapLayerType {layerOrder} layerType="fill" {mapId} {paintStyles} id="mecklenburg-hexagon-fill"/>
               <MapLayerType {layerOrder} layerType="line" {mapId} {paintStyles} {layoutStyles} id="mecklenburg-hexagon-line"/>
             </MapSource>
+
+            <MapSource
+              {mapId}
+              id="mecklenburg-highways"
+              type="geojson"
+              data={mecklenburgHighways}
+              promoteId={"rsu"}
+              maxzoom={24}
+              >
+              <MapLayerType {layerOrder} layerType="line" {mapId} id="mecklenburg-highway" {paintStyles}/>
+              <MapLayerType {layerOrder} layerType="line" {mapId} id="mecklenburg-highway-border" {paintStyles}/>
+            </MapSource>
+            
 
             <!-- NEIGHBORHOOD -->
             <MapSource
@@ -423,7 +427,7 @@
               data={triangle}
               promoteId={"id"}
             >
-              <MapLayerType {layerOrder} layerType="line" {mapId} {highlighted} id="the-triangle-outline" paintStyles={paintStyles}/>
+              <MapLayerType {layerOrder} layerType="line" {mapId} {highlighted} id="the-triangle-outline" {paintStyles}/>
             </MapSource>
 
             <MapSource
@@ -448,6 +452,18 @@
             >
               <MapLayerType {layerOrder} layerType="fill" {mapId} {paintStyles} id="the-triangle-hexagon-fill"/>
               <MapLayerType {layerOrder} layerType="line" {mapId} {paintStyles} {layoutStyles} id="the-triangle-hexagon-line"/>
+            </MapSource>
+
+            <MapSource
+              {mapId}
+              id="triangle-highways"
+              type="geojson"
+              data={triangleHighways}
+              promoteId={"rsu"}
+              maxzoom={24}
+              >
+              <MapLayerType {layerOrder} layerType="line" {mapId} id="triangle-highway" {paintStyles}/>
+              <MapLayerType {layerOrder} layerType="line" {mapId} id="triangle-highway-border" {paintStyles}/>
             </MapSource>
 
             <MapSource
@@ -486,12 +502,12 @@
       display: -webkit-flex; justify-content: center;`}/>
       {#each sections as section}
 
-        <div style={`height: ${1.25 * $windowHeight}px; z-index: 2; position: relative; pointer-events: none;`}>
+        <!-- TODO - how can I inform this section length programmatically -->
           <MapSection
             {section}
             map={map}
           />
-        </div>
+
       {/each}
       <div style={`height: ${0.5 * $windowHeight}px; display: flex;
       display: -webkit-flex; justify-content: center;`}/>

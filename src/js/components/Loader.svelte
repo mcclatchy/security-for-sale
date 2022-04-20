@@ -9,11 +9,11 @@
   export let bottom = 0;
   export let left = 0;
   export let shadow = false;
-  export let loaderBackgroundColor = "none";
+  export let loaderBackgroundColor = "#eee";
   export let position = "absolute";
   export let width = "190px";
-  export let loaderShadow = false;
-  export let softShadow = false;
+  export let loaderShadow = true;
+  export let softShadow = true;
 
 </script>
 

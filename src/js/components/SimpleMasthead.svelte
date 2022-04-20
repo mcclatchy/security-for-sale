@@ -18,7 +18,7 @@ const logoAltText = window.pageInfo["marketInfo.logoAltText"];
   position: absolute;
   top: 0;
   margin-top: 25px;
-  z-index: 10001;
+  z-index: 99999999;
   text-align: center;
 
   & a {
@@ -28,7 +28,7 @@ const logoAltText = window.pageInfo["marketInfo.logoAltText"];
   & img {
     opacity: 1;
     height: inherit;
-    filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(225deg) brightness(98%) contrast(103%);
+    filter: brightness(0%) invert(25%) sepia(7%) saturate(3345%) hue-rotate(314deg) brightness(85%) contrast(85%);
   }
 }
 </style>

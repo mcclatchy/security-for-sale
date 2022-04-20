@@ -3,7 +3,7 @@
 
   let primaryColor = "#ffa4b1"
   let colors = ["#eecb9b", "#e7b48f", "#e09c85", "#da867b", "#c16677"] //makeColors(primaryColor, 1, 3, 0.1, 0.8)
-  let stateOutlineColor = makeColors(primaryColor, 0, 10, 0.95, 0.95)[3]
+  let stateOutlineColor = "#AAA"
 	let stateBackgroundColor = makeColors(primaryColor, 0, 10, 0.97, 0.97)[0]
 	let borderColor = 'rgb(213, 213, 213)'
 	let hexagonFillColor = "#ffffff"
@@ -42,16 +42,46 @@
 		},
 		'north-carolina-outline': {
       'line-color': stateOutlineColor,
-      'line-width': 2,
+      'line-width': 1,
     },
 		'north-carolina-fill': {
       'fill-color': stateBackgroundColor,
       'fill-opacity': 1
     },
+		'nc-highway-border': {
+      'line-color': borderColor,
+      'line-width': ['match', ['get','rsu'], 0, 0, 1, 3.5, 0],
+      'line-opacity': ["interpolate", ["linear"], ["zoom"], 3, 1, 8, 1, 11, 0, 14, 0]
+    },
+    'nc-highway': {
+      'line-color': "white",
+      'line-width': ['match', ['get','rsu'], 0, 0, 1, 2.5, 0],
+      'line-opacity': ["interpolate", ["linear"], ["zoom"], 3, 1, 8, 1, 11, 0, 14, 0]
+    },
 		'highway-border': {
       'line-color': borderColor,
       'line-width': highwayBorderLineWidth,
       'line-opacity': highwayBorderOpacity
+    },
+    'mecklenburg-highway': {
+      'line-color': "white",
+      'line-width': ['match', ['get','rsu'], 0, 0, 1, 4.5, 0],
+      'line-opacity': ["interpolate", ["linear"], ["zoom"], 3, 0, 8, 0, 9, 1, 14, 1]
+    },
+		'mecklenburg-highway-border': {
+      'line-color': 'rgba(150,150,150,1)',
+      'line-width': ['match', ['get','rsu'], 0, 0, 1, 5.5, 0],
+      'line-opacity': ["interpolate", ["linear"], ["zoom"], 3, 0, 8, 0, 9, 1, 14, 1]
+    },
+    'triangle-highway': {
+      'line-color': "white",
+      'line-width': ['match', ['get','rsu'], 0, 0, 1, 4.5, 0],
+      'line-opacity': ["interpolate", ["linear"], ["zoom"], 3, 0, 8, 0, 9, 1, 14, 1]
+    },
+		'triangle-highway-border': {
+      'line-color': 'rgba(150,150,150,1)',
+      'line-width': ['match', ['get','rsu'], 0, 0, 1, 5.5, 0],
+      'line-opacity': ["interpolate", ["linear"], ["zoom"], 3, 0, 8, 0, 9, 1, 14, 1]
     },
     'highway': {
       'line-color': "white",
@@ -60,41 +90,38 @@
     },
     'mecklenburg-outline': {
 			'line-color': 'rgba(150,150,150,1)',
-			'line-width': 1,
+			'line-width': 2,
 			'line-opacity': ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0]
 		},
     'the-triangle-outline': {
 			'line-color': 'rgba(150,150,150,1)',
-			'line-width': 1,
+			'line-width': 2,
 			'line-opacity': ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0]
 		},
     'street': {
     	'line-color': "white",
-			'line-width': ['match', ['get','highway'],'residential', 3.5,'turning_circle', 4.5,'service', 3.5,'secondary', 8.5,0],
-			'line-opacity': ["interpolate",["linear"],["zoom"],3,0,8,0,14,0,15,1]
+			'line-width': ['match', ['get','highway'],'residential', 8.5,'turning_circle', 10.5,'service', 8.5,'secondary', 12.5,0],
+			'line-opacity': ["interpolate", ["linear"], ["zoom"],3,0,8,0,14,1,15,1]
     },
     'street-border': {
-      'line-color': borderColor,
-      'line-width': streetLineWidth,
-      'line-opacity': streetOpacity
+      'line-color': 'rgba(150,150,150,1)',
+      'line-width': ['match', ['get','highway'],'residential', 9.5,'turning_circle', 11.5,'service', 9.5,'secondary', 13.5,0],
+      'line-opacity': ["interpolate", ["linear"], ["zoom"],3,0,8,0,14,0,15,0.8]
     },
     'turning-circle-border': {
-    	'circle-color': borderColor,
-			'circle-opacity': ["interpolate",["linear"],["zoom"],3,0,8,0,14,0,15,1],
-			'circle-radius': ["interpolate",["linear"],["zoom"],3,3,10,3,14,5],
+    	'circle-color': 'rgba(150,150,150,1)',
+			'circle-opacity': 0,
+			'circle-radius': ["interpolate",["linear"],["zoom"],3,2,10,2,14,9],
 			"circle-opacity-transition": {"duration": 300,"delay": 0},
-			"circle-stroke-width": 0,
-			"circle-stroke-color": borderColor,
-			"circle-stroke-opacity": ["interpolate",["linear"],["zoom"],3,0,8,0,14,0,15,0.5]
+			"circle-stroke-width": 1,
+			"circle-stroke-color": 'rgba(150,150,150,1)',
+			"circle-stroke-opacity": ["interpolate", ["linear"], ["zoom"],3,0,8,0,14,0,15,0.7]
     },
     "turning-circle-fill": {
     	'circle-color': "white",
 			'circle-opacity': ["interpolate",["linear"],["zoom"],3,0,8,0,14,0,15,1],
-			'circle-radius': ["interpolate",["linear"],["zoom"],3,2,10,2,14,4],
-			"circle-opacity-transition": {"duration": 300, "delay": 0},
-			"circle-stroke-width": 1,
-			"circle-stroke-color": "white",
-			"circle-stroke-opacity": ["interpolate",["linear"],["zoom"],3,0,8,0,14,0,15,0.5]
+			'circle-radius': ["interpolate",["linear"],["zoom"],3,2,10,2,14,9],
+			"circle-opacity-transition": {"duration": 300, "delay": 0}
     },
     "surrounding-state-fill": {
       'fill-color': '#ffffff',
@@ -115,7 +142,7 @@
     },
     "mecklenburg-grid-line": {
     	'line-color': 'rgba(230,230,230,1)',
-			'line-width': 1,
+			'line-width': 0.5,
 			'line-opacity': ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0]
     },
     "the-triangle-grid-fill": {
@@ -126,7 +153,7 @@
     },
     "the-triangle-grid-line": {
 			'line-color': 'rgba(230,230,230,1)',
-			'line-width': 1,
+			'line-width': 0.5,
 			'line-opacity': ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0]
     },
     "investor-sfr-hexagon-fill": {
@@ -196,7 +223,7 @@
       "text-font": ["Lato Regular"],
       "text-size": {
         "base": 1.2,
-        "stops": [[7, 13], [11, 15]]
+        "stops": [[7, 15], [9, 20], [11, 20]]
       },
       'text-field': ['get', 'description'],
       "text-anchor": ['get', 'anchor'],
@@ -208,7 +235,7 @@
       "text-font": ["Lato Regular"],
       "text-size": {
         "base": 1.2,
-        "stops": [[7, 16], [11, 16]]
+        "stops": [[7, 16], [11, 22], [11, 22]]
       },
       'text-field': ['get', 'description'],
       "text-anchor": ['get', 'anchor'],
@@ -221,6 +248,12 @@
 			'line-cap': 'round'
 		},
 		'street-border': {
+			'line-cap': 'round'
+		},
+		'nc-highway': {
+			'line-cap': 'round'
+		},
+		'nc-highway-border': {
 			'line-cap': 'round'
 		}
 	}

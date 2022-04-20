@@ -1,6 +1,6 @@
 <script>
   import { amlToHTML } from '../modules/utils.js'
-	import { isPortrait } from '../modules/store.js';
+	import { isPortrait, windowHeight } from '../modules/store.js';
 
 	export let section;	
 	export let assetPath;
@@ -9,16 +9,17 @@
 	let items = section?.items;
 </script>
 
+
 {#each items as item}
-	<div class="slide">
-		<p style={`font-size: ${$isPortrait ? "16px" : "21px" }`}>{@html amlToHTML(item.text)}</p>
+	<div class="slide" style={'height: ${0.4 * $windowHeight}px'}>
+
+		<p style={`font-size: ${$isPortrait ? "18px" : "41px" }`}>{@html amlToHTML(item.text)}</p>
 	</div>
 {/each}
 
 <style>
 	.slide {
-		width: 100%;
-		height: 40vh;
+		width: min(90%, 800px);
 		margin: 0 auto;
 		display: flex;
 		display: -webkit-flex;
@@ -31,8 +32,18 @@
 
 	.slide p {
 		font-family: 'Libre Franklin';
-		font-size: 21px;
 		color: black;
 		padding: 20px;
+		font-weight: 200;
+		line-height: 1.5;
 	}
+
+
+	:global(.marker-highlight) {
+		text-decoration:  underline;
+		text-decoration-color: #f94d60;
+		text-underline-offset: 5px;
+	 	/*background-image: linear-gradient(-100deg, #f94d60, #f94d60 95%, #f94d60);*/
+	}
+
 </style>

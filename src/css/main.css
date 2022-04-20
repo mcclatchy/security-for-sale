@@ -126,3 +126,27 @@ video::-webkit-media-controls-start-playback-button {
     display: block;
   }
 }
+
+
+.shadowed {
+  filter: drop-shadow( 5px 0px 40px rgba(255, 255, 255, .3))
+    drop-shadow( 0px 5px 40px rgba(255, 255, 255, .3))
+    drop-shadow( 5px -0px 40px rgba(255, 255, 255, .3))
+    drop-shadow( 0px -5px 40px rgba(255, 255, 255, .3))
+}
+
+.soft-shadowed {
+  filter: 
+    drop-shadow( 0px 0px 10px rgba(255, 255, 255, 1))
+    drop-shadow( 0px 0px 10px rgba(255, 255, 255, 1))
+}
+
+.heavy-shadowed {
+      filter: 
+    drop-shadow( 10px 0px 10px rgba(255, 255, 255, 1))
+    drop-shadow( 10px 0px 10px rgba(255, 255, 255, 1))
+    drop-shadow( 0px 0px 10px rgba(255, 255, 255, 1))
+    drop-shadow( -10px 0px 10px rgba(255, 255, 255, 1))
+    drop-shadow( -10px 0px 10px rgba(255, 255, 255, 1))
+    drop-shadow( 0px 10px 10px rgba(255, 255, 255, 1))
+}

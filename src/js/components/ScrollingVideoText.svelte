@@ -49,17 +49,26 @@
 
   $: startPixel = (duration && height && offsetHeight) && Math.round(offsetHeight + (height) * (seconds / duration));
   $: endPixel = (duration && height && offsetHeight) && Math.round(offsetHeight + (height) * (endSeconds / duration));
-  $: opacity = topPct > 1.2 ? 0 : 1
+
+  let pctLimit = 1.1
+  $: opacity = topPct > pctLimit ? 0 : 1
 
   let top;
   let topPct;
+  let topPctShift;
   let topPixel;
   let progressPixel;
 
   $: progressPixel = Math.round(offsetHeight + (height) * (progress));
-  $: topPct = Math.round((progressPixel - startPixel) /  (endPixel - startPixel) * 1000) / 1000 >= 1 ? 1 : Math.round((progressPixel - startPixel) /  (endPixel - startPixel) * 1000) / 1000;
-  $: parallaxShift = Math.round(topPct * ((endPixel - startPixel)) - topPct * ($windowHeight));
+  $: topPct = Math.round((progressPixel - startPixel) /  (endPixel - startPixel) * 1000) / 1000;
   $: position = endPixel ? "absolute" : "absolute";
+
+  let throttledParallaxShift;
+  const updateParallaxShift = throttle(val => {
+    topPctShift = topPct >= pctLimit ? pctLimit : topPct
+    throttledParallaxShift = Math.round(topPctShift * ((endPixel - startPixel)) - topPctShift * ($windowHeight));;
+  }, 0);
+  $: updateParallaxShift(progressPixel)
 
 </script>
 
@@ -67,7 +76,8 @@
   class={`scroll-box`}
   style={`
     top: ${startPixel}px;
-    transform: translate3d(0, ${parallaxShift}px, 0);
+    transition: transform .01s ease-in-out;
+    transform: translate3d(0, ${throttledParallaxShift}px, 0);
     position: ${position};
     max-width: min(100%, ${boxWidth}px) !important;
     width: ${width};
@@ -113,6 +123,7 @@
   }
 
   .scroll-text p {
+    font-weight: 200;
     margin: 0 !important;
     font-family:  'Libre Franklin';
     transition: opacity .25s ease-in-out;

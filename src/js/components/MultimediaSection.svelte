@@ -3,7 +3,8 @@
 
 	export let section;	
 	export let assetPath;
-	export let paddingBottom = 40;
+	export let paddingBottom = 0;
+	export let divider = true;
 
 	let items = section?.items;
 	let sectionImage = section?.image;
@@ -45,10 +46,23 @@
 				<p style>{@html amlToHTML(item.text)}</p>
 			{/if}
 		{/each}
+		{#if divider}
+			<div class="section-divider">
+				<img class="contain" src={`${assetPath}/intro_pipe.png`}>
+			</div>
+		{/if}
 	</div>
 </div>
 
 <style>
+	.contain {
+		margin: auto;
+		object-fit: contain;
+		width:100%;
+		max-height: 500px;
+		height:100%;
+	}
+
 	:global(.mobile) {
 		display: none;
 	}
@@ -63,6 +77,23 @@
 		background-color: white;
 		position: relative;
 		padding: 0 20px;
+	}
+
+	.section-divider {
+		padding-top: 60px;
+		margin: 0 auto;
+		width: min(100%, 300px);
+		display: flex;
+		display: -webkit-flex;
+		flex-direction: row;
+		justify-content: center;
+		padding-bottom: 20px;
+	}
+
+	.section-divider img {
+		width: 100%;
+		padding: 0 5%;
+		filter: grayscale(100%);
 	}
 
 	.section-heading {
@@ -99,7 +130,7 @@
 
 	.section-body p {
 		margin: auto;
-		max-width: 500px;
+		max-width: 600px;
 		padding-top: 40px;
 		font-weight: 200;
 		font-size: 17px;
@@ -184,6 +215,9 @@
 			font-size: 15px;
 			line-height: 24px;
 			padding-top: 13px;
+		}
+		.section-divider {
+			padding-bottom: 40px;
 		}
 	}
 </style>

@@ -1,11 +1,11 @@
 {
-  "name": "wall-street-landlords",
+  "name": "security-for-sale",
   "version": "3.1.1",
   "license": "MIT",
   "config": {
     "cueID": "",
     "remote": "https://media.mcclatchy.com/2022/",
-    "projectName": "wall-street-landlords",
+    "projectName": "security-for-sale",
     "docID": "",
     "sheetID": ""
   },

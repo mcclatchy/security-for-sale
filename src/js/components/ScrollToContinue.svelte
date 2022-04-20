@@ -8,6 +8,7 @@
 	export let left = "50%";
 	export let shadow = false;
 	export let softShadow = false;
+	export let visibility = 'hidden';
 
 	export let start = 0
 	export let end = 200;
@@ -28,6 +29,7 @@
 		padding: 5px 30px 10px 30px;
 		height: 90px;
     width: 220px;
+    visibility: ${visibility};
 	`}>
 		<div class="scroll-instruction" style={`color: ${highlightColor};`}>
 		  Scroll to Continue
@@ -43,7 +45,10 @@
 
 <style>
 	.scroll-container {
-    position: absolute;
+    position: fixed;
+    z-index: 100000;
+	  transition: visibility 1s;
+	  -webkit-transition: visibility 1s;
 	}
 
 	.scroll-instruction {

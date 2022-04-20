@@ -8,22 +8,7 @@
 	import { isMobile, isTablet, execResizeCallbackWithSuspend } from "../modules/utils.js";
 
 	// Resizing more responsively with ResizeObserver to accommodate scrolling videos
-  let videoElement;
-  let videoOffset;
-  onMount(() => {
-  	if (videoElement) {
-  		videoOffset = (videoElement && videoElement.offsetTop)
-  	}
-  })
-
-	const resizeObserver = new ResizeObserver(entries => {
-		const elements = entries.map(entry => entry.target);
-  	execResizeCallbackWithSuspend(elements, resizeObserver, () => {
-			videoOffset = videoElement && videoElement.offsetTop;
-  	});
-	})
-
-	resizeObserver.observe(document.body);
+  
 
 
 	export let videoData;
@@ -35,8 +20,55 @@
 	export let removeBreaks = false;
 	export let lazyLoad = false;
 	export let lazyLoadOffset = 6000;
+	export let offsetElement = null;
+	export let fade = false;
+
+  let videoFinished = false;
+	let opacity = 1;
+	$: opacity = fade && videoOffset && (videoFinished || scrollY < videoOffset) ? 0 : 1
 
 
+	let videoElement;
+  let videoOffset;
+	
+	$: if (!offsetElement && videoElement) {
+		offsetElement = videoElement;
+	}  
+
+  onMount(() => {
+  	if (!offsetElement && videoElement) {
+			offsetElement = videoElement;
+		}  
+  	if (offsetElement) {
+	  	if (videoElement !== offsetElement && offsetElement.offsetTop === 0 && offsetElement?.offsetParent) {
+				videoOffset = offsetElement.offsetParent.offsetParent.offsetParent.offsetTop - 0.5 * $windowHeight
+	  	} else {
+	  		videoOffset = offsetElement.offsetTop
+	  	}
+  	}
+
+  })
+	
+  $: if (offsetElement) {
+  	if (videoElement !== offsetElement && offsetElement.offsetTop === 0 && offsetElement?.offsetParent) {
+			videoOffset = offsetElement.offsetParent.offsetParent.offsetParent.offsetTop + offsetElement.offsetParent.offsetTop - 0.5 * $windowHeight
+  	} else {
+  		videoOffset = offsetElement.offsetTop
+  	}
+	}
+
+	const resizeObserver = new ResizeObserver(entries => {
+		const elements = entries.map(entry => entry.target);
+  	execResizeCallbackWithSuspend(elements, resizeObserver, () => {
+			if (videoElement !== offsetElement && offsetElement.offsetTop === 0 && offsetElement?.offsetParent) {
+				videoOffset = offsetElement.offsetParent.offsetParent.offsetParent.offsetTop + offsetElement.offsetParent.offsetTop - 0.5 * $windowHeight
+	  	} else {
+	  		videoOffset = offsetElement.offsetTop
+	  	}
+  	});
+	})
+
+	resizeObserver.observe(document.body);
 
 
   let isInView;
@@ -51,12 +83,12 @@
   let triggerPixel;
   let shouldLoad = false;
   onMount(() => {
-    if (videoElement) {
+    if (offsetElement) {
     	// Lazy Load Offset can be a percentage
     	if (lazyLoadOffset < 1 && lazyLoadOffset > 0) {
-    		triggerPixel = videoElement.offsetTop * lazyLoadOffset
+    		triggerPixel = offsetElement.offsetTop * lazyLoadOffset
     	} else {
-    		triggerPixel = videoElement.offsetTop - lazyLoadOffset
+    		triggerPixel = offsetElement.offsetTop - lazyLoadOffset
     	}
    	  options.rootMargin = `${triggerPixel}px`
     }
@@ -66,7 +98,7 @@
   }
   
   $: height = 
-  	$isPortrait && isTablet.ipad() ? videoData.portrait.height + $storeInnerHeight : 
+  	$isPortrait && isTablet.ipad() ? videoData.portrait.height + $windowHeight : 
   	$isPortrait ? videoData.portrait.height + $windowHeight : 
   	videoData.landscape.height + $windowHeight;
 
@@ -75,7 +107,7 @@
 
 <div bind:this={videoElement} use:inview="{options}" on:change="{handleChange}"></div>
 <Scroller bottom={1} top={0} bind:progress>
-	<div slot="background" style={`height: ${$windowHeight}px; width: 100%`}>
+	<div slot="background" style={`height: ${$windowHeight}px; width: 100%; opacity: ${fade ? opacity : 1};`}>
 
 		{#if (shouldLoad || isInView || !lazyLoad)}
 	    <ScrollingVideo
@@ -85,6 +117,7 @@
 	      offset={videoOffset}
 	      {scrollY}
 	      {isFirstVideo}
+	      bind:videoFinished
 	    />
 	   {/if}
 	 </div>
@@ -108,5 +141,7 @@
 		background-color: white;
 		overflow:  hidden;
 		pointer-events: all;
+    transition: opacity .8s;
+  	-webkit-transition: opacity .8s;
 	}
 </style>

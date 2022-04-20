@@ -2,7 +2,6 @@
   import { inview } from 'svelte-inview';
   import { onMount } from 'svelte';
 
-  import BarChart from './BarChart.svelte';
   import Map from './Map.svelte';
   import MapLayer from './MapLayer.svelte';
   import MapLayerType from './MapLayerType.svelte';
@@ -13,6 +12,7 @@
   import MapSource from './MapSource.svelte';
   import MapTimelineTitle from './MapTimelineTitle.svelte';
   import MapTooltip from './MapTooltip.svelte';
+  import ProgressBar from "./ProgressBar.svelte";
   import Scroller from "./Scroller.svelte";
   import { windowWidth, windowHeight, isPortrait, aspectRatio } from '../modules/store.js';
   import { getAndFormatTopojsonData, formatTopojsonLayer, getJsonData, getBBoxAspectRatio, getDivAspectRatio, execResizeCallbackWithSuspend } from "../modules/utils.js";
@@ -20,8 +20,9 @@
   export let dataPath;
   export let assetPath;
   export let scrollY;
+  export let mapData;
 
-  let styleUrl = import.meta.env.PROD ? `${dataPath}/style-osm-grey.json` : `${dataPath}/style-osm-grey-dev.json`
+  let styleUrl = import.meta.env.PROD ? `${dataPath}/style.json` : `${dataPath}/styleDev.json`
   
   let hovered;
   let outerMapContainer;
@@ -41,13 +42,17 @@
   let innerMapWidth = 100;
   let bufferWidth = 0;
 
+  let textCoords = [-84.324,34.777];
   let timelineCoords = [ -75.797,36.559 ];
   let timelineCanvasCoords;
+  let textCanvasCoords
   $: timelineCanvasCoords = map && map.project(timelineCoords);
+  $: textCanvasCoords = map && map.project(textCoords);
   const resizeObserver = new ResizeObserver(entries => {
     const elements = entries.map(entry => entry.target);
     execResizeCallbackWithSuspend(elements, resizeObserver, () => {
       timelineCanvasCoords = map && map.project(timelineCoords)
+      textCanvasCoords = map && map.project(textCoords);
     });
   })
 
@@ -62,62 +67,31 @@
   let surroundingStates;
   let residences;
   let northCarolina;
-  let timestampsAggregate;
-  let timestampsCumulative;
   let allDataLoaded = false;
   async function getAllData() {
-   labels = await getJsonData(`${dataPath}/labelsBare.json`, "state");
+    labels = await getJsonData(`${dataPath}/labelsTimeline.json`, "state");
     stateNames = await formatTopojsonLayer(labels, "state");
     cityNames = await formatTopojsonLayer(labels, "city");
     counties = await getAndFormatTopojsonData(`${dataPath}/counties.json`, "counties");
-    surroundingStates = await getAndFormatTopojsonData(`${dataPath}/surrounding_states.json`, "surrounding_states");
+    surroundingStates = await getAndFormatTopojsonData(`${dataPath}/surroundingStates.json`, "surroundingStates");
     residences = await getAndFormatTopojsonData(`${dataPath}/timeline.json`, "timeline")
-    northCarolina = await getAndFormatTopojsonData(`${dataPath}/north_carolina.json`, "north_carolina")
-    timestampsAggregate = await getJsonData(`${dataPath}/timestamps_aggregate.json`)
-    timestampsCumulative = await getJsonData(`${dataPath}/timestamps_cumulative.json`)
+    northCarolina = await getAndFormatTopojsonData(`${dataPath}/northCarolina.json`, "northCarolina")
     timestamps = [...new Set(residences.features.map(item => item.properties['timestamp']))];
     allDataLoaded = true;
   }
   getAllData()
 
-
-  
-  
-
-  $: sections = $windowWidth && [
-    {
-      text: "There is something here and there's some more text for another line",
-      id: "first",
-      bounds: bounds.north_carolina,
-      position: "static",
-      speed: 0.7,
-    },
-    {
-      text: "There is a second something here and there's some more text for another line",
-      id: "second",
-      bounds: bounds.north_carolina,
-      position: "static",
-      speed: 0.7,
-    },
-    {
-      text: "There is a third something here and there's some more text for another line",
-      id: "third",
-      bounds: bounds.north_carolina,
-      position: "static",
-      speed: 0.7,
-    },
-    {
-      text: "There is a fourth something here and there's some more text for another line",
-      id: "fourth",
-      bounds: bounds.north_carolina,
-      position: "static",
-      speed: 0.7,
+  $: sections = $windowWidth && mapData && mapData.sections.map((section) => {
+    return {
+      text: section.text,
+      id: section?.id,
+      bounds: bounds[section.bounds],
+      horizontalPosition: section.horizontalPosition,
+      speed: section.speed,
+      pitch: section?.pitch || 0,
+      bearing: section?.bearing || 0
     }
-  ]
-
-
-
-
+  });
 
   let isInView;
   let offset = 5000;
@@ -139,18 +113,12 @@
     shouldLoad = true;
   }
 
-
-
   let startTimestamp = 900633599
   let endTimestamp = 1615852800
   $: currentTimestamp = Math.round(startTimestamp + progress * (endTimestamp - startTimestamp))
   $: highlighted = timestamps.filter((x) => x <= currentTimestamp);
   $: currentDate = new Date(currentTimestamp * 1000);
-  // let brieflyHighlighted = []
-  // $: if(timestamps) {
-  //   brieflyHighlighted = timestamps.filter((x) => x >= (currentTimestamp - 604800) && x <= (currentTimestamp + 604800));
-  //   setTimeout(() => {brieflyHighlighted = []}, 300)
-  // }
+
 
   let map = null;
   let mapId = "timeline-map"
@@ -202,18 +170,6 @@
     img.src = `${assetPath}/hexagon.svg`
     imageLoaded = true;
   }
-
-
-  // $: map && map.loadImage(
-  //   `${assetPath}/hexagon.png`,
-  //   (error, image) => {
-  //   if (error) throw error;
-     
-  //   // Add the image to the map style.
-  //   map.addImage('hexagon', image);
-  //   imageLoaded = true;
-  // });
-
 </script>
 
 <MapTimelineStyles
@@ -222,11 +178,14 @@
   bind:layoutStyles
 />
 
-<div id="choropleth-scroller">
+<div id="timeline-scroller">
   <Scroller bind:progress>
     <div slot="background" class={`background`} style={`width: 100%; height: ${$windowHeight}px; pointer-events: ${pointerEvents}; padding: 0px 0px;`}>
       <MapTimelineTitle/>
-      
+      <ProgressBar
+        {progress}
+        highlightColor="#c16677"
+      />
       {#if timelineCanvasCoords}
         <div class="timeline" style={`top: ${timelineCanvasCoords.y}px; right: ${$windowWidth - timelineCanvasCoords.x}px;`}>
         <!-- {`${currentDate.getFullYear()}-${("0" + (currentDate.getMonth() + 1)).slice(-2)}-${("0" + currentDate.getDate()).slice(-2)}`} -->
@@ -317,13 +276,15 @@
           </div>
           {/if}
         </div>
-        {#if progress >= 0.74}
+        {#if progress >= 0.74 && textCanvasCoords}
           <MapSection
             bind:bounds={mapBounds}
             section={sections[sections.length-1]}
             map={map}
             opacity={1}
+            outerFixed={true}
             fixed={true}
+            top={textCanvasCoords.y}
           />
         {/if}
       </div>
@@ -331,20 +292,23 @@
     <div slot="foreground">
       <div style={`height: ${$windowHeight}px; display: flex;
       display: -webkit-flex; justify-content: center;`}/>
-      {#each sections as section, i}
+      {#if textCanvasCoords}
+        {#each sections as section, i}
 
-        <div style={`height: ${$windowHeight}px; z-index: 2; position: relative; pointer-events: none;`}>
-          {#if i < (sections.length - 1)}
-            <MapSection
-              bind:bounds={mapBounds}
-              {section}
-              map={map}
-              fade={true}
-              fixed={true}
-            />
-          {/if}
-        </div>
-      {/each}
+          <div style={`height: ${$windowHeight}px; z-index: 2; position: relative; pointer-events: none;`}>
+            {#if i < (sections.length - 1)}
+              <MapSection
+                bind:bounds={mapBounds}
+                {section}
+                map={map}
+                fade={true}
+                fixed={true}
+                top={textCanvasCoords.y}
+              />
+            {/if}
+          </div>
+        {/each}
+      {/if}
       <div style={`height: ${0 * $windowHeight}px; display: flex;
       display: -webkit-flex; justify-content: center;`}/>
     </div>

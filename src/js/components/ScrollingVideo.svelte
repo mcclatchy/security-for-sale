@@ -16,6 +16,7 @@
   export let position = "absolute";
   export let loaderEnabled = true
   export let zIndexVideo = 0;
+  export let videoFinished = false;
 
   let video;
   let isActive = false;
@@ -100,6 +101,9 @@
     time = duration * offsetScrollY / height;
     if (time <= duration) {
       video.currentTime = time;
+      videoFinished = false;
+    } else {
+      videoFinished = true;
     }
   }
 
@@ -145,7 +149,7 @@
       <Loader
         desktopSize={100}
         mobileSize={100}
-        color="white"
+        color="#603939"
         displayText={false}
         position="relative"
         width="100%"

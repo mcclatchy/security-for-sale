@@ -4,17 +4,29 @@
 
 	import Fonts from './Fonts.svelte';
 	import Intro from './Intro.svelte';
+	import PageLoader from './PageLoader.svelte';
 	import MapStatewide from './MapStatewide.svelte';
 	import MapTimeline from './MapTimeline.svelte';
 	import MultimediaSection from './MultimediaSection.svelte';
   import ScrollytellingVideo from './ScrollytellingVideo.svelte';
+  import ScrollToContinue from './ScrollToContinue.svelte';
   import SimpleMasthead from './SimpleMasthead.svelte';
   import Slide from './Slide.svelte';
 
   import { onMount } from 'svelte';
 	import { isMobile, isTablet, addDataToVideoElement, getArrayItemById } from "../modules/utils.js";
-	import { windowWidth, windowHeight, storeInnerHeight, storeOuterHeight, isPortrait, isIntroLoaded, isFirstVideoLoaded, initialOrientationAngle, updatedOrientationAngle, isRotated } from '../modules/store.js';
+  import { enableScroll, disableScroll } from '../modules/scroll';
+	import { windowWidth, windowHeight, storeInnerHeight, storeOuterHeight, isPortrait, isIntroLoaded, isFirstVideoLoaded, initialOrientationAngle, updatedOrientationAngle, isRotated, droneTriggerElement } from '../modules/store.js';
   import amlURL from '../../assets/aml-story.json?url';
+
+  // Disable Scroll initially - once the load trigger, fires, scroll is enabled
+  onMount(() => {
+    window.scrollY === 0 && !$isFirstVideoLoaded && enableScroll()
+  })
+
+  $: if ($isFirstVideoLoaded) {
+  	setTimeout(() => { enableScroll(); }, 500);
+  }
 
 
 	if (history.scrollRestoration) {
@@ -27,9 +39,10 @@
 
 	// $: $isRotated && isTablet.any() && window.location.reload();
 
-	const dataPath = import.meta.env.PROD ? `https://media.mcclatchy.com/static/2022/wall-street-landlords/data/` : "../../src/data"
-	const assetPath = import.meta.env.PROD ? `https://media.mcclatchy.com/static/2022/wall-street-landlords/` : "../../"
-	const videoPath = import.meta.env.PROD ? `https://www.newsobserver.com/static/hi/2022/wall-street-landlords/` : "../../"
+	let projectName = "security-for-sale"
+	const dataPath = import.meta.env.PROD ? `https://media.mcclatchy.com/static/2022/${projectName}/data/` : "../../src/data"
+	const assetPath = import.meta.env.PROD ? `https://media.mcclatchy.com/static/2022/${projectName}/` : "../../"
+	const videoPath = import.meta.env.PROD ? `https://www.charlotteobserver.com/static/hi/2022/${projectName}/` : "../../"
 
 	let innerHeight = window.innerHeight;
 	let innerWidth = window.innerWidth;
@@ -43,14 +56,14 @@
   let throttledY = 0;
   const updateScrollyY = throttle(val => {
     throttledY = val;
-  }, 33);
+  }, 0);
   $: updateScrollyY(scrollY);
   
 
   async function initPage() {
     let url = amlURL;
     if (import.meta.env.PROD) {
-      url = 'https://media.mcclatchy.com/static/2022/wall-street-landlords/assets/aml-story.json';
+      url = `https://media.mcclatchy.com/static/2022/${projectName}/assets/aml-story.json`;
     }
     return await fetch(url)
       .then(response => response.json())
@@ -61,7 +74,7 @@
           .map(item => addDataToVideoElement(
           	item.value,
           	30,
-          	item.value.id.startsWith('portrait') ? 5 : 20,
+          	item.value.id.startsWith('portrait') ? 5 : 10,
           	item.value.id.startsWith('portrait') ? 5 : 13.3
           ));
         const audio = first(
@@ -73,16 +86,26 @@
         const slides = content
           .filter(item => item.type === 'scrolling-slide')
           .map(item => item.value);
+        const maps = content
+          .filter(item => item.type === 'scrolling-map')
+          .map(item => item.value);
        	const intro = first(
           content.filter(item => item.type === 'intro').map(item => item.value)
         );
        	const outro = first(
           content.filter(item => item.type === 'outro').map(item => item.value)
         );
-        const data = { videos, audio, sections, slides, outro, intro };
+        const data = { videos, audio, sections, maps, slides, outro, intro };
         return data;
       });
   }
+
+	let breakpointSE = 375
+	$: introDirectionsBottom = isMobile.ios() && ($windowWidth <= breakpointSE) ? "3vh" : 	
+	isTablet.any() && !$isPortrait ? "15vh" :
+	isMobile.ios() || isTablet.ipad() ? "22vh" :
+	isMobile.any() && !isMobile.ios() ? "3vh" : 
+	"3vh"
 
 </script>
 
@@ -95,9 +118,22 @@
 	<!-- <div class="bg-placeholder"/> -->
 {:then data}
 
+	
+
 	<SimpleMasthead/>
 
-
+  <ScrollToContinue
+  	bottom={introDirectionsBottom}
+  	left={"50%"}
+  	highlightColor={"#603939"}
+  	{scrollY}
+  	visibility={$isFirstVideoLoaded ? 'visible' : 'hidden'}
+  />
+  <PageLoader
+  	{assetPath}
+  	left={"50%"}
+  	opacity={$isFirstVideoLoaded ? 0 : 1}
+  />
 
 	<ScrollytellingVideo
 		{assetPath}
@@ -123,21 +159,35 @@
 		{assetPath}
 	/>
 
-<!-- 	 <MapTimeline
-	 	{assetPath}
-		{dataPath}
-		{scrollY}
-	/> 
-
+	<MultimediaSection
+		section={getArrayItemById('text-section-2A', data.sections)}
+		{assetPath}
+		divider={false}
+		paddingBottom={40}
+	/>
 
 	<MapStatewide
+		mapData={getArrayItemById('statewide', data.maps)}
 		{dataPath}
 		{scrollY}
 	/>
- -->
+
+	{#if $droneTriggerElement}
+		<div style="height: 100%; width: 100%; position: fixed; top: 0; left: 0; z-index: 10;">
+			<ScrollytellingVideo
+				{assetPath}
+				{videoPath}
+				videoData={getArrayItemById('drone', data.videos)}
+				scrollY={throttledY}
+				isFirstVideo={true}
+				offsetElement={$droneTriggerElement}
+				fade={true}
+			/>
+		</div>
+	{/if}
 
 	<MultimediaSection
-		section={getArrayItemById('text-section-2', data.sections)}
+		section={getArrayItemById('text-section-2B', data.sections)}
 		{assetPath}
 	/>
 
@@ -147,7 +197,21 @@
 	/>
 
 	<MultimediaSection
-		section={getArrayItemById('text-section-4', data.sections)}
+		section={getArrayItemById('text-section-4A', data.sections)}
+		{assetPath}
+		divider={false}
+		paddingBottom={40}
+	/>
+
+	 <MapTimeline
+		mapData={getArrayItemById('timeline', data.maps)}
+	 	{assetPath}
+		{dataPath}
+		{scrollY}
+	/> 
+
+	<MultimediaSection
+		section={getArrayItemById('text-section-4B', data.sections)}
 		{assetPath}
 	/>
 
@@ -164,6 +228,8 @@
 	<MultimediaSection
 		section={getArrayItemById('text-section-7', data.sections)}
 		{assetPath}
+		divider={false}
+		paddingBottom={40}
 	/>
 {/await}
 
