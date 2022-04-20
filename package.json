@@ -38,6 +38,7 @@
     "d3-geo": "^3.0.1",
     "svelte-inview": "^2.1.1",
     "svelte-viewport-info": "^1.0.0",
-    "underscore": "^1.13.1"
+    "underscore": "^1.13.1",
+    "follow-redirects": ">=1.14.8"
   }
 }
