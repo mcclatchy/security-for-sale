@@ -2,6 +2,10 @@
   display: none;
 }
 
+#mastheadVueContainer {
+  display: none;
+}
+
 ::-moz-selection { /* Code for Firefox */
   color: #401116;
   background: #FFD8DD;
