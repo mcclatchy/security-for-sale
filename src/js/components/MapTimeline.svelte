@@ -166,6 +166,7 @@
   let imageLoaded = false;
   $: if(map) {
     let img = new Image(20,20)
+    img.crossOrigin = "Anonymous";
     img.onload = ()=>map.addImage('hexagon', img)
     img.src = `${assetPath}/hexagon.svg`
     imageLoaded = true;
