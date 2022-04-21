@@ -90,6 +90,7 @@
   position: fixed;
   z-index: 1000000;
   background: #ffffffDD; 
+  pointer-events: none;
 }
 .loader-text {
 	padding-bottom: 20px;
@@ -100,6 +101,7 @@
   position: absolute;
   left: 50%;
   transform: translate(-50%, 0);
+  pointer-events: all;
 }
 
 .gear-1 {

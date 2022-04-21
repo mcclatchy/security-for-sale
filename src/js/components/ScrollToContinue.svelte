@@ -49,6 +49,7 @@
     z-index: 100000;
 	  transition: visibility 1s;
 	  -webkit-transition: visibility 1s;
+	  pointer-events: none;
 	}
 
 	.scroll-instruction {
@@ -60,6 +61,7 @@
 	  font-family: "News Cycle";
     font-size: 14px;
     text-transform: uppercase;
+    pointer-events: all;
 	}
 
 

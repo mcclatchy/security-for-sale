@@ -106,7 +106,7 @@
 	isMobile.ios() || isTablet.ipad() ? "22vh" :
 	isMobile.any() && !isMobile.ios() ? "3vh" : 
 	"3vh"
-
+	let visibility;
 </script>
 
 
@@ -173,7 +173,7 @@
 	/>
 
 	{#if $droneTriggerElement}
-		<div style="height: 100%; width: 100%; position: fixed; top: 0; left: 0; z-index: 10;">
+		<div class="transition-container" style={`height: 100%; width: 100%; position: fixed; top: 0; left: 0; z-index: 10; pointer-events: none; visibility: ${visibility}`}>
 			<ScrollytellingVideo
 				{assetPath}
 				{videoPath}
@@ -182,6 +182,8 @@
 				isFirstVideo={true}
 				offsetElement={$droneTriggerElement}
 				fade={true}
+				pointerEvents="none"
+				bind:visibility
 			/>
 		</div>
 	{/if}
@@ -238,5 +240,9 @@
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+	}
+	.transition-container {
+    transition: visibility .8s;
+  	-webkit-transition: visibility .8s;
 	}
 </style>

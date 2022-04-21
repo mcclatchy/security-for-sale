@@ -22,10 +22,13 @@
 	export let lazyLoadOffset = 6000;
 	export let offsetElement = null;
 	export let fade = false;
+	export let pointerEvents = "all";
+	export let visibility;
 
   let videoFinished = false;
 	let opacity = 1;
 	$: opacity = fade && videoOffset && (videoFinished || scrollY < videoOffset) ? 0 : 1
+	$: visibility = fade && videoOffset && (videoFinished || scrollY < videoOffset) ? 'hidden' : 'visible'
 
 
 	let videoElement;
@@ -106,8 +109,8 @@
 </script>
 
 <div bind:this={videoElement} use:inview="{options}" on:change="{handleChange}"></div>
-<Scroller bottom={1} top={0} bind:progress>
-	<div slot="background" style={`height: ${$windowHeight}px; width: 100%; opacity: ${fade ? opacity : 1};`}>
+<Scroller bottom={1} top={0} bind:progress >
+	<div slot="background" style={`height: ${$windowHeight}px; width: 100%; opacity: ${fade ? opacity : 1}; pointer-events: ${pointerEvents};`}>
 
 		{#if (shouldLoad || isInView || !lazyLoad)}
 	    <ScrollingVideo
@@ -140,7 +143,6 @@
 	[slot="background"] {
 		background-color: white;
 		overflow:  hidden;
-		pointer-events: all;
     transition: opacity .8s;
   	-webkit-transition: opacity .8s;
 	}

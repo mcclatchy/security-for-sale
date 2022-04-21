@@ -2,6 +2,31 @@
   display: none;
 }
 
+.story-body > h3, .story-body > p {
+  display: none;
+}
+
+.story header {
+  display: none;
+}
+
+.story-body > .embed-infographic {
+  min-height: 100vh;
+  margin: 0 !important;
+}
+
+.story-body>.figure, .story-body>.inline-video, .story-body>figure {
+  margin: 0 !important;
+}
+
+.story-body>* {
+  margin: 0 !important;
+}
+
+.story-module {
+  display: none;
+}
+
 #mastheadVueContainer {
   display: none;
 }
