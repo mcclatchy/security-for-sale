@@ -66,7 +66,7 @@
   $: config = $isPortrait ? videoData.portrait : videoData.landscape
   $: duration = config.duration;
   $: height = config.height;
-  $: filepath = `${assetPath}/${config.filename}`;
+  $: filepath = `${videoPath}/${config.filename}`;
   $: posterFilepath = `${assetPath}/${config.posterFilename}`;
 
   $: if (isActive && video && buffered && time <= duration) {

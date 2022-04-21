@@ -56,7 +56,7 @@
   let throttledY = 0;
   const updateScrollyY = throttle(val => {
     throttledY = val;
-  }, 33);
+  }, 0);
   $: updateScrollyY(scrollY);
   
 
