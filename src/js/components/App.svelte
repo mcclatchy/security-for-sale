@@ -123,7 +123,7 @@
 	<!-- <div class="bg-placeholder"/> -->
 {:then data}
 
-	<SimpleMasthead/>
+	<!-- <SimpleMasthead/> -->
 
   <ScrollToContinue
   	bottom={introDirectionsBottom}

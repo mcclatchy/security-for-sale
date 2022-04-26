@@ -5,7 +5,7 @@
 </script>
 
 <div class="pull-quote">
-    <div style="display: inline-block; text-align: left;">
+    <div style="display: inline-block;">
         <span class="quote-text">{@html amlToHTML(text)}</span>
     </div>
     <div class="section-divider">
@@ -45,7 +45,7 @@
 	}
 	.quote-text:before {
 	  content: open-quote;
-	  padding-right: 30px;
+	  /*padding-right: 30px;*/
 	  line-height: 30px;
 	}
 
@@ -64,6 +64,7 @@
 		flex-direction: row;
 		justify-content: center;
 		padding-bottom: 20px;
+			padding-top: 20px;
 	}
 
 	.section-divider img {
@@ -87,16 +88,19 @@
 			font-size: 60px;
 		}
 		.quote-text:before {
-			 padding-right: 20px;
+			 /*padding-right: 20px;*/
 			 line-height: 20px;
 		}
 		.quote-text:after {
 			line-height: 0;
 			position: relative;
-	    vertical-align: -50px;
+	    	vertical-align: -50px;
 		}
 		.section-divider {
 			padding-bottom: 40px;
+		}
+		:global(.quote-highlight) {
+		    font-size: 30px;
 		}
 	}
 

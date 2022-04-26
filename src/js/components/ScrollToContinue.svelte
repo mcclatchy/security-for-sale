@@ -28,7 +28,7 @@
 		background: ${backgroundColor};
 		padding: 5px 30px 10px 30px;
 		height: 90px;
-    width: 220px;
+    width: 250px;
     visibility: ${visibility};
 	`}>
 		<div class="scroll-instruction" style={`color: ${highlightColor};`}>
@@ -59,7 +59,7 @@
 	  text-align: center;
 	  font-weight: 700;
 	  font-family: "News Cycle";
-    font-size: 14px;
+    font-size: 18px;
     text-transform: uppercase;
     pointer-events: all;
 	}
