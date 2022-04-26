@@ -11,7 +11,7 @@
 
 
 {#each items as item}
-	<div class="slide" style={'height: ${0.4 * $windowHeight}px'}>
+	<div class="slide" style={`height: ${0.6 * $windowHeight}px`}>
 
 		<p style={`font-size: ${$isPortrait ? "18px" : "41px" }`}>{@html amlToHTML(item.text)}</p>
 	</div>
@@ -40,10 +40,22 @@
 
 
 	:global(.marker-highlight) {
+  	background-color: #D93A4C;
+    padding: 3px 6px;
+    color: white;
+    margin: 0 4px;
+    font-weight: bold;
+	}
+
+/*	:global(.marker-highlight) {
 		text-decoration:  underline;
 		text-decoration-color: #D93A4C;
 		text-underline-offset: 5px;
-	 	/*background-image: linear-gradient(-100deg, #D93A4C, #D93A4C 95%, #D93A4C);*/
+	}*/
+	@media only screen and (max-width: 700px) {
+		:global(.marker-highlight) {
+			padding: 3px 5px;
+			margin: 0 2px;
+		}
 	}
-
 </style>
