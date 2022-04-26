@@ -1,4 +1,5 @@
 <script>
+  import PullQuote from './PullQuote.svelte';
   import { amlToHTML } from '../modules/utils.js'
 
 	export let section;	
@@ -28,7 +29,13 @@
 			</div>
 		{/if}
 		{#each items as item}
-			{#if item?.class === "brightcove-video"}
+			{#if item?.class === "pull-quote"}
+				<PullQuote
+					{assetPath}
+					text={item.text}
+					}
+				/>
+			{:else if item?.class === "brightcove-video"}
 				<div class="brightcove-outer-container">
 					<figure class="brightcove-container">
 						<iframe title={item.title} src={item.url} allowfullscreen="true" class="brightcove-video" allow="encrypted-media" width="100%" height="100%"></iframe>
@@ -55,14 +62,6 @@
 </div>
 
 <style>
-	.contain {
-		margin: auto;
-		object-fit: contain;
-		width:100%;
-		max-height: 500px;
-		height:100%;
-	}
-
 	:global(.mobile) {
 		display: none;
 	}

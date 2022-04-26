@@ -156,6 +156,14 @@ video::-webkit-media-controls-start-playback-button {
   }
 }
 
+.contain {
+  margin: auto;
+  object-fit: contain;
+  width:100%;
+  max-height: 500px;
+  height:100%;
+}
+
 
 .shadowed {
   filter: drop-shadow( 5px 0px 40px rgba(255, 255, 255, .3))

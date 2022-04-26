@@ -63,7 +63,7 @@
 		font-family: "Libre Franklin";
 		font-size: 22px;
 		font-weight: 400;
-		color:  #FA6B7B;
+		color:  #f76c7f;
 		padding: 0 20px;
 		padding-bottom: 15px;
 		margin: 0;
@@ -100,7 +100,7 @@
 
 	.preview-outlink {
 		margin: auto;
-		background: #FA6B7B;
+		background: #f76c7f;
 		height: 40px;
 		color: white;
 		width: 180px;
@@ -115,7 +115,7 @@
 		border:  1px solid white;
 		border-radius: 50px;
 		text-transform: uppercase;
-		box-shadow:0 0 0 0px white, 0 0 0 3px #FA6B7B;
+		box-shadow:0 0 0 0px white, 0 0 0 3px #f76c7f;
 		transition: transform .2s;
 	}
 
@@ -129,12 +129,12 @@
 	}
 
 	a:hover p {
-		color: #EF4659;
+		color: #E35D6F;
 	}
 
 	a:hover .preview-outlink {
-	  background-color: #EF4659;
-	  box-shadow:0 0 0 0px white, 0 0 0 3px #EF4659;
+	  background-color: #E35D6F;
+	  box-shadow:0 0 0 0px white, 0 0 0 3px #E35D6F;
 	  color: white;
 	  cursor: pointer;
 	}

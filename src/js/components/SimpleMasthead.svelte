@@ -30,7 +30,7 @@ const logoAltText = window.pageInfo["marketInfo.logoAltText"];
   & img {
     opacity: 1;
     height: inherit;
-    filter: invert(29%) sepia(100%) saturate(845%) hue-rotate(318deg) brightness(121%) contrast(94%);
+    filter: invert(44%) sepia(74%) saturate(607%) hue-rotate(305deg) brightness(97%) contrast(83%);
   }
 }
 </style>

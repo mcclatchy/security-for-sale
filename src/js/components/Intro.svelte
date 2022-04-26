@@ -43,7 +43,7 @@
 
 <style>
 	.part {
-		color: #f94d60;
+		color: #f76c7f;
 		font-family: "Libre Franklin";
 		text-transform: uppercase;
 		font-size: 20px;
