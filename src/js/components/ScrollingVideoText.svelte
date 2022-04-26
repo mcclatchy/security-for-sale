@@ -123,7 +123,7 @@
   }
 
   .scroll-text p {
-    font-weight: 200;
+    font-weight: 400;
     margin: 0 !important;
     font-family:  'Libre Franklin';
     transition: opacity .25s ease-in-out;

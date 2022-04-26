@@ -79,7 +79,7 @@
       'icon-allow-overlap': true,
       'icon-anchor': "center",
       'icon-image': 'hexagon',
-      'icon-size': 0.4
+      'icon-size': 0.3
     }
 	}
 

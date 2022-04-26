@@ -78,6 +78,7 @@
 			opacity: ${opacity};
 			max-width: ${$isPortrait ? "100%" : "50%"};
 			transform:  ${$isPortrait ? "translate(-50%, 0%)" : "translate(0,0)"};
+			height: fit-content;
 		`}>
 			<p style={`
 				border: none;
@@ -114,7 +115,7 @@
 	section p {
     font-family: 'Libre Franklin';
     line-height: 1.5;
-    font-weight: 200;
+    font-weight: 400;
     font-size: 16px;
 		border:  1px solid #999;
     border-radius: 20px;

@@ -11,6 +11,8 @@ const logoAltText = window.pageInfo["marketInfo.logoAltText"];
     </a>
 </div>
 
+<!-- filter: brightness(0%) invert(25%) sepia(7%) saturate(3345%) hue-rotate(314deg) brightness(85%) contrast(85%); -->
+
 <style lang="postcss">
 .simple-flag {
   right: 0;
@@ -28,7 +30,7 @@ const logoAltText = window.pageInfo["marketInfo.logoAltText"];
   & img {
     opacity: 1;
     height: inherit;
-    filter: brightness(0%) invert(25%) sepia(7%) saturate(3345%) hue-rotate(314deg) brightness(85%) contrast(85%);
+    filter: invert(29%) sepia(100%) saturate(845%) hue-rotate(318deg) brightness(121%) contrast(94%);
   }
 }
 </style>

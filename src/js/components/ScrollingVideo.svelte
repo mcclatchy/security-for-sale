@@ -160,11 +160,11 @@
 </div>
 
 <!-- WARNING: this is only for debugging - don't deploy this actively -->
-<p class="debug" style={`opacity: ${isActive ? 1 : 0}`}>
+<!-- <p class="debug" style={`opacity: ${isActive ? 1 : 0}`}>
   {videoData?.id}
   <br />
   {Math.round(time * 100) / 100 < duration ? Math.round(time * 100) / 100 : duration}
-</p>
+</p> -->
 
 <style>
   .outer-loader-container {

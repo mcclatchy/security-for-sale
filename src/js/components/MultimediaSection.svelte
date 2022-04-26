@@ -132,7 +132,7 @@
 		margin: auto;
 		max-width: 600px;
 		padding-top: 40px;
-		font-weight: 200;
+		font-weight: 400;
 		font-size: 17px;
 		line-height: 24px;
 		font-family: 'Libre Franklin';

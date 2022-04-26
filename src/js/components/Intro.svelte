@@ -23,6 +23,10 @@
 </script>
 
 <div class="intro-container" style={`opacity: ${opacity}`} use:inview={options} on:enter={handleChange}>
+	<div class='text-container'>
+		<p class="part">Part &nbsp;01</p>
+	</div>
+
 	<div class="title-logo">
 		<img class="contain" src={`${assetPath}/intro_logo.png`}>
 	</div>
@@ -38,6 +42,13 @@
 </div>
 
 <style>
+	.part {
+		color: #f94d60;
+		font-family: "Libre Franklin";
+		text-transform: uppercase;
+		font-size: 20px;
+		font-weight: 600;
+	}
 	.intro-container {
 		transition: opacity 0.4s;
   	-webkit-transition: opacity 0.4s;

@@ -15,6 +15,7 @@
   import { windowWidth, windowHeight, isPortrait } from '../modules/store.js';
   import { getJsonData, formatTopojsonLayer, getAndFormatTopojsonData, makeColors } from "../modules/utils.js";
 
+  export let assetPath;
   export let dataPath;
   export let scrollY;
   export let mapData;
@@ -50,10 +51,18 @@
     "" : "rgba(242,242,242,1)"
   }
 
+  // 485 -80.9836,35.1910 right
+  // 485 -80.6208,35.1755 left
+  // airport -80.9447,35.2097 center
+
   let labels;
   let stateNames;
   let cityNames;
+  let mediumCityNames;
+  let smallCityNames;
+  let zoomCityNames;
   let areaNames;
+  let icons;
   let homes;
   let hexagons;
   let zoomedHexagons;
@@ -76,7 +85,11 @@
     labels = await getJsonData(`${dataPath}/labelsStatewide.json`, "state");
     stateNames = await formatTopojsonLayer(labels, "state");
     cityNames = await formatTopojsonLayer(labels, "city");
+    mediumCityNames = await formatTopojsonLayer(labels, "city-medium");
+    smallCityNames = await formatTopojsonLayer(labels, "city-small");
+    zoomCityNames = await formatTopojsonLayer(labels, "city-zoom");
     areaNames = await formatTopojsonLayer(labels, "area");
+    icons = await formatTopojsonLayer(labels, "icons");
 
     surroundingStates = await getAndFormatTopojsonData(`${dataPath}/surroundingStates.json`, "surroundingStates");
     northCarolina = await getAndFormatTopojsonData(`${dataPath}/northCarolina.json`, "northCarolina");
@@ -114,15 +127,15 @@
     hoverableIds = []
   } else if (progress >= 0.16 && progress < 0.18) {
     pointerEvents = "none"
-    highlighted = ['Charlotte', 'Mecklenburg County', 'Raleigh', 'Durham', 'Chapel Hill']
+    highlighted = ['Charlotte', 'Huntersville', 'Pineville', 'Mecklenburg County', 'Raleigh', 'Durham', 'Chapel Hill']
     hoverableIds = []
   } else if (progress >= 0.18 && progress < 0.6) {
     pointerEvents = "none"
-    highlighted = ['Charlotte', 'Mecklenburg County', 'Raleigh', 'Durham', 'Chapel Hill']
+    highlighted = ['Charlotte', 'Huntersville', 'Pineville', 'Mecklenburg County', 'Raleigh', 'Durham', 'Chapel Hill']
     hoverableIds = []
   } else if (progress >= 0.6 && progress < 0.8) {
     pointerEvents = "none"
-    highlighted = ['Charlotte', 'Mecklenburg County', 'The Triangle', 'Raleigh', 'Durham', 'Chapel Hill']
+    highlighted = ['Charlotte', 'Huntersville', 'Pineville', 'Mecklenburg County', 'The Triangle', 'Raleigh', 'Durham', 'Chapel Hill']
     hoverableIds = []
   } else if (progress >= 0.8) {
     pointerEvents = "none"
@@ -180,18 +193,17 @@
   let layerOrder = [
     'state-names',
     'city-names',
+    'medium-city-names',
+    'small-city-names',
+    'zoom-city-names',
     'area-names',
+    'icons',
 
     'mecklenburg-outline',
     'the-triangle-outline',
     'north-carolina-outline',
     'surrounding-state-line',
     'surrounding-state-fill',
-
-    'mecklenburg-highway',
-    'mecklenburg-highway-border',
-    'triangle-highway',
-    'triangle-highway-border',
 
     "investor-sfr-hexagon-line",
     "mecklenburg-hexagon-line",
@@ -203,6 +215,13 @@
     "mecklenburg-hexagon-fill",
     "the-triangle-hexagon-fill",
     "home-fill",
+
+    'mecklenburg-highway',
+    'mecklenburg-highway-border',
+    'triangle-highway',
+    'triangle-highway-border',
+
+
 
     "zoomed-hexagon-line",
     "zoomed-hexagon-fill",
@@ -227,12 +246,33 @@
   
     'north-carolina-fill'
   ]
+
+  function setupIcon(filepath, imageName, width=200, height=200, sdf=false) {
+    let img = new Image(width, height)
+    img.crossOrigin = "Anonymous";
+    img.onload = ()=>map.addImage(imageName, img, {sdf})
+    img.src = filepath
+  }
+
+  $: if (map) {
+    setupIcon(`${assetPath}/airport.svg`, 'airport')
+    setupIcon(`${assetPath}/interstate.svg`, 'interstate')
+    setupIcon(`${assetPath}/intrastate.svg`, 'intrastate', 200, 171)
+  }
+
 </script>
 
 <MapStatewideStyles
   bind:paintStyles
   bind:layoutStyles
 />
+
+<!-- WARNING: this is only for debugging - don't deploy this actively -->
+<!-- <p class="debug" style={`opacity: 1;`}>
+  <br />
+  {Math.round(progress * 1000) / 1000 < Math.round(progress * 1000) / 1000 ? Math.round(progress * 1000) / 1000 : Math.round(progress * 1000) / 1000}
+</p> -->
+
 
 <div id="statewide-scroller">
   <Scroller bind:progress>
@@ -269,6 +309,39 @@
               maxzoom={24}>
               <MapLayerType {layerOrder} layerType="symbol" {highlighted} {mapId} {paintStyles} {layoutStyles} id="city-names"/>
             </MapSource>
+            
+            <!-- MEDIUM CITY NAMES -->
+            <MapSource
+              {mapId}
+              id="medium-cities"
+              type="geojson"
+              data={mediumCityNames}
+              promoteId={"description"}
+              maxzoom={24}>
+              <MapLayerType {layerOrder} layerType="symbol" {mapId} {paintStyles} {layoutStyles} id="medium-city-names"/>
+            </MapSource>  
+
+            <!-- SMALL CITY NAMES -->
+            <MapSource
+              {mapId}
+              id="small-cities"
+              type="geojson"
+              data={smallCityNames}
+              promoteId={"description"}
+              maxzoom={24}>
+              <MapLayerType {layerOrder} layerType="symbol" {mapId} {paintStyles} {layoutStyles} id="small-city-names"/>
+            </MapSource>  
+
+            <!-- ZOOM CITY NAMES -->
+            <MapSource
+              {mapId}
+              id="zoom-cities"
+              type="geojson"
+              data={zoomCityNames}
+              promoteId={"description"}
+              maxzoom={24}>
+              <MapLayerType {layerOrder} layerType="symbol" {mapId} {paintStyles} {layoutStyles} id="zoom-city-names"/>
+            </MapSource>
 
             <!-- AREA NAMES -->
             <MapSource
@@ -279,6 +352,17 @@
               promoteId={"description"}
               maxzoom={24}>
               <MapLayerType {layerOrder} layerType="symbol" {highlighted} {mapId} {paintStyles} {layoutStyles} id="area-names"/>
+            </MapSource>
+
+            <!-- LANDMARK ICONS -->
+            <MapSource
+              {mapId}
+              id="landmarks"
+              type="geojson"
+              data={icons}
+              promoteId={"description"}
+              maxzoom={24}>
+              <MapLayerType {layerOrder} layerType="symbol" {highlighted} {mapId} {paintStyles} {layoutStyles} id="icons"/>
             </MapSource>
 
             <!-- STATE OUTLINES -->
@@ -515,3 +599,21 @@
   </Scroller>
   <div id="after-map"/>
 </div>  
+
+
+<style>
+
+  .debug {
+    margin: 0 !important;
+
+    text-align: right;
+    position: fixed;
+    top: 0;
+    right: 0;
+    font-size: 30px;
+    padding-right: 20px;
+    color: black;
+    background-color: white;
+    z-index: 1000000;
+  }
+</style>

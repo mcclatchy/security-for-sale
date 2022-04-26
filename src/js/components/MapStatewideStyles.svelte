@@ -31,15 +31,41 @@
       "text-halo-width": 0.8
 		},
 		'city-names': {
-      'text-color':['case',['==', ['feature-state', 'highlighted'], true], "#333","rgba(0,0,0,0)"],
-      'text-halo-color':['case', ['==', ['feature-state', 'highlighted'], true], "rgba(255,255,255,0.8)", "rgba(0,0,0,0)"],
-      "text-halo-width": 2
+      'text-color': "#333",
+      'text-halo-color': "rgba(255,255,255,0.8)",
+      "text-halo-width": 2,
+      'text-opacity': ["interpolate",["linear"],["zoom"],8,1,9,1,12,1,14,0]
 		},
+    'medium-city-names': {
+      'text-color': "#333",
+      'text-halo-color': "rgba(255,255,255,0.8)",
+      "text-halo-width": 2,
+      'text-opacity': ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0]
+    },
+    'small-city-names': {
+      'text-color': "#333",
+      'text-halo-color': "rgba(255,255,255,0.8)",
+      "text-halo-width": 2,
+      'text-opacity': ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0]
+    },
+    'zoom-city-names': {
+      'text-color': "#333",
+      'text-halo-color': "rgba(255,255,255,0.8)",
+      "text-halo-width": 2,
+      'text-opacity': ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0]
+    },
 		"area-names": {
-      'text-color':['case',['==', ['feature-state', 'highlighted'], true], "rgba(90,90,90,1)","rgba(0,0,0,0)"],
-      'text-halo-color':['case',['==', ['feature-state', 'highlighted'], true], "rgba(255,255,255,0.8)","rgba(0,0,0,0)"],
-      "text-halo-width": 2
+      'text-color': "rgba(90,90,90,1)",
+      'text-halo-color': "rgba(255,255,255,0.8)",
+      "text-halo-width": 2,
+      'text-opacity': ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0]
 		},
+    "icons": {
+      'text-color': '#b1b1b1',
+      'text-opacity': ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0],
+      'icon-opacity': ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0],
+      'icon-color': ['match', ['get', 'type'], 'airport', '#b1b1b1','#b1b1b1']
+    },
 		'north-carolina-outline': {
       'line-color': stateOutlineColor,
       'line-width': 1,
@@ -220,10 +246,46 @@
       "text-allow-overlap": true
     },
     "city-names": {
+      "text-font": ["step", ["zoom"], ["literal", ["Lato Regular"]], 8, ["literal", ["Lato Regular"]], 9, ["literal", ["Lato Bold"]] ],
+      "text-size": {
+        "base": 1.2,
+        "stops": [[7, 17], [9, 22], [11, 22]]
+      },
+      'text-field': ['get', 'description'],
+      "text-anchor": ['get', 'anchor'],
+      "text-offset": [0, 0],
+      "text-max-width": 8,
+      "text-allow-overlap": true
+    },
+    "small-city-names": {
       "text-font": ["Lato Regular"],
       "text-size": {
         "base": 1.2,
-        "stops": [[7, 15], [9, 20], [11, 20]]
+        "stops": [[7, 10], [9, 14], [11, 14]]
+      },
+      'text-field': ['get', 'description'],
+      "text-anchor": ['get', 'anchor'],
+      "text-offset": [0, 0],
+      "text-max-width": 8,
+      "text-allow-overlap": true
+    },
+    "medium-city-names": {
+      "text-font": ["Lato Bold"],
+      "text-size": {
+        "base": 1.2,
+        "stops": [[7, 14], [9, 19], [11, 19]]
+      },
+      'text-field': ['get', 'description'],
+      "text-anchor": ['get', 'anchor'],
+      "text-offset": [0, 0],
+      "text-max-width": 8,
+      "text-allow-overlap": true
+    },
+    "zoom-city-names": {
+      "text-font": ["Lato Regular"],
+      "text-size": {
+        "base": 1.2,
+        "stops": [[7, 10], [9, 14], [11, 17]]
       },
       'text-field': ['get', 'description'],
       "text-anchor": ['get', 'anchor'],
@@ -255,7 +317,23 @@
 		},
 		'nc-highway-border': {
 			'line-cap': 'round'
-		}
+		},
+    'icons': {
+      "text-font": ["Lato Regular"],
+      "text-size": ["interpolate", ["linear"], ["zoom"],3,5,5,6,6,10],
+      'text-field': ['format', ['upcase', ['get', 'description']]],
+      'text-offset': ['match', ['get', 'type'], 'interstate', ["literal", [0, 0.125]], 'intrastate', ["literal", [0, 0]], ["literal", [0, 0.25]]],
+      "visibility": "visible",
+      "text-padding": 2,
+      "text-transform": "uppercase",
+      "text-letter-spacing": 0.05,
+      "text-allow-overlap": true,
+      'icon-allow-overlap': true,
+      'text-anchor': ['get', 'anchor'],
+      'icon-anchor': ['get', 'anchor'],
+      'icon-image': ['get', 'type'],
+      'icon-size': 0.13
+    }
 	}
 
 

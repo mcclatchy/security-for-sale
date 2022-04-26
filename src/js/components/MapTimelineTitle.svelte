@@ -9,11 +9,11 @@
 
 <div class={`title-container${classSuffix}`}>
     <div  class={`title${classSuffix}`}>
-        North Carolina Investor Owned <br class="mobile">Single Family Residences
+        North Carolina Institutionally <br class="mobile">Owned Single-Family Homes
     </div> 
     <div  class={`subtitle${classSuffix}`}>
-        Each individual hexagon is a single-family<br>
-        residence owned by an investor.
+        Each individual point is a single-family<br>
+        home owned by an investor.
     </div>
 </div>
 

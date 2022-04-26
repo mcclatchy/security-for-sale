@@ -27,8 +27,8 @@
 
   let videoFinished = false;
 	let opacity = 1;
-	$: opacity = fade && videoOffset && (videoFinished || scrollY < videoOffset) ? 0 : 1
-	$: visibility = fade && videoOffset && (videoFinished || scrollY < videoOffset) ? 'hidden' : 'visible'
+	$: opacity = fade && videoOffset && (videoFinished || scrollY < videoOffset || scrollY > (videoOffset + height + $windowHeight)) ? 0 : 1
+	$: visibility = fade && videoOffset && (videoFinished || scrollY < videoOffset || scrollY > (videoOffset + height + $windowHeight)) ? 'hidden' : 'visible'
 
 
 	let videoElement;

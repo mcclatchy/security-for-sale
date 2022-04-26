@@ -18,41 +18,61 @@
 
   $: bottomBuffer = `calc(60% - ${isMobile.any() ? mobileSize * .75 : desktopSize * .75}px)`;
 
+  let hide = false;
+  
+
+  function delay(time) {
+    return new Promise(resolve => setTimeout(resolve, time));
+  }
+
+  async function pauseThenHide() {
+    await delay(2000);
+    hide = true;
+  }
+
+
+  $: if (opacity === 0) {
+    pauseThenHide();
+  } else {
+    hide = false;
+  }
+
 </script>
 
-<div class="loader-container" style={`opacity: ${opacity};`}>
-  <img
-    class="gear-2"
-    alt=""
-    src={`${assetPath}/loader_gear_2.png`}
-    width={`${isMobile.any() ? mobileSize / 2 : desktopSize / 2}px;`}
-    height={`${isMobile.any() ? mobileSize / 2 : desktopSize / 2}px;`}
-    style={`
-      left: calc(50% - ${mobileSize * .3125}px - ${mobileSize * .3125 * 1.35}px);
-      bottom: ${bottomBuffer};
-    `}
-  >
-  <img
-    class="gear-1"
-    alt=""
-    src={`${assetPath}/loader_gear_1.png`}
-    width={`${isMobile.any() ? mobileSize : desktopSize}px;`}
-    height={`${isMobile.any() ? mobileSize : desktopSize}px;`}
-    style={`
-      left: calc(50% - ${mobileSize * .3125}px);
-      bottom: ${bottomBuffer};
-    `}
-  >
-  {#if displayText}
-    <div class="loader-text" style={`
-      color: ${color};
-      bottom: calc(${bottomBuffer} - ${isMobile.any() ? mobileSize / 2 : desktopSize / 2}px);
-    `}>
-      <span class="loading">Loading</span>
-    </div>
-  {/if}
-</div>
-
+{#if !hide}
+  <div class="loader-container" style={`opacity: ${opacity};`}>
+    <img
+      class="gear-2"
+      alt=""
+      src={`${assetPath}/loader_gear_2.png`}
+      width={`${isMobile.any() ? mobileSize / 2 : desktopSize / 2}px;`}
+      height={`${isMobile.any() ? mobileSize / 2 : desktopSize / 2}px;`}
+      style={`
+        left: calc(50% - ${mobileSize * .3125}px - ${mobileSize * .3125 * 1.35}px);
+        bottom: ${bottomBuffer};
+      `}
+    >
+    <img
+      class="gear-1"
+      alt=""
+      src={`${assetPath}/loader_gear_1.png`}
+      width={`${isMobile.any() ? mobileSize : desktopSize}px;`}
+      height={`${isMobile.any() ? mobileSize : desktopSize}px;`}
+      style={`
+        left: calc(50% - ${mobileSize * .3125}px);
+        bottom: ${bottomBuffer};
+      `}
+    >
+    {#if displayText}
+      <div class="loader-text" style={`
+        color: ${color};
+        bottom: calc(${bottomBuffer} - ${isMobile.any() ? mobileSize / 2 : desktopSize / 2}px);
+      `}>
+        <span class="loading">Loading</span>
+      </div>
+    {/if}
+  </div>
+{/if}
 
 
 <style>

@@ -8,6 +8,8 @@
 	import MapStatewide from './MapStatewide.svelte';
 	import MapTimeline from './MapTimeline.svelte';
 	import MultimediaSection from './MultimediaSection.svelte';
+	import NextStories from './NextStories.svelte';
+	import Outro from './Outro.svelte';
   import ScrollytellingVideo from './ScrollytellingVideo.svelte';
   import ScrollToContinue from './ScrollToContinue.svelte';
   import SimpleMasthead from './SimpleMasthead.svelte';
@@ -21,7 +23,7 @@
 
   // Disable Scroll initially - once the load trigger, fires, scroll is enabled
   onMount(() => {
-    window.scrollY === 0 && !$isFirstVideoLoaded && disableScroll()
+    window.scrollY === 0 && !$isFirstVideoLoaded && enableScroll()
   })
 
   $: if ($isFirstVideoLoaded) {
@@ -95,7 +97,10 @@
        	const outro = first(
           content.filter(item => item.type === 'outro').map(item => item.value)
         );
-        const data = { videos, audio, sections, maps, slides, outro, intro };
+        const outlink = first(
+          content.filter(item => item.type === 'out-link').map(item => item.value)
+        );
+        const data = { videos, audio, sections, maps, slides, outro, outlink, intro };
         return data;
       });
   }
@@ -118,14 +123,12 @@
 	<!-- <div class="bg-placeholder"/> -->
 {:then data}
 
-	
-
 	<SimpleMasthead/>
 
   <ScrollToContinue
   	bottom={introDirectionsBottom}
   	left={"50%"}
-  	highlightColor={"#603939"}
+  	highlightColor={"#f94d60"}
   	{scrollY}
   	visibility={$isFirstVideoLoaded ? 'visible' : 'hidden'}
   />
@@ -160,7 +163,7 @@
 	/>
 
 	<MultimediaSection
-		section={getArrayItemById('text-section-2A', data.sections)}
+		section={getArrayItemById('text-section-2', data.sections)}
 		{assetPath}
 		divider={false}
 		paddingBottom={40}
@@ -168,6 +171,7 @@
 
 	<MapStatewide
 		mapData={getArrayItemById('statewide', data.maps)}
+		{assetPath}
 		{dataPath}
 		{scrollY}
 	/>
@@ -187,11 +191,6 @@
 			/>
 		</div>
 	{/if}
-
-	<MultimediaSection
-		section={getArrayItemById('text-section-2B', data.sections)}
-		{assetPath}
-	/>
 
 	<MultimediaSection
 		section={getArrayItemById('text-section-3', data.sections)}
@@ -231,7 +230,17 @@
 		section={getArrayItemById('text-section-7', data.sections)}
 		{assetPath}
 		divider={false}
-		paddingBottom={40}
+		paddingBottom={0}
+	/>
+
+
+	<NextStories
+		items={data.outlink.items}
+		{assetPath}
+	/>
+
+	<Outro
+		sections={data.outro.sections}
 	/>
 {/await}
 

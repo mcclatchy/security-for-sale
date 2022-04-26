@@ -200,7 +200,7 @@
         {#if innerMapHeight && innerMapWidth}
           <div class={`map`} use:inview="{options}" on:change="{handleChange}">
             {#if allDataLoaded && paintStyles && layoutStyles && (isInView || shouldLoad)}
-              <Map id={mapId} style={styleUrl} bind:loaded={mapLoaded} location={{bounds: mapBounds}} bind:map={map} interactive={false} controls={false} attribution={"bottom-left"} customAttribution={customAttribution}>
+              <Map id={mapId} style={styleUrl} bind:loaded={mapLoaded} location={{bounds: mapBounds}} bind:map={map} interactive={false} controls={false} attribution={"bottom-left"} customAttribution={customAttribution} resize={true}>
 
               {#if mapLoaded}
 

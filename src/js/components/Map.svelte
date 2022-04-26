@@ -33,6 +33,7 @@
 	export let attribution = null;
 	export let customAttribution = null;
 	export let loaded = false;
+	export let resize = false;
 
 	let container;
 	let w;
@@ -132,17 +133,20 @@
 		}
 	}
 
-  const resizeObserver = new ResizeObserver(entries => {
-    const elements = entries.map(entry => entry.target);
-    throttle(execResizeCallbackWithSuspend(elements, resizeObserver, () => {
-      resizeCanvas()
-    }), 500);
-  })
+	if (resize) {
+	  const resizeObserver = new ResizeObserver(entries => {
+	    const elements = entries.map(entry => entry.target);
+	    throttle(execResizeCallbackWithSuspend(elements, resizeObserver, () => {
+	      resizeCanvas()
+	    }), 500);
+	  })
 
-  resizeObserver.observe(document.body);
+	  resizeObserver.observe(document.body);		
+	}
+
 
 	// Invoke above function when parent div size changes
-	$: (w || h || $windowWidth || $windowHeight) && resizeCanvas();
+	$: (w || h || $windowWidth || $windowHeight) && resize && resizeCanvas();
 </script>
 
 <div bind:clientWidth={w} bind:clientHeight={h} bind:this={container} {id}>
