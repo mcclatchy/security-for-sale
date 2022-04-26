@@ -15,8 +15,6 @@ const logoAltText = window.pageInfo["marketInfo.logoAltText"];
     </a>
 </div>
 
-<!-- filter: brightness(0%) invert(25%) sepia(7%) saturate(3345%) hue-rotate(314deg) brightness(85%) contrast(85%); -->
-
 <style>
   .vertical-divider {
     margin: 0;
@@ -41,9 +39,12 @@ const logoAltText = window.pageInfo["marketInfo.logoAltText"];
   margin: auto;
   margin-top: 25px;
 }
+#news-logo {
+    height: 28px;
+  }
 .simple-flag  a {
   display: inline-block;
-  height: 24px;
+  height: 30px;
 }
 .simple-flag img {
   opacity: 1;
@@ -60,10 +61,10 @@ const logoAltText = window.pageInfo["marketInfo.logoAltText"];
     padding: 10px 0;
   }
   #news-logo {
-    height: 17px;
+    height: 18px;
   }
   .simple-flag a {
-    height: 18px;
+    height: 19px;
   }
   .vertical-divider { 
     height: 22px;
