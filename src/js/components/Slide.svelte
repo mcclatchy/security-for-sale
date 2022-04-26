@@ -41,9 +41,9 @@
 
 	:global(.marker-highlight) {
 		text-decoration:  underline;
-		text-decoration-color: #f94d60;
+		text-decoration-color: #D93A4C;
 		text-underline-offset: 5px;
-	 	/*background-image: linear-gradient(-100deg, #f94d60, #f94d60 95%, #f94d60);*/
+	 	/*background-image: linear-gradient(-100deg, #D93A4C, #D93A4C 95%, #D93A4C);*/
 	}
 
 </style>

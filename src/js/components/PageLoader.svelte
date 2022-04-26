@@ -115,7 +115,7 @@
 .loader-text {
 	padding-bottom: 20px;
 	font-family: "News Cycle", sans-serif;
-	font-size: 18px;
+	font-size: 16px;
 	font-weight: 700;
 	text-transform: uppercase;
   position: absolute;

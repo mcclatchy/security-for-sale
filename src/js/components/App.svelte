@@ -123,12 +123,12 @@
 	<!-- <div class="bg-placeholder"/> -->
 {:then data}
 
-	<!-- <SimpleMasthead/> -->
+	<SimpleMasthead/>
 
   <ScrollToContinue
   	bottom={introDirectionsBottom}
   	left={"50%"}
-  	highlightColor={"#f94d60"}
+  	highlightColor={"#D93A4C"}
   	{scrollY}
   	visibility={$isFirstVideoLoaded ? 'visible' : 'hidden'}
   />

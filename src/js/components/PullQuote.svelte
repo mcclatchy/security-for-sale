@@ -27,10 +27,10 @@
 		font-weight: normal;
 		line-height: 45px;
 		text-align: center;
-		color: #f76c7f;
+		color: #D93A4C;
 	}
 	:global(.quote-highlight) {
-	  	color: #f76c7f;
+	  	color: #D93A4C;
 	    /*font-weight: bold;*/
 	    font-size: 45px;
 	}

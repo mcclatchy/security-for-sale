@@ -59,7 +59,7 @@
 	  text-align: center;
 	  font-weight: 700;
 	  font-family: "News Cycle";
-    font-size: 18px;
+    font-size: 16px;
     text-transform: uppercase;
     pointer-events: all;
 	}
