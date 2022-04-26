@@ -3,7 +3,7 @@
 
   export let desktopSize = 120
   export let mobileSize = 120;
-  export let color = "#7e4e4d";
+  export let color = "#D93A4C";
   export let backgroundColor = "none"
   export let displayText = true
   export let left = 0;
@@ -130,14 +130,12 @@
   margin: 0 auto;
   position: absolute;
   transform: translate(-50%, -100%);
-  filter: brightness(0%) invert(29%) sepia(75%) saturate(1957%) hue-rotate(330deg) brightness(90%) contrast(88%);
 }
 .gear-2 {
   border-radius: 50%;
   animation: counterclockwise 5s linear infinite;
   margin: 0 auto;
   position: absolute;
-  filter: brightness(0%) invert(29%) sepia(75%) saturate(1957%) hue-rotate(330deg) brightness(90%) contrast(88%);
 }
 
 .loader-shadow {
