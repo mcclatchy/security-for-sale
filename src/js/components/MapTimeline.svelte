@@ -423,7 +423,7 @@
   @media only screen and (max-width:  600px) {
     .static-text {
       width: 100%;
-      padding: 10px 40px;
+      padding: 20px 40px;
       font-size: 16px;
       line-height: 24px;
       font-weight: 400;
