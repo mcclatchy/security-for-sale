@@ -194,7 +194,7 @@
     }
     .legend {
         padding-top: 15px;
-        color: #666;
+        color: black;
     }
     .legend-bg {
         width: 100%;

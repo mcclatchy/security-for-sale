@@ -48,7 +48,7 @@
       width={`${isMobile.any() ? mobileSize / 2 : desktopSize / 2}px;`}
       height={`${isMobile.any() ? mobileSize / 2 : desktopSize / 2}px;`}
       style={`
-        left: calc(50% - ${mobileSize * .3125}px - ${mobileSize * .3125 * 1.35}px);
+        left: calc(50% - ${mobileSize * .3125}px - ${mobileSize * .3125 * 1.39}px);
         bottom: ${bottomBuffer};
       `}
     >

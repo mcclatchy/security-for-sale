@@ -169,7 +169,9 @@ video::-webkit-media-controls-start-playback-button {
   max-height: 500px;
   height:100%;
 }
-
+.mapboxgl-ctrl-bottom-right .mapboxgl-ctrl {
+    margin: 0 10px 50px 0 !important;
+}
 
 .shadowed {
   filter: drop-shadow( 5px 0px 40px rgba(255, 255, 255, .3))

@@ -184,7 +184,7 @@
 
 	@media only screen and (max-width: 600px) {
 		.scroll-instruction { 
-			font-size: 12px;
+			font-size: 14px;
 		}
 		.scroll-arrows {
 		  width: 10px;

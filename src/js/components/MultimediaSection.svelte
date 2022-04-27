@@ -211,7 +211,7 @@
 		}*/
 
 		.section-body p {
-			font-size: 15px;
+			font-size: 16px;
 			line-height: 24px;
 			padding-top: 13px;
 		}

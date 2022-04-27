@@ -14,7 +14,7 @@
   import MapTooltip from './MapTooltip.svelte';
   import ProgressBar from "./ProgressBar.svelte";
   import Scroller from "./Scroller.svelte";
-  import { windowWidth, windowHeight, isPortrait, aspectRatio } from '../modules/store.js';
+  import { windowWidth, windowHeight, isPortrait, aspectRatio, activeTimelineSection } from '../modules/store.js';
   import { getAndFormatTopojsonData, formatTopojsonLayer, getJsonData, getBBoxAspectRatio, getDivAspectRatio, execResizeCallbackWithSuspend } from "../modules/utils.js";
 
   export let dataPath;
@@ -37,12 +37,17 @@
     guilford: [[-80.569,36.311], [-79.5224,35.8930]]
   };
 
+  $: if ($isPortrait) {
+    bounds.north_carolina = [[-81.931,33.613 ], [-77.076,36.547]];
+  } else {
+    bounds.north_carolina = [[ -84.521988, 33.645 ], [-75.1994, 37.2881695]];
+  }
 
   let innerMapHeight = 100;
   let innerMapWidth = 100;
   let padding = 100;
   let bufferWidth = 0;
-  let textCoords = [-84.324,34.777];
+  $: textCoords = $isPortrait ? [-79.677,33.732] : [-84.324,34.777];
   let timelineCoords = [ -75.797,36.559 ];
   let timelineCanvasCoords;
   let textCanvasCoords
@@ -140,7 +145,6 @@
   let progress = 0;
   let pointerEvents = "none";
   let customAttribution = ""
-  let mapBounds = bounds.north_carolina;
 
   let wideBreakpoint = 1.8;
   let portraitBreakpoint = 0.8
@@ -171,6 +175,7 @@
     img.src = `${assetPath}/hexagon.svg`
     imageLoaded = true;
   }
+  let activeSection;
 </script>
 
 <MapTimelineStyles
@@ -189,8 +194,12 @@
         {progress}
         highlightColor="#c16677"
       />
-      {#if timelineCanvasCoords}
-        <div class="timeline" style={`top: ${timelineCanvasCoords.y}px; right: ${$windowWidth - timelineCanvasCoords.x}px;`}>
+      {#if timelineCanvasCoords && progress >= 0 && progress < 2}
+        <div class={`timeline${classSuffix}`} style={`
+          top: ${timelineCanvasCoords.y}px;
+          right: ${$isPortrait ? "unset" : $windowWidth - timelineCanvasCoords.x + "px"};
+          left: ${$isPortrait ? "50%" : "unset"};
+        `}>
         <!-- {`${currentDate.getFullYear()}-${("0" + (currentDate.getMonth() + 1)).slice(-2)}-${("0" + currentDate.getDate()).slice(-2)}`} -->
         <span class={`month timeline-text${classSuffix}`}>{progress >= 1 ? 'Mar' : progress <= 0 ? 'Jun' : month}</span>
         <span class={`timeline-text${classSuffix}`}>&nbsp;<span>
@@ -202,7 +211,7 @@
         {#if innerMapHeight && innerMapWidth}
           <div class={`map`} use:inview="{options}" on:change="{handleChange}">
             {#if allDataLoaded && paintStyles && layoutStyles && (isInView || shouldLoad)}
-              <Map id={mapId} style={styleUrl} bind:loaded={mapLoaded} location={{bounds: mapBounds}} bind:map={map} interactive={false} controls={false} attribution={"bottom-left"} customAttribution={customAttribution} resize={true} padding={{top: 100, bottom:100, left: 0, right: 0}}>
+              <Map id={mapId} style={styleUrl} bind:loaded={mapLoaded} location={{bounds: bounds.north_carolina}} bind:map={map} interactive={false} controls={false} attribution={"bottom-left"} customAttribution={customAttribution} resize={true} padding={{top: 100, bottom:100, left: 0, right: 0}}>
 
               {#if mapLoaded}
 
@@ -278,19 +287,15 @@
             {/if}
           </div>
           {/if}
+          {#if $activeTimelineSection && textCanvasCoords}
+            <div class="static-text" style={`
+                bottom: ${$isPortrait ? "15%" : "50px"};
+              `}
+            >
+              {$activeTimelineSection.text}
+            </div>
+          {/if}
         </div>
-        {#if progress >= 0.74 && textCanvasCoords}
-          <MapSection
-            bind:bounds={mapBounds}
-            section={sections[sections.length-1]}
-            map={map}
-            opacity={1}
-            outerFixed={true}
-            fixed={true}
-            top={textCanvasCoords.y}
-            left={textCanvasCoords.x}
-          />
-        {/if}
       </div>
 
     <div slot="foreground">
@@ -298,19 +303,17 @@
       display: -webkit-flex; justify-content: center;`}/>
       {#if textCanvasCoords}
         {#each sections as section, i}
-
           <div style={`height: ${$windowHeight}px; z-index: 2; position: relative; pointer-events: none;`}>
-            {#if i < (sections.length - 1)}
-              <MapSection
-                bind:bounds={mapBounds}
-                {section}
-                map={map}
-                fade={true}
-                fixed={true}
-                top={textCanvasCoords.y}
-                left={textCanvasCoords.x}
-              />
-            {/if}
+            <MapSection
+              bind:bounds={bounds.north_carolina}
+              {section}
+              map={map}
+              fade={true}
+              fixed={true}
+              top={textCanvasCoords.y}
+              left={textCanvasCoords.x}
+              visibility={'hidden'}
+            />
           </div>
         {/each}
       {/if}
@@ -332,8 +335,26 @@
     justify-content: center;
     
   }
+  .static-text {
+    max-width: 600px;
+    position: absolute;
+    font-family: 'Libre Franklin';
+    line-height: 24px;
+    font-weight: 400;
+    font-size: 17px;
+    text-align: center;
+    /*border:  1px solid #999;*/
+    border-radius: 20px;
+    color: black;
+    pointer-events: all;
+    transition: opacity 0.6s;
+    -webkit-transition: opacity 0.6s;
+    background: white;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
   .timeline {
-    position: fixed;
+    position: absolute;
     /*top: 6%;*/
     /*right: 6%;*/
     font-family: "Bebas Neue";
@@ -342,6 +363,20 @@
     font-weight: bold;
     text-transform: uppercase;
     transform: translate(0, -100%);
+    /*display: none;*/
+  }
+  .timeline-portrait {
+    position: absolute;
+    /*top: 6%;*/
+    /*right: 6%;*/
+    font-family: "Bebas Neue";
+    z-index:  10000;
+
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    left: 50%;
+    transform: translate(-50%, -100%);
     /*display: none;*/
   }
   .timeline-text {
@@ -383,5 +418,15 @@
   .map {
     margin: 0 auto;
     height: 100%;
+  }
+
+  @media only screen and (max-width:  600px) {
+    .static-text {
+      width: 100%;
+      padding: 10px 40px;
+      font-size: 16px;
+      line-height: 24px;
+      font-weight: 400;
+    }
   }
 </style>

@@ -71,7 +71,7 @@
         width: 100%;
         padding:  0;
         padding: 20px;
-        padding-top: 20%;
+        padding-top: 10%;
         padding-bottom: 35px;
         z-index:  10000000;
         margin: 0 auto;

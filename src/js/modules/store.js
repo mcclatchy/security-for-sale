@@ -2,6 +2,7 @@ import { writable, derived, readable } from 'svelte/store';
 import { isMobile, isTablet } from './utils.js';
 
 export const activeVideo = writable('');
+export const activeTimelineSection = writable(null);
 export const droneTriggerElement = writable(null)
 export const isFirstVideoLoaded = writable(false);
 export const isIntroLoaded = writable(false)

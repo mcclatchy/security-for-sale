@@ -2,7 +2,7 @@
 	import debounce from 'underscore/modules/debounce';
 	import { inview } from 'svelte-inview';
 	import { amlToHTML } from '../modules/utils.js'
-	import { isPortrait, windowHeight, windowWidth, droneTriggerElement, statewideZoom } from '../modules/store.js';
+	import { isPortrait, windowHeight, windowWidth, droneTriggerElement, statewideZoom, activeTimelineSection } from '../modules/store.js';
 
 	export let section;
 	export let map;
@@ -14,6 +14,8 @@
 	export let fixed = false;
 	export let top = 0;
 	export let left = 0;
+	export let visibility = "visible";
+
 	let boxWidth = 600;
 
   const options = {
@@ -47,11 +49,12 @@
 
 	$: if (isInView) {
 		statewideZoom.set(section.boundsId)
+		activeTimelineSection.set(section);
 	}
 
 	// IF POSITION IS STATIC
 	$: if (fade) {
-		opacity = isInView ? 1 : 0
+		opacity = isInView ? 1 : 0;
 	}
 	let element;
 	$: section.id === "drone-trigger" && element && droneTriggerElement.set(element)
@@ -69,9 +72,10 @@
 	<section class:no-opacity={section.text === ""} class={section.horizontalPosition} id={section.id} bind:this={element} use:inview={options} on:change={handleChange}>
 		<div
 		style={`
+			visibility: ${visibility};
 			position: fixed;
 			top: ${$isPortrait ? "unset" : top + "px"};
-			bottom: ${$isPortrait ? "10%" : "unset"};
+			bottom: ${$isPortrait ? "2vh" : "unset"};
 			left: ${$isPortrait ? "50%" : left + "px"};
 			width: ${boxWidth}px;
 			opacity: ${opacity};
