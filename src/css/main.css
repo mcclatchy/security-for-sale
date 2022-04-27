@@ -146,6 +146,9 @@ video::-webkit-media-controls-start-playback-button {
   width: 100%;
 }
 
+:global(.desktop) {
+  display: block;
+}
 .mobile {
   display: none;
 }
@@ -153,6 +156,9 @@ video::-webkit-media-controls-start-playback-button {
 @media only screen and (max-width: 600px) {
   .mobile {
     display: block;
+  }
+  :global(.desktop) {
+    display: none;
   }
 }
 

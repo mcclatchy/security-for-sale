@@ -6,6 +6,9 @@ export const droneTriggerElement = writable(null)
 export const isFirstVideoLoaded = writable(false);
 export const isIntroLoaded = writable(false)
 
+// Statewide map states
+export const statewideZoom = writable('north_carolina');
+
 export const initialOrientationAngle = readable(window.orientation);
 export const updatedOrientationAngle = writable(window.orientation);
 

@@ -5,14 +5,16 @@
   import Map from './Map.svelte';
   import MapLayer from './MapLayer.svelte';
   import MapLayerType from './MapLayerType.svelte';
-  // import MapLegend from './MapLegend.svelte';
+  import MapLegendSwatches from './MapLegendSwatches.svelte';
+  import MapLegendDiscrete from './MapLegendDiscrete.svelte';
+  import MapScaleBar from './MapScaleBar.svelte';
   import MapSection from './MapSection.svelte';
   import MapSource from './MapSource.svelte';
   import MapStatewideTitle from './MapStatewideTitle.svelte';
   import MapTooltip from './MapTooltip.svelte';
   import MapStatewideStyles from './MapStatewideStyles.svelte'
   import Scroller from "./Scroller.svelte";
-  import { windowWidth, windowHeight, isPortrait } from '../modules/store.js';
+  import { windowWidth, windowHeight, isPortrait, statewideZoom } from '../modules/store.js';
   import { getJsonData, formatTopojsonLayer, getAndFormatTopojsonData, makeColors } from "../modules/utils.js";
 
   export let assetPath;
@@ -23,24 +25,28 @@
   let styleUrl = import.meta.env.PROD ? `${dataPath}/style.json` : `${dataPath}/styleDev.json`
 
   let hovered;
-  let bounds = { 
-    // north_carolina: [[ -84.821869, 33.842316 ], [-74.960621, 36.588117]],
+  let bounds = {
     north_carolina: [[ -84.521988, 33.645 ], [-75.1994, 37.2881695]],
-    charlotte: [[ -81.090043, 35.551569], [ -80.491228, 34.958323]],
-    // neighborhood: [[-80.98297119140625,35.31751515265763], [-80.9691846370697,35.30852397576001]],
-    // neighborhood_zoom: [[-80.883012,35.295040], [-80.877740,35.295040]],
+    charlotte: [[ -81.090043, 35.551569], [ -80.491228, 34.9967]],
     neighborhood_zoom: [[-80.882474,35.294037], [-80.878985,35.293901]],
     neighborhood: [[-80.88741,35.29696], [-80.87243,35.28751]],
     raleigh: [[-79.1445,36.1579], [-78.1306,35.4883]],
     fuquay: [[-78.916888, 35.697333], [-78.687336, 35.527515]]
   };
 
+  $: if ($isPortrait) {
+    bounds.north_carolina = [[-81.931,33.613 ], [-77.076,36.547]];
+  } else {
+    bounds.north_carolina = [[ -84.521988, 33.645 ], [-75.1994, 37.2881695]];
+  }
+
   // ALL COLOR STYLING HERE
   let primaryColor = "#ffa4b1"
   let colors = makeColors(primaryColor, 1, 3, 0.1, 0.8)
   let backgroundColors = ["#FAFAFA", "#F4F4F4", "#EFEFEF", "#EAEAEA","#EAEAEA", "#EAEAEA", "#EAEAEA"]
-  let breaks = [1, 2, 50, 150, 250, 10000]
-  let zoomedBreaks = [1, 2, 5, 10, 15, 100000]
+  // let breaks = [1, 2, 50, 150, 250, 10000]
+  let breaks = [1, 5, 10, 50, 150, 1100]
+  let zoomedBreaks = [1, 2, 5, 10, 15, 175]
   let investorColors = {
     "AMERICAN HOMES 4 RENT": "#2c719f", //dark blue
     "PROGRESS RESIDENTIAL": "#ffa4b1", //light pink
@@ -50,10 +56,6 @@
     "FIRSTKEY": "#1f8166", //dark green
     "" : "rgba(242,242,242,1)"
   }
-
-  // 485 -80.9836,35.1910 right
-  // 485 -80.6208,35.1755 left
-  // airport -80.9447,35.2097 center
 
   let labels;
   let stateNames;
@@ -98,13 +100,13 @@
     zoomedHexagons = await getAndFormatTopojsonData(`${dataPath}/zoomedHexagons.json`, 'hexagons', "count", backgroundColors, zoomedBreaks)
 
     mecklenburgHexagons = await getAndFormatTopojsonData(`${dataPath}/mecklenburgHexagons.json`, 'hexagons', "count", colors, zoomedBreaks)
-    mecklenburgGrid = await getAndFormatTopojsonData(`${dataPath}/mecklenburgGrid.json`, 'hexagons', "count", colors, zoomedBreaks)
+    mecklenburgGrid = await getAndFormatTopojsonData(`${dataPath}/mecklenburgGrid.json`, 'hexagons', "count", colors, breaks)
     mecklenburg = await getAndFormatTopojsonData(`${dataPath}/mecklenburgOutline.json`, "mecklenburgOutline");
     mecklenburgHighways = await getAndFormatTopojsonData(`${dataPath}/mecklenburgHighways.json`, "mecklenburgHighways");
     homes = await getAndFormatTopojsonData(`${dataPath}/homes.json`, 'homes', "investor", null, null, investorColors, "#d5cc80")
 
     triangleHexagons = await getAndFormatTopojsonData(`${dataPath}/triangleHexagons.json`, 'hexagons', "count", colors, zoomedBreaks)
-    triangleGrid = await getAndFormatTopojsonData(`${dataPath}/triangleGrid.json`, 'hexagons', "count", colors, zoomedBreaks)
+    triangleGrid = await getAndFormatTopojsonData(`${dataPath}/triangleGrid.json`, 'hexagons', "count", colors, breaks)
     triangle = await getAndFormatTopojsonData(`${dataPath}/triangle.json`, "triangle");
     triangleHighways = await getAndFormatTopojsonData(`${dataPath}/triangleHighways.json`, "triangleHighways");
 
@@ -119,10 +121,10 @@
   let progress = 0;
   let pointerEvents = "none";
 
-  let highlighted = ['Charlotte', 'Raleigh', 'Greensboro', 'Wilmington', 'Fayetteville', 'Asheville', 'North Carolina'];
+  let highlighted = ['Charlotte', 'Raleigh', 'Winston-Salem', 'Wilmington', 'Fayetteville', 'Asheville', 'North Carolina'];
   let hoverableIds = []
   $: if (progress >= 0.05 && progress < 0.16) {
-    highlighted = ['Charlotte', 'Raleigh', 'Greensboro', 'Wilmington', 'Fayetteville', 'Asheville', 'North Carolina'];
+    highlighted = ['Charlotte', 'Raleigh', 'Winston-Salem', 'Wilmington', 'Fayetteville', 'Asheville', 'North Carolina'];
     pointerEvents = "none"
     hoverableIds = []
   } else if (progress >= 0.16 && progress < 0.18) {
@@ -142,7 +144,7 @@
     highlighted = ['Fuquay-Varina', 'Holly Springs', 'North Carolina']
     hoverableIds = []
   } else {
-    highlighted = ['Charlotte', 'Raleigh', 'Greensboro', 'Wilmington', 'Fayetteville', 'Asheville', 'North Carolina'];
+    highlighted = ['Charlotte', 'Raleigh', 'Winston-Salem', 'Wilmington', 'Fayetteville', 'Asheville', 'North Carolina'];
     pointerEvents = "none"
     hoverableIds = []
   }
@@ -152,11 +154,13 @@
     return {
       text: section.text,
       id: section?.id,
+      boundsId: section?.bounds,
       bounds: bounds[section.bounds],
       horizontalPosition: section.horizontalPosition,
       speed: section.speed,
       pitch: section?.pitch || 0,
-      bearing: section?.bearing || 0
+      bearing: section?.bearing || 0,
+      padding: {top: 100, bottom:0, left: 0, right: 0}
     }
   });
 
@@ -271,9 +275,8 @@
 <!-- <p class="debug" style={`opacity: 1;`}>
   <br />
   {Math.round(progress * 1000) / 1000 < Math.round(progress * 1000) / 1000 ? Math.round(progress * 1000) / 1000 : Math.round(progress * 1000) / 1000}
-</p> -->
-
-
+</p>
+ -->
 <div id="statewide-scroller">
   <Scroller bind:progress>
     <div slot="background" style={`width: 100%; height: ${$windowHeight}px; pointer-events: ${pointerEvents}`}>
@@ -282,9 +285,59 @@
         {#if allDataLoaded && (isInView || shouldLoad)}
 
         <Map id={mapId} style={styleUrl} location={{bounds: bounds.north_carolina}} bind:map={map} interactive={false} controls={false} attribution={"bottom-left"} customAttribution={customAttribution}>
-          <!-- <MapLegend
+
+          <MapScaleBar
+            {map}
+          />
+
+          <MapLegendSwatches
             {progress}
-          /> -->
+            legendTitle="Institutionally Owned Single-Family Homes<br class='mobile'/> in North Carolina"
+            palette={colors}
+            splits={breaks}
+            annotations={[{label: "Lower Density", class: 'left'}, {label: "Higher Density", class: 'right'}]}
+            position={"sticky"}
+            opacity={$statewideZoom === "north_carolina" ? 1 : 0}
+            legendWidth={450}
+          />
+
+          <MapLegendSwatches
+            {progress}
+            legendTitle="Institutionally Owned Single-Family Homes<br class='mobile'/> in Mecklenburg County"
+            palette={colors}
+            splits={zoomedBreaks}
+            annotations={[{label: "Lower Density", class: 'left'}, {label: "Higher Density", class: 'right'}]}
+            opacity={["charlotte", "raleigh", "fuquay"].includes($statewideZoom) ? 1 : 0}
+            legendWidth={450}
+          />
+          <MapLegendSwatches
+            {progress}
+            legendTitle="Institutionally Owned Single-Family Homes<br class='mobile'/> in The Triangle"
+            palette={colors}
+            splits={zoomedBreaks}
+            annotations={[{label: "Lower Density", class: 'left'}, {label: "Higher Density", class: 'right'}]}
+            opacity={["raleigh"].includes($statewideZoom) ? 1 : 0}
+            legendWidth={450}
+          />
+          <MapLegendSwatches
+            {progress}
+            legendTitle="Institutionally Owned Single-Family Homes<br class='mobile'/> in Holly Springs & Fuquay Varina"
+            palette={colors}
+            splits={zoomedBreaks}
+            annotations={[{label: "Lower Density", class: 'left'}, {label: "Higher Density", class: 'right'}]}
+            opacity={["fuquay"].includes($statewideZoom) ? 1 : 0}
+            legendWidth={450}
+          />
+
+          <MapLegendDiscrete
+            legendTitle="Institutionally Owned Single-Family Homes<br class='mobile'/> in Mecklenburg County Neighborhood"
+            palette={["#8ce38f", "#2c719f", "#ffa4b1", "#1f8166", "#cf307a", "#8dcaf0", "#d5cc80"]}
+            splits={["Tricon Residential", "American Homes 4 Rent", "Progress Residential", "Firstkey", "Invitation Homes", "Amherst Residential", "Other"]}
+            annotations={null}
+            opacity={["neighborhood"].includes($statewideZoom) ? 1 : 0}
+            legendWidth={600}
+          />
+
 
           <!-- <MapStatewideTitle/> -->
 

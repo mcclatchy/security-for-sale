@@ -146,6 +146,9 @@ export function getColor(value, breaks, colors) {
     if (value <= breaks[i]) {
       color = colors[i - 1];
       found = true;
+    } else if (value >= breaks[breaks.length - 1]) {
+      color = colors[breaks.length - 1];
+      found = true;
     } else {
       i ++;
     }

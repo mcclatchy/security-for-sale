@@ -3,8 +3,8 @@
 
   let primaryColor = "#ffa4b1"
   let colors = ["#eecb9b", "#e7b48f", "#e09c85", "#da867b", "#c16677"] //makeColors(primaryColor, 1, 3, 0.1, 0.8)
-  let stateOutlineColor = "#AAA"
-	let stateBackgroundColor = makeColors(primaryColor, 0, 10, 0.97, 0.97)[0]
+  let stateOutlineColor = "rgb(150,150,150)"
+	let stateBackgroundColor = "#fff" //makeColors(primaryColor, 0, 10, 0.97, 0.97)[0]
 	let borderColor = 'rgb(213, 213, 213)'
 	let hexagonFillColor = "#ffffff"
   let hexagonOutlineColor = "#aaaaaa"
@@ -21,8 +21,6 @@
 
 	// DEFAULT STYLE
 	let highlightedOpacity = ['case', ['==', ['feature-state', 'highlighted'], true], 1, 0]
-
-
 
 	export let paintStyles = {
 		'state-names': {
@@ -150,7 +148,7 @@
 			"circle-opacity-transition": {"duration": 300, "delay": 0}
     },
     "surrounding-state-fill": {
-      'fill-color': '#ffffff',
+      'fill-color': '#FCFCFC',
       'fill-opacity': 0.99,
       "fill-opacity-transition": {
         "duration": 300,
@@ -158,7 +156,7 @@
       }
     },
     "surrounding-state-line": {
-      'line-color': "#E7E3E5",
+      'line-color': "rgba(210,210,210,1)",
       'line-width': 0.5,
     },
     "mecklenburg-grid-fill": {

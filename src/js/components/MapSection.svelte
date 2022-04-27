@@ -2,7 +2,7 @@
 	import debounce from 'underscore/modules/debounce';
 	import { inview } from 'svelte-inview';
 	import { amlToHTML } from '../modules/utils.js'
-	import { isPortrait, windowHeight, windowWidth, droneTriggerElement } from '../modules/store.js';
+	import { isPortrait, windowHeight, windowWidth, droneTriggerElement, statewideZoom } from '../modules/store.js';
 
 	export let section;
 	export let map;
@@ -16,39 +16,37 @@
 	let boxWidth = 600;
 
   const options = {
-    rootMargin: `-20px`,
+    rootMargin: `0px`,
     unobserveOnEnter: false,
   };
 
 
 	// Fit map to specified min/max bounds [[xmin, ymin], [xmax, ymax]]
-	function fitBounds(map, bounds, speed, pitch=0, bearing=0, animate=true) {
+	function fitBounds(map, bounds, speed, padding, pitch=0, bearing=0, animate=true) {
 		if (map) {
-			map.fitBounds(bounds, { speed, animate, pitch, bearing });
+			map.fitBounds(bounds, { speed, animate, pitch, bearing, padding });
 		}
 		// map.on('moveend', function(){
 		//     console.log('moveend')
 		// });
 	}
 
-	function flyTo(map, pitch, bearing, speed, animate=true) {
-		if (map) {
-			map.flyTo({pitch, bearing, speed, animate})
-		}
-	}
-
 	let isInView;
 	const handleChange = ({ detail }) => {
 		isInView = detail.inView
 		if (isInView) {
-			fitBounds(map, section.bounds, speed)
+			fitBounds(map, section.bounds, speed, section?.padding, section.pitch, section.bearing)
 		}
 	};
 
 
-	$: isInView && (section.pitch || section.bearing) && fitBounds(map, section.bounds, speed, section.pitch, section.bearing, speed)
+	$: isInView && (section.pitch || section.bearing) && fitBounds(map, section.bounds, speed, section?.padding, section.pitch, section.bearing)
 
-	$: isInView && !section.pitch && !section.bearing && $isPortrait && $windowWidth && debounce(fitBounds(map, section.bounds, speed), 500)
+	$: isInView && !section.pitch && !section.bearing && $isPortrait && $windowWidth && debounce(fitBounds(map, section.bounds, speed, section?.padding), 500)
+
+	$: if (isInView) {
+		statewideZoom.set(section.boundsId)
+	}
 
 	// IF POSITION IS STATIC
 	$: if (fade) {
@@ -121,10 +119,10 @@
     border-radius: 20px;
     color: black;
 		padding: 20px;
-    margin:  20px;
     pointer-events: all;
     transition: opacity 0.6s;
   	-webkit-transition: opacity 0.6s;
+  	margin: 0 !important;
 	}
 
   .left {

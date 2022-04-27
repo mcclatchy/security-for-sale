@@ -5,6 +5,7 @@
 	import Fonts from './Fonts.svelte';
 	import Intro from './Intro.svelte';
 	import PageLoader from './PageLoader.svelte';
+  import MapLegendDiscrete from './MapLegendDiscrete.svelte';
 	import MapStatewide from './MapStatewide.svelte';
 	import MapTimeline from './MapTimeline.svelte';
 	import MultimediaSection from './MultimediaSection.svelte';
@@ -18,7 +19,7 @@
   import { onMount } from 'svelte';
 	import { isMobile, isTablet, addDataToVideoElement, getArrayItemById } from "../modules/utils.js";
   import { enableScroll, disableScroll } from '../modules/scroll';
-	import { windowWidth, windowHeight, storeInnerHeight, storeOuterHeight, isPortrait, isIntroLoaded, isFirstVideoLoaded, initialOrientationAngle, updatedOrientationAngle, isRotated, droneTriggerElement } from '../modules/store.js';
+	import { windowWidth, windowHeight, storeInnerHeight, storeOuterHeight, isPortrait, isIntroLoaded, isFirstVideoLoaded, initialOrientationAngle, updatedOrientationAngle, isRotated, droneTriggerElement, statewideZoom } from '../modules/store.js';
   import amlURL from '../../assets/aml-story.json?url';
 
   // Disable Scroll initially - once the load trigger, fires, scroll is enabled
@@ -175,6 +176,16 @@
 		{dataPath}
 		{scrollY}
 	/>
+
+	<MapLegendDiscrete
+	  legendTitle="Institutionally Owned Single-Family Homes<br class='mobile'/> in Mecklenburg County Neighborhood"
+	  palette={["#8ce38f", "#2c719f", "#ffa4b1", "#1f8166", "#cf307a", "#8dcaf0", "#d5cc80"]}
+	  splits={["Tricon Residential", "American Homes 4 Rent", "Progress Residential", "Firstkey", "Invitation Homes", "Amherst Residential", "Other"]}
+	  annotations={null}
+	  opacity={["neighborhood_zoom"].includes($statewideZoom) ? 1 : 0}
+	  legendWidth={600}
+	/>
+
 
 	{#if $droneTriggerElement}
 		<div class="transition-container" style={`height: 100%; width: 100%; position: fixed; top: 0; left: 0; z-index: 10; pointer-events: none; visibility: ${visibility}`}>
