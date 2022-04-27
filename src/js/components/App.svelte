@@ -24,7 +24,7 @@
 
   // Disable Scroll initially - once the load trigger, fires, scroll is enabled
   onMount(() => {
-    window.scrollY === 0 && !$isFirstVideoLoaded && enableScroll()
+    window.scrollY === 0 && !$isFirstVideoLoaded && disableScroll()
   })
 
   $: if ($isFirstVideoLoaded) {
