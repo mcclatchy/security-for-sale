@@ -34,6 +34,7 @@
 	export let customAttribution = null;
 	export let loaded = false;
 	export let resize = false;
+	export let padding = {};
 
 	let container;
 	let w;
@@ -71,6 +72,10 @@
 				attributionControl: attribution ? false : true,
 				...options,
 			});
+
+			if (location.bounds) {
+				map.fitBounds(location.bounds, {animate: false, padding});
+			}
 			
 			if (controls) {
 				map.addControl(new mapbox.NavigationControl({showCompass: false}));
@@ -124,7 +129,7 @@
 			  canvas[0].style.width = "100%";
 			  canvas[0].style.height = "100%";
 			  if (location?.bounds) {
-			  	await map.fitBounds(location.bounds, {animate: false});
+			  	await map.fitBounds(location.bounds, {animate: false, padding});
 			  	await map.resize();
 			  } else {
 			  	await map.resize();

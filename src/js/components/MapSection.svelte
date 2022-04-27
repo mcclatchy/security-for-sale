@@ -13,6 +13,7 @@
 	export let outerFixed = false;
 	export let fixed = false;
 	export let top = 0;
+	export let left = 0;
 	let boxWidth = 600;
 
   const options = {
@@ -71,7 +72,7 @@
 			position: fixed;
 			top: ${$isPortrait ? "unset" : top + "px"};
 			bottom: ${$isPortrait ? "10%" : "unset"};
-			left: ${$isPortrait ? "50%" : "0%"};
+			left: ${$isPortrait ? "50%" : left + "px"};
 			width: ${boxWidth}px;
 			opacity: ${opacity};
 			max-width: ${$isPortrait ? "100%" : "50%"};
@@ -122,7 +123,7 @@
     pointer-events: all;
     transition: opacity 0.6s;
   	-webkit-transition: opacity 0.6s;
-  	margin: 0 !important;
+  	margin: 20px;
 	}
 
   .left {

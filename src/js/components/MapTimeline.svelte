@@ -40,8 +40,8 @@
 
   let innerMapHeight = 100;
   let innerMapWidth = 100;
+  let padding = 100;
   let bufferWidth = 0;
-
   let textCoords = [-84.324,34.777];
   let timelineCoords = [ -75.797,36.559 ];
   let timelineCanvasCoords;
@@ -55,7 +55,6 @@
       textCanvasCoords = map && map.project(textCoords);
     });
   })
-
   resizeObserver.observe(document.body);
 
 
@@ -89,7 +88,8 @@
       horizontalPosition: section.horizontalPosition,
       speed: section.speed,
       pitch: section?.pitch || 0,
-      bearing: section?.bearing || 0
+      bearing: section?.bearing || 0,
+      padding: {top: padding, bottom:padding, left: 0, right: 0}
     }
   });
 
@@ -113,8 +113,8 @@
     shouldLoad = true;
   }
 
-  let startTimestamp = 900633599
-  let endTimestamp = 1615852800
+  let startTimestamp = 1339113600
+  let endTimestamp = 1615939200
   $: currentTimestamp = Math.round(startTimestamp + progress * (endTimestamp - startTimestamp))
   $: highlighted = timestamps.filter((x) => x <= currentTimestamp);
   $: currentDate = new Date(currentTimestamp * 1000);
@@ -182,7 +182,9 @@
 <div id="timeline-scroller">
   <Scroller bind:progress>
     <div slot="background" class={`background`} style={`width: 100%; height: ${$windowHeight}px; pointer-events: ${pointerEvents}; padding: 0px 0px;`}>
-      <MapTimelineTitle/>
+      <MapTimelineTitle
+        {assetPath}
+      />
       <ProgressBar
         {progress}
         highlightColor="#c16677"
@@ -190,9 +192,9 @@
       {#if timelineCanvasCoords}
         <div class="timeline" style={`top: ${timelineCanvasCoords.y}px; right: ${$windowWidth - timelineCanvasCoords.x}px;`}>
         <!-- {`${currentDate.getFullYear()}-${("0" + (currentDate.getMonth() + 1)).slice(-2)}-${("0" + currentDate.getDate()).slice(-2)}`} -->
-        <span class={`month timeline-text${classSuffix}`}>{progress >= 1 ? 'Mar' : progress <= 0 ? 'Jul' : month}</span>
+        <span class={`month timeline-text${classSuffix}`}>{progress >= 1 ? 'Mar' : progress <= 0 ? 'Jun' : month}</span>
         <span class={`timeline-text${classSuffix}`}>&nbsp;<span>
-        <span class={`year timeline-text${classSuffix}`}>{progress >= 1 ? '2021' : progress <= 0 ? '1998' : year}</span>
+        <span class={`year timeline-text${classSuffix}`}>{progress >= 1 ? '2021' : progress <= 0 ? '2012' : year}</span>
         </div>
       {/if}
       <div class={`map-outer-container`} bind:this={outerMapContainer}>
@@ -200,7 +202,7 @@
         {#if innerMapHeight && innerMapWidth}
           <div class={`map`} use:inview="{options}" on:change="{handleChange}">
             {#if allDataLoaded && paintStyles && layoutStyles && (isInView || shouldLoad)}
-              <Map id={mapId} style={styleUrl} bind:loaded={mapLoaded} location={{bounds: mapBounds}} bind:map={map} interactive={false} controls={false} attribution={"bottom-left"} customAttribution={customAttribution} resize={true}>
+              <Map id={mapId} style={styleUrl} bind:loaded={mapLoaded} location={{bounds: mapBounds}} bind:map={map} interactive={false} controls={false} attribution={"bottom-left"} customAttribution={customAttribution} resize={true} padding={{top: 100, bottom:100, left: 0, right: 0}}>
 
               {#if mapLoaded}
 
@@ -286,6 +288,7 @@
             outerFixed={true}
             fixed={true}
             top={textCanvasCoords.y}
+            left={textCanvasCoords.x}
           />
         {/if}
       </div>
@@ -305,6 +308,7 @@
                 fade={true}
                 fixed={true}
                 top={textCanvasCoords.y}
+                left={textCanvasCoords.x}
               />
             {/if}
           </div>

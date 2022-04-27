@@ -284,7 +284,7 @@
       <div class="map" use:inview="{options}" on:change="{handleChange}">
         {#if allDataLoaded && (isInView || shouldLoad)}
 
-        <Map id={mapId} style={styleUrl} location={{bounds: bounds.north_carolina}} bind:map={map} interactive={false} controls={false} attribution={"bottom-left"} customAttribution={customAttribution}>
+        <Map id={mapId} style={styleUrl} location={{bounds: bounds.north_carolina}} bind:map={map} interactive={false} controls={false} attribution={"bottom-left"} customAttribution={customAttribution} padding={{top: 100, bottom:0, left: 0, right: 0}}>
 
           <MapScaleBar
             {map}
