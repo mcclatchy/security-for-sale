@@ -165,8 +165,7 @@
 	<MultimediaSection
 		section={getArrayItemById('text-section-1', data.sections)}
 		{assetPath}
-		divider={false}
-		paddingBottom={40}
+		paddingBottom={100}
 	/>
 
 	<MapStatewide
@@ -210,8 +209,7 @@
 	<MultimediaSection
 		section={getArrayItemById('text-section-3', data.sections)}
 		{assetPath}
-		divider={false}
-		paddingBottom={40}
+		paddingBottom={100}
 	/>
 
 	 <MapTimeline
@@ -239,7 +237,6 @@
 	<MultimediaSection
 		section={getArrayItemById('text-section-7', data.sections)}
 		{assetPath}
-		divider={false}
 		paddingBottom={0}
 	/>
 

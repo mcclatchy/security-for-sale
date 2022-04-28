@@ -5,7 +5,7 @@
 	export let section;	
 	export let assetPath;
 	export let paddingBottom = 0;
-	export let divider = true;
+	export let divider = false;
 
 	let items = section?.items;
 	let sectionImage = section?.image;
@@ -47,7 +47,9 @@
 					<img src={item.url}>
 					<figcaption class="cue-caption">
 						{item.text}
+						Credit: <span class="cue-credit">{@html amlToHTML(item.credit)}</span>
 					</figcaption>
+
 				</figure>
 			{:else}
 				<p style>{@html amlToHTML(item.text)}</p>
@@ -68,6 +70,10 @@
 
 	:global(.italics) {
 		font-style: italic;
+	}
+
+	.cue-credit > a {
+		font-color: darkgray !important;
 	}
 
 	.article-text {
@@ -138,13 +144,13 @@
 	}
 
 	.cue-container {
-		max-width: 1000px;
+		max-width: 800px;
     margin: 0 auto;
 		padding-top: 40px;
 	}
 
 	.cue-caption {
-		padding: 10px 0px 0 !important;
+    padding: 5px 0px 10px 0px !important;
 		font-family: 'Libre Franklin';
 	}
 
@@ -202,6 +208,10 @@
 		}
 		.cue-container {
 			padding-top: 20px;
+		}
+		.cue-caption {
+			line-height: 1.3;
+    	font-size: 13px;
 		}
 
 /*		.section-byline {
