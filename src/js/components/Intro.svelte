@@ -26,9 +26,12 @@
 	<div class="title-logo">
 		<img class="contain" src={`${assetPath}/intro_logo.png`}>
 	</div>
-<!-- 	<div class='text-container'>
+	<div class='story-link-container'>
+		<!-- <a href="https://www.charlotteobserver.com/news/business/article260606172.html"><p class="part">Story &nbsp;01</p></a> -->
 		<p class="part">Story &nbsp;01</p>
-	</div> -->
+		<!-- <a href="https://www.charlotteobserver.com/news/business/article260606272.html"><p class="part outlink">Story &nbsp;02</p></a> -->
+		<!-- <a href="https://www.charlotteobserver.com/news/business/article260606412.html"><p class="part outlink">Story &nbsp;03</p></a> -->
+	</div>
 	<div class="title-pipe">
 		<img class="contain" src={`${assetPath}/intro_pipe.png`}>
 	</div>
@@ -40,12 +43,20 @@
 </div>
 
 <style>
+	a {
+		margin: 0 !important;
+		color:  gray;
+	}
+	.outlink {
+		color: gray !important;
+		font-weight: 400 !important;
+	}
 	.part {
-		color: #D93A4C;
+		color: #d7384c;
 		font-family: "Libre Franklin";
 		text-transform: uppercase;
 		font-size: 20px;
-		font-weight: 600;
+		font-weight: 400;
 	}
 	.intro-container {
 		transition: opacity 0.4s;
@@ -58,7 +69,7 @@
 	  margin: 0 auto;
 	  display: flex;
 	  padding: 10px;
-    margin-bottom: 10px;
+	  padding-bottom: 0px;
 	}
 	.title-pipe {
 		min-width: min(235px, 100%);
@@ -68,6 +79,22 @@
 	  margin: 0 auto;
 	  display: flex;
 	  padding: 0 20px;
+	}
+
+	.story-link-container {
+		max-width: min(540px, 100%);
+		margin: 0 auto;
+		padding: 0 20px;
+		display: flex;
+		display: -webkit-flex;
+		justify-content: space-evenly;
+		padding-bottom: 20px;
+	}
+
+	.story-link-container p {
+		font-family: 'Libre Franklin';
+		text-align: center;
+		margin: 0;
 	}
 
 	.text-container {
@@ -110,6 +137,7 @@
 	@media only screen and (max-width:  600px) {
 		.title-logo {
 			margin-bottom: 0;
+			padding-bottom: 10px;
 		}
 		.subtitle {
 			font-size: 22px;

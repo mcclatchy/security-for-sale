@@ -5,7 +5,7 @@
 	export let section;	
 	export let assetPath;
 	export let paddingBottom = 0;
-	export let divider = false;
+	export let divider = true;
 
 	let items = section?.items;
 	let sectionImage = section?.image;
@@ -33,7 +33,7 @@
 				<PullQuote
 					{assetPath}
 					text={item.text}
-					}
+					attribution={item.attribution}
 				/>
 			{:else if item?.class === "brightcove-video"}
 				<div class="brightcove-outer-container">

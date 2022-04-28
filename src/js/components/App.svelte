@@ -161,7 +161,8 @@
 	<MultimediaSection
 		section={getArrayItemById('text-section-1', data.sections)}
 		{assetPath}
-		paddingBottom={100}
+		divider={false}
+		paddingBottom={80}
 	/>
 
 	<MapStatewide
@@ -190,7 +191,8 @@
 	<MultimediaSection
 		section={getArrayItemById('text-section-3A', data.sections)}
 		{assetPath}
-		paddingBottom={100}
+		divider={false}
+		paddingBottom={40}
 	/>
 
 	<ScrollytellingVideo
@@ -203,7 +205,8 @@
 	<MultimediaSection
 		section={getArrayItemById('text-section-3B', data.sections)}
 		{assetPath}
-		paddingBottom={100}
+		divider={false}
+		paddingBottom={80}
 	/>
 
 	 <MapTimeline
@@ -231,6 +234,7 @@
 	<MultimediaSection
 		section={getArrayItemById('text-section-7', data.sections)}
 		{assetPath}
+		divider={false}
 		paddingBottom={0}
 	/>
 
