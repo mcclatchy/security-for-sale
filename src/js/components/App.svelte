@@ -112,7 +112,6 @@
 	isMobile.ios() || isTablet.ipad() ? "22vh" :
 	isMobile.any() && !isMobile.ios() ? "3vh" : 
 	"3vh"
-	let visibility;
 </script>
 
 
@@ -145,6 +144,7 @@
 		videoData={getArrayItemById('trailer', data.videos)}
 		scrollY={throttledY}
 		isFirstVideo={true}
+		shouldParallaxText={true}
 	/>
 
 	<Slide
@@ -172,7 +172,9 @@
 		mapData={getArrayItemById('statewide', data.maps)}
 		{assetPath}
 		{dataPath}
+		{videoPath}
 		{scrollY}
+		videoData={getArrayItemById('drone', data.videos)}
 	/>
 
 	<MapLegendDiscrete
@@ -184,30 +186,26 @@
 	  legendWidth={600}
 	/>
 
-
-	{#if $droneTriggerElement}
-		<div class="transition-container" style={`height: 100%; width: 100%; position: fixed; top: 0; left: 0; z-index: 10; pointer-events: none; visibility: ${visibility}`}>
-			<ScrollytellingVideo
-				{assetPath}
-				{videoPath}
-				videoData={getArrayItemById('drone', data.videos)}
-				scrollY={throttledY}
-				isFirstVideo={true}
-				offsetElement={$droneTriggerElement}
-				fade={true}
-				pointerEvents="none"
-				bind:visibility
-			/>
-		</div>
-	{/if}
-
 	<MultimediaSection
 		section={getArrayItemById('text-section-2', data.sections)}
 		{assetPath}
 	/>
 
 	<MultimediaSection
-		section={getArrayItemById('text-section-3', data.sections)}
+		section={getArrayItemById('text-section-3A', data.sections)}
+		{assetPath}
+		paddingBottom={100}
+	/>
+
+	<ScrollytellingVideo
+		{assetPath}
+		{videoPath}
+		videoData={getArrayItemById('securities', data.videos)}
+		scrollY={throttledY}
+	/>
+
+	<MultimediaSection
+		section={getArrayItemById('text-section-3B', data.sections)}
 		{assetPath}
 		paddingBottom={100}
 	/>

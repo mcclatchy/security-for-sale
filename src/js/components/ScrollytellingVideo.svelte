@@ -24,6 +24,7 @@
 	export let fade = false;
 	export let pointerEvents = "all";
 	export let visibility;
+	export let shouldParallaxText = false;
 
   let videoFinished = false;
 	let opacity = 1;
@@ -44,7 +45,7 @@
 		}  
   	if (offsetElement) {
 	  	if (videoElement !== offsetElement && offsetElement.offsetTop === 0 && offsetElement?.offsetParent) {
-				videoOffset = offsetElement.offsetParent.offsetParent.offsetParent.offsetTop - 0.5 * $windowHeight
+				videoOffset = offsetElement.offsetParent.offsetParent.offsetParent.offsetTop - 0.75 * $windowHeight
 	  	} else {
 	  		videoOffset = offsetElement.offsetTop
 	  	}
@@ -54,7 +55,7 @@
 	
   $: if (offsetElement) {
   	if (videoElement !== offsetElement && offsetElement.offsetTop === 0 && offsetElement?.offsetParent) {
-			videoOffset = offsetElement.offsetParent.offsetParent.offsetParent.offsetTop + offsetElement.offsetParent.offsetTop - 0.5 * $windowHeight
+			videoOffset = offsetElement.offsetParent.offsetParent.offsetParent.offsetTop + offsetElement.offsetParent.offsetTop - 0.75 * $windowHeight
   	} else {
   		videoOffset = offsetElement.offsetTop
   	}
@@ -63,8 +64,8 @@
 	const resizeObserver = new ResizeObserver(entries => {
 		const elements = entries.map(entry => entry.target);
   	execResizeCallbackWithSuspend(elements, resizeObserver, () => {
-			if (videoElement !== offsetElement && offsetElement.offsetTop === 0 && offsetElement?.offsetParent) {
-				videoOffset = offsetElement.offsetParent.offsetParent.offsetParent.offsetTop + offsetElement.offsetParent.offsetTop - 0.5 * $windowHeight
+			if (videoElement !== offsetElement && offsetElement?.offsetTop === 0 && offsetElement?.offsetParent) {
+				videoOffset = offsetElement.offsetParent.offsetParent.offsetParent.offsetTop + offsetElement.offsetParent.offsetTop - 0.75 * $windowHeight
 	  	} else {
 	  		videoOffset = offsetElement.offsetTop
 	  	}
@@ -126,15 +127,18 @@
 	 </div>
 	<div slot="foreground" style={`height: ${height}px; width: 100%;`}>
 				<div id={`${videoData.id}`}>
-					{#each videoData.scrollingTexts as scrollingText, j}
-			      <ScrollingVideoText
-			        {videoData}
-			        {scrollingText}
-					    {removeBreaks}
-					    {scrollY}
-					    {progress}
-			      />
-			    {/each}
+					{#if videoData.scrollingTexts.length > 0}
+						{#each videoData.scrollingTexts as scrollingText, j}
+				      <ScrollingVideoText
+				        {videoData}
+				        {scrollingText}
+						    {removeBreaks}
+						    {scrollY}
+						    {progress}
+						    {shouldParallaxText}
+				      />
+				    {/each}
+				  {/if}
 			  </div>
 		</div>
 </Scroller>

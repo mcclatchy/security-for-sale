@@ -62,7 +62,7 @@
 
 
 <div style={`
-	height: ${section.id === "drone-trigger" ? 1.5 * $windowHeight + 2500 : section.id === "spacer" ? 0.75 * $windowHeight : 1.25 * $windowHeight}px;
+	height: ${section.id === "drone-trigger" ? 2500 - $windowHeight : section.id === "spacer" ? 0.35 * $windowHeight : 1.25 * $windowHeight}px;
 	z-index: 2;
 	position: ${outerFixed ? 'fixed': 'relative'};
 	pointer-events: none;

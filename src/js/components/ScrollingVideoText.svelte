@@ -13,6 +13,7 @@
   export let removeBreaks = false;
   export let scrollY;
   export let progress;
+  export let shouldParallaxText = false;
   
   
   function getAttribute(attr, textStyles, videoStyles, defaultValue) {
@@ -41,17 +42,17 @@
   $: width = getAttribute("width", textStyles, videoStyles, "100%");
 
   $: seconds = $isPortrait ? scrollingText.portraitSeconds : scrollingText.seconds;
-  $: endSeconds = $isPortrait ? scrollingText.portraitEndSeconds : scrollingText.endSeconds;
+  $: endSeconds = shouldParallaxText && $isPortrait ? scrollingText.portraitEndSeconds : scrollingText.endSeconds;
 
   $: duration = videoData[stylePrefix].duration;
   $: height = videoData[stylePrefix].height;
   $: offsetHeight = $windowHeight;
 
   $: startPixel = (duration && height && offsetHeight) && Math.round(offsetHeight + (height) * (seconds / duration));
-  $: endPixel = (duration && height && offsetHeight) && Math.round(offsetHeight + (height) * (endSeconds / duration));
+  $: endPixel = shouldParallaxText && (duration && height && offsetHeight) && Math.round(offsetHeight + (height) * (endSeconds / duration));
 
   let pctLimit = 1.1
-  $: opacity = topPct > pctLimit ? 0 : 1
+  $: opacity = shouldParallaxText && topPct > pctLimit ? 0 : 1
 
   let top;
   let topPct;
@@ -59,8 +60,8 @@
   let topPixel;
   let progressPixel;
 
-  $: progressPixel = Math.round(offsetHeight + (height) * (progress));
-  $: topPct = Math.round((progressPixel - startPixel) /  (endPixel - startPixel) * 1000) / 1000;
+  $: progressPixel = shouldParallaxText && Math.round(offsetHeight + (height) * (progress));
+  $: topPct = shouldParallaxText && Math.round((progressPixel - startPixel) /  (endPixel - startPixel) * 1000) / 1000;
   $: position = endPixel ? "absolute" : "absolute";
 
   let throttledParallaxShift;
@@ -68,7 +69,7 @@
     topPctShift = topPct >= pctLimit ? pctLimit : topPct
     throttledParallaxShift = Math.round(topPctShift * ((endPixel - startPixel)) - topPctShift * ($windowHeight));;
   }, 0);
-  $: updateParallaxShift(progressPixel)
+  $: shouldParallaxText && updateParallaxShift(progressPixel)
 
 </script>
 
@@ -77,7 +78,7 @@
   style={`
     top: ${startPixel}px;
     transition: transform .01s ease-in-out;
-    transform: translate3d(0, ${throttledParallaxShift}px, 0);
+    transform: translate3d(0, ${shouldParallaxText ? throttledParallaxShift : 0}px, 0);
     position: ${position};
     max-width: min(100%, ${boxWidth}px) !important;
     width: ${width};

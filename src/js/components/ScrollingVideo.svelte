@@ -182,13 +182,13 @@
 
     text-align: right;
     position: fixed;
-    top: 0;
+    bottom: 0;
     right: 0;
     font-size: 30px;
     padding-right: 20px;
     color: black;
     background-color: white;
-    z-index: 1000000;
+    z-index: 1000000000000;
   }
 
   .video-container {

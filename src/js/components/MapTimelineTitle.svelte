@@ -12,10 +12,10 @@
 
 <div class={`title-container${classSuffix}`}>
     <div  class={`title${classSuffix}`}>
-        North Carolina Institutionally<br class="mobile"> Owned Single-Family Homes
+        For corporate landlords,<br class="mobile"> a post-recession boom
     </div> 
     <div  class={`subtitle${classSuffix}`}>
-        <img class="inline" src={`${assetPath}/hexagon.svg`}/>&nbsp; = &nbsp;Each point is a single-family<br class="mobile"> home owned by an investor
+        <img class="inline" src={`${assetPath}/hexagon.svg`}/>&nbsp; = &nbsp;Each point is a home purchased by an investor. <br class="mobile">Some properties may have been resold.
     </div>
 </div>
 

@@ -14,14 +14,17 @@
   import MapTooltip from './MapTooltip.svelte';
   import MapStatewideStyles from './MapStatewideStyles.svelte'
   import Scroller from "./Scroller.svelte";
-  import { windowWidth, windowHeight, isPortrait, statewideZoom } from '../modules/store.js';
+  import ScrollytellingVideo from "./ScrollytellingVideo.svelte";
+  import { windowWidth, windowHeight, isPortrait, statewideZoom, droneTriggerElement } from '../modules/store.js';
   import { getJsonData, formatTopojsonLayer, getAndFormatTopojsonData, makeColors } from "../modules/utils.js";
 
   export let assetPath;
   export let dataPath;
+  export let videoPath;
   export let scrollY;
   export let mapData;
-
+  export let videoData;
+  
   let styleUrl = import.meta.env.PROD ? `${dataPath}/style.json` : `${dataPath}/styleDev.json`
 
   let hovered;
@@ -282,6 +285,21 @@
 <div id="statewide-scroller">
   <Scroller bind:progress>
     <div slot="background" style={`width: 100%; height: ${$windowHeight}px; pointer-events: ${pointerEvents}`}>
+
+      {#if $droneTriggerElement}
+        <div class="transition-container" style={`height: 100%; width: 100%; position: fixed; top: 0; left: 0; z-index: 10; pointer-events: none;`}>
+          <ScrollytellingVideo
+            {assetPath}
+            {videoPath}
+            videoData={videoData}
+            {scrollY}
+            isFirstVideo={true}
+            offsetElement={$droneTriggerElement}
+            fade={true}
+            pointerEvents="none"
+          />
+        </div>
+      {/if}
 
       <div class="map" use:inview="{options}" on:change="{handleChange}">
         {#if allDataLoaded && (isInView || shouldLoad)}
