@@ -35,7 +35,7 @@
   };
 
   $: if ($isPortrait) {
-    bounds.north_carolina = [[-81.931,33.613 ], [-77.076,36.547]];
+    bounds.north_carolina = [[-81.606,33.613 ], [-77.460,36.547]];
     bounds.neighborhood_zoom = [[-80.878612,35.294037], [-80.880125,35.293901]];
   } else {
     bounds.north_carolina = [[ -84.521988, 33.645 ], [-75.1994, 37.2881695]];

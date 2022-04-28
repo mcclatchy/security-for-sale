@@ -11,9 +11,9 @@
 
 
 {#each items as item}
-	<div class="slide" style={`height: ${0.6 * $windowHeight}px`}>
+	<div class="slide" style={`height: ${$windowHeight}px`}>
 
-		<p style={`font-size: ${$isPortrait ? "18px" : "41px" }`}>{@html amlToHTML(item.text)}</p>
+		<p style={`font-size: ${$isPortrait ? "28px" : "41px" }`}>{@html amlToHTML(item.text)}</p>
 	</div>
 {/each}
 
