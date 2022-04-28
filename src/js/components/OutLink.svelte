@@ -10,20 +10,20 @@
 	export let index;
 	export let isLastOfMultiple = false;
 
-	let buttonText = `Read Part &nbsp;0${index} &nbsp; >`
+	let buttonText = `Read Story &nbsp;0${index} &nbsp; >`
 </script>
 
 <div class="preview-outer" class:is-last-of-mulitple={isLastOfMultiple}>
 		<a href={link} target="_blank">
 			<div class="preview">
-				<div class="text-centered">
-					<p class="preview-title">{title}</p>
-				</div>
 				<div class="preview-image">
 					<img
 						src={`${assetPath}/${imageFilename}`}
 						alt={imageAlt}
 					/>
+				</div>
+				<div class="text-centered">
+					<p class="preview-title">{title}</p>
 				</div>
 				<div class="preview-container">
 					<button class="preview-outlink">{@html buttonText}</button>
@@ -61,11 +61,13 @@
 
 	.preview-title {
 		font-family: "Libre Franklin";
-		font-size: 22px;
+		font-size: 15px;
 		font-weight: 400;
-		color:  #D93A4C;
+		line-height: 1.3;
+		color:  black;
 		padding: 0 20px;
-		padding-bottom: 15px;
+		padding-top: 15px;
+		max-width: 300px;
 		margin: 0;
 	}
 
@@ -146,9 +148,12 @@
 
 	@media only screen and (max-width: 500px) {
 		.is-last-of-mulitple {
-			padding-top: 70px;
+			padding-top: 30px;
 		}
-
+		.preview-title {
+			max-width: 300px;
+			margin: 0 auto;
+		}
 	}
 
 </style>

@@ -666,7 +666,7 @@
           />
 
       {/each}
-      <div style={`height: ${0.5 * $windowHeight}px; display: flex;
+      <div style={`height: ${0.25 * $windowHeight}px; display: flex;
       display: -webkit-flex; justify-content: center;`}/>
     </div>
   </Scroller>

@@ -23,14 +23,12 @@
 </script>
 
 <div class="intro-container" style={`opacity: ${opacity}`} use:inview={options} on:enter={handleChange}>
-	<div class='text-container'>
-		<p class="part">Part &nbsp;01</p>
-	</div>
-
 	<div class="title-logo">
 		<img class="contain" src={`${assetPath}/intro_logo.png`}>
 	</div>
-
+<!-- 	<div class='text-container'>
+		<p class="part">Story &nbsp;01</p>
+	</div> -->
 	<div class="title-pipe">
 		<img class="contain" src={`${assetPath}/intro_pipe.png`}>
 	</div>
@@ -60,10 +58,10 @@
 	  margin: 0 auto;
 	  display: flex;
 	  padding: 10px;
-
+    margin-bottom: 10px;
 	}
 	.title-pipe {
-		min-width: min(275px, 100%);
+		min-width: min(235px, 100%);
 		width: 30%;
 		max-width: 400px;
 	  object-fit: contain;
@@ -73,7 +71,7 @@
 	}
 
 	.text-container {
-		max-width: min(600px, 100%);
+		max-width: min(640px, 100%);
 		margin: 0 auto;
 		padding: 0 20px;
 	}
@@ -86,9 +84,10 @@
 	}
 
 	.subtitle {	
-		font-weight: 500;
-		font-size: 20px;
-		padding: 30px 0 10px 0;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 36px;
+    padding: 30px 0 20px 0;
 	}
 
 	.byline {
@@ -109,8 +108,13 @@
 	}
 
 	@media only screen and (max-width:  600px) {
+		.title-logo {
+			margin-bottom: 0;
+		}
 		.subtitle {
-			font-size: 18px;
+			font-size: 22px;
+  		line-height: 30px;
+  		padding: 20px 0 10px 0;
 		}
 		.byline {
 			font: 0.60rem/1.1em var(--sans);

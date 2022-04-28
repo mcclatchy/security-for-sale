@@ -1,34 +1,52 @@
 <script>
 	import OutLink from './OutLink.svelte';
+	import { windowWidth } from '../modules/store.js';
 
 	export let assetPath;
 	export let items;
 
+	let nowEasternTime = Date.parse(new Date().toLocaleString("en-US", {timeZone: "America/New_York"}));
+
+	let publishDates = [
+		Date.parse(new Date('5/2/2022, 6:00:00 AM').toLocaleString("en-US", {timeZone: "America/New_York"})),
+		Date.parse(new Date('5/3/2022, 6:00:00 AM').toLocaleString("en-US", {timeZone: "America/New_York"}))
+	]
+
+	let activeItems = items.filter((item, i) =>  nowEasternTime >= publishDates[i])
+
 </script>
 
+{#if activeItems.length > 0}
+	<div class="divider"/>
+	<div class="next-story-container">
+		{#each activeItems as item, i}
+
+				<OutLink
+					isLastOfMultiple={i === (activeItems.length - 1) && activeItems.length > 1}
+					index={i + 2}
+					link={item?.link}
+					title={item?.title}
+					summary={item?.text}
+					imageFilename={item.image.filename}
+					imageAlt={item.image.alt}
+					{assetPath}
+				/>
+				{#if (i < (activeItems.length - 1) && $windowWidth < 600)}
+					<div class="divider"/>
+				{/if}
+
+		{/each}
+	</div>
+{/if}
 <div class="divider"/>
-<div class="next-story-container">
-	{#each items as item, i}
-		<OutLink
-			isLastOfMultiple={i === (items.length - 1) && items.length > 1}
-			index={i + 2}
-			link={item?.link}
-			title={item?.title}
-			summary={item?.text}
-			imageFilename={item.image.filename}
-			imageAlt={item.image.alt}
-			{assetPath}
-		/>
-	{/each}
-</div>
 
 <style>
 	.next-story-container {
-		max-width: 470px;
+		max-width: 570px;
 		display: flex;
 		display: -webkit-flex;
 		flex-direction: row;
-		justify-content: space-between;
+		justify-content: center;
 		margin: 0 auto;
 		padding-top: 40px;
 	}
@@ -42,7 +60,7 @@
 		margin-bottom: 30px;
 	}
 
-	@media only screen and (max-width: 500px) {
+	@media only screen and (max-width: 600px) {
 		.next-story-container {
 			max-width: 100%;
 			flex-direction: column;

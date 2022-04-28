@@ -5,7 +5,6 @@
 </script>
 
 
-<div class="divider"/>
 <div class="outro" id="outro">
 	{#each sections as section,i}
 		<h5 style={i === 0 && "margin-top: 10px"}>

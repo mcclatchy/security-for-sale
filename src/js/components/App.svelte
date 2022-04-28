@@ -148,11 +148,7 @@
 	/>
 
 	<Slide
-		section={getArrayItemById('text-section-0A', data.sections)}
-		{assetPath}
-	/>
-	<Slide
-		section={getArrayItemById('text-section-0B', data.sections)}
+		section={getArrayItemById('text-section-0', data.sections)}
 		{assetPath}
 	/>
 

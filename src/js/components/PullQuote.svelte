@@ -64,7 +64,7 @@
 		flex-direction: row;
 		justify-content: center;
 		padding-bottom: 20px;
-			padding-top: 20px;
+		padding-top: 20px;
 	}
 
 	.section-divider img {
@@ -97,7 +97,7 @@
 	    	vertical-align: -50px;
 		}
 		.section-divider {
-			padding-bottom: 40px;
+			padding-bottom: 0px;
 		}
 		:global(.quote-highlight) {
 		    font-size: 30px;

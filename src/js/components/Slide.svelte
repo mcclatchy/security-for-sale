@@ -57,5 +57,8 @@
 			padding: 3px 5px;
 			margin: 0 2px;
 		}
+		.slide p {
+			padding: 0px;
+		}
 	}
 </style>
