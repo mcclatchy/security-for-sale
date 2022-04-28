@@ -165,11 +165,6 @@
 	<MultimediaSection
 		section={getArrayItemById('text-section-1', data.sections)}
 		{assetPath}
-	/>
-
-	<MultimediaSection
-		section={getArrayItemById('text-section-2', data.sections)}
-		{assetPath}
 		divider={false}
 		paddingBottom={40}
 	/>
@@ -208,12 +203,12 @@
 	{/if}
 
 	<MultimediaSection
-		section={getArrayItemById('text-section-3', data.sections)}
+		section={getArrayItemById('text-section-2', data.sections)}
 		{assetPath}
 	/>
 
 	<MultimediaSection
-		section={getArrayItemById('text-section-4A', data.sections)}
+		section={getArrayItemById('text-section-3', data.sections)}
 		{assetPath}
 		divider={false}
 		paddingBottom={40}
@@ -227,7 +222,7 @@
 	/> 
 
 	<MultimediaSection
-		section={getArrayItemById('text-section-4B', data.sections)}
+		section={getArrayItemById('text-section-4', data.sections)}
 		{assetPath}
 	/>
 
