@@ -74,12 +74,12 @@
     },
 		'nc-highway-border': {
       'line-color': borderColor,
-      'line-width': ['match', ['get','rsu'], 0, 0, 1, 3.5, 0],
+      'line-width': isMobile.any() ? 2 : 3.5,
       'line-opacity': ["interpolate", ["linear"], ["zoom"], 3, 1, 8, 1, 11, 0, 14, 0]
     },
     'nc-highway': {
       'line-color': "white",
-      'line-width': ['match', ['get','rsu'], 0, 0, 1, 2.5, 0],
+      'line-width': isMobile.any() ? 1 : 2.5,
       'line-opacity': ["interpolate", ["linear"], ["zoom"], 3, 1, 8, 1, 11, 0, 14, 0]
     },
 		'highway-border': {
@@ -89,22 +89,22 @@
     },
     'mecklenburg-highway': {
       'line-color': "white",
-      'line-width': ['match', ['get','rsu'], 0, 0, 1, 4.5, 0],
+      'line-width': isMobile.any() ? 2 : 4.5,
       'line-opacity': isMobile.any() ? ["interpolate",["linear"],["zoom"],7,0,8,1,12,1,14,0] : ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0]
     },
 		'mecklenburg-highway-border': {
       'line-color': 'rgba(150,150,150,1)',
-      'line-width': ['match', ['get','rsu'], 0, 0, 1, 5.5, 0],
+      'line-width': isMobile.any() ? 3 : 5.5,
       'line-opacity': isMobile.any() ? ["interpolate",["linear"],["zoom"],7,0,8,1,12,1,14,0] : ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0]
     },
     'triangle-highway': {
       'line-color': "white",
-      'line-width': ['match', ['get','rsu'], 0, 0, 1, 4.5, 0],
+      'line-width': isMobile.any() ? 2 : 4.5,
       'line-opacity': isMobile.any() ? ["interpolate",["linear"],["zoom"],7,0,8,1,12,1,14,0] : ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0]
     },
 		'triangle-highway-border': {
       'line-color': 'rgba(150,150,150,1)',
-      'line-width': ['match', ['get','rsu'], 0, 0, 1, 5.5, 0],
+      'line-width': isMobile.any() ? 3 : 5.5,
       'line-opacity': isMobile.any() ? ["interpolate",["linear"],["zoom"],7,0,8,1,12,1,14,0] : ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0]
     },
     'highway': {
