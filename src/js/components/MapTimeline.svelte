@@ -8,6 +8,7 @@
   import MapTimelineStyles from './MapTimelineStyles.svelte'
 
   // import MapLegend from './MapLegend.svelte';
+  import MapScaleBar from './MapScaleBar.svelte';
   import MapSection from './MapSection.svelte';
   import MapSource from './MapSource.svelte';
   import MapTimelineTitle from './MapTimelineTitle.svelte';
@@ -47,7 +48,8 @@
   let innerMapWidth = 100;
   let padding = 100;
   let bufferWidth = 0;
-  $: textCoords = $isPortrait ? [-79.677,33.732] : [-84.324,34.777];
+  // $: textCoords = $isPortrait ? [-79.677,33.732] : [-84.324,34.777];
+  $: textCoords = [-77.970,33.503];
   let timelineCoords = [ -75.797,36.559 ];
   let timelineCanvasCoords;
   let textCanvasCoords
@@ -144,7 +146,13 @@
   ]
   let progress = 0;
   let pointerEvents = "none";
-  let customAttribution = ""
+  let customAttribution = `
+    <div style=\"padding-left: 10px; padding-bottom: 10px;\">
+      <span style="font-weight: bold">Map:</span> <a href=\"https://www2.census.gov/geo/tiger/TIGER2021/\" target=\"_blank\">U.S. Census Bureau</a>
+      <br>
+      <span style="font-weight: bold">Data:</span> Zillow, <a href='https://acdatacollective.org/' target='_blank'>Anti-Corruption Data Collective</a>, <a href=\"https://github.com/mcclatchy-southeast/security_for_sale\" target=\"_blank\">N&O/Observer analysis</a>
+    </div>
+  `
 
   let wideBreakpoint = 1.8;
   let portraitBreakpoint = 0.8
@@ -212,6 +220,10 @@
           <div class={`map`} use:inview="{options}" on:change="{handleChange}">
             {#if allDataLoaded && paintStyles && layoutStyles && (isInView || shouldLoad)}
               <Map id={mapId} style={styleUrl} bind:loaded={mapLoaded} location={{bounds: bounds.north_carolina}} bind:map={map} interactive={false} controls={false} attribution={"bottom-left"} customAttribution={customAttribution} resize={true} padding={{top: 100, bottom:100, left: 0, right: 0}}>
+
+              <MapScaleBar
+                {map}
+              />
 
               {#if mapLoaded}
 
@@ -289,7 +301,8 @@
           {/if}
           {#if $activeTimelineSection && textCanvasCoords}
             <div class="static-text" style={`
-                bottom: ${$isPortrait ? "15%" : "50px"};
+                bottom: ${$isPortrait ? "15%" : "unset" };
+                top:  ${$isPortrait ? "unset" : textCanvasCoords.y + "px"};
               `}
             >
               {$activeTimelineSection.text}

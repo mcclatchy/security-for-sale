@@ -189,7 +189,7 @@
 		position: absolute;
 		width: 100%;
 		max-width: 100%;
-		pointer-events: all;
+		pointer-events: none;
 		/* height: 100%; */
 		/* in theory this helps prevent jumping */
 		will-change: transform;

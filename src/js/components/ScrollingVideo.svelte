@@ -149,7 +149,7 @@
       <Loader
         desktopSize={100}
         mobileSize={100}
-        color="#603939"
+        color="#D93A4C"
         displayText={false}
         position="relative"
         width="100%"

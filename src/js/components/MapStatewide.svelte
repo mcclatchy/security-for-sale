@@ -197,7 +197,13 @@
   let paintStyles;
   let layoutStyles;
   let topLayerDrawn = false;
-  let customAttribution = ""
+  let customAttribution = `
+    <div style=\"padding-left: 10px; padding-bottom: 10px;\">
+      <span style="font-weight: bold">Map:</span> <a href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\">&copy; OpenStreetMap contributors</a>
+      <br>
+      <span style="font-weight: bold">Data:</span> Zillow, <a href='https://acdatacollective.org/' target='_blank'>Anti-Corruption Data Collective</a>, <a href=\"https://github.com/mcclatchy-southeast/security_for_sale\" target=\"_blank\">N&O/Observer analysis</a>
+    </div>
+  `
 
   let layerOrder = [
     'state-names',
