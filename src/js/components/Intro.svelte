@@ -28,9 +28,6 @@
 
 	$: storyTwoLink = `https://www.${$domain}.com/news/business/article260606272.html`
 	$: storyThreeLink = `https://www.${$domain}.com/news/business/article260606412.html`
-
-	console.log(storyTwoLink, storyThreeLink)
-
 	$: opacity = isInView ? 1 : 0
 </script>
 
