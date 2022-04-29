@@ -1,5 +1,7 @@
 <script>
-	import { amlToHTML } from '../modules/utils.js'
+	import { domain } from '../modules/store.js';
+	import { amlToHTML, replaceLinkDomain } from '../modules/utils.js'
+
 
 	export let assetPath;
 	export let link;
@@ -10,11 +12,16 @@
 	export let index;
 	export let isLastOfMultiple = false;
 
+	let oldDomain = "charlotteobserver"
+	let replaceableDomains = [
+		"newsobserver"
+	]
+
 	let buttonText = `Read Story &nbsp;0${index} &nbsp; >`
 </script>
 
 <div class="preview-outer" class:is-last-of-mulitple={isLastOfMultiple}>
-		<a href={link} target="_blank">
+		<a href={replaceableDomains.includes($domain) ? replaceLinkDomain(link, $domain, oldDomain) : link} target="_blank">
 			<div class="preview">
 				<div class="preview-image">
 					<img

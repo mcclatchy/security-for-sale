@@ -19,7 +19,7 @@
   import { onMount } from 'svelte';
 	import { isMobile, isTablet, addDataToVideoElement, getArrayItemById } from "../modules/utils.js";
   import { enableScroll, disableScroll } from '../modules/scroll';
-	import { windowWidth, windowHeight, storeInnerHeight, storeOuterHeight, isPortrait, isIntroLoaded, isFirstVideoLoaded, initialOrientationAngle, updatedOrientationAngle, isRotated, droneTriggerElement, statewideZoom } from '../modules/store.js';
+	import { windowWidth, windowHeight, storeInnerHeight, storeOuterHeight, isPortrait, isIntroLoaded, isFirstVideoLoaded, initialOrientationAngle, updatedOrientationAngle, isRotated, droneTriggerElement, statewideZoom, domain } from '../modules/store.js';
   import amlURL from '../../assets/aml-story.json?url';
 
   // Disable Scroll initially - once the load trigger, fires, scroll is enabled
@@ -45,7 +45,7 @@
 	let projectName = "security-for-sale"
 	const dataPath = import.meta.env.PROD ? `https://media.mcclatchy.com/static/2022/${projectName}/data/` : "../../src/data"
 	const assetPath = import.meta.env.PROD ? `https://media.mcclatchy.com/static/2022/${projectName}/` : "../../"
-	const videoPath = import.meta.env.PROD ? `https://www.charlotteobserver.com/static/hi/2022/${projectName}/` : "../../"
+	const videoPath = import.meta.env.PROD ? `https://www.${$domain}.com/static/hi/2022/${projectName}/` : "../../"
 
 	let innerHeight = window.innerHeight;
 	let innerWidth = window.innerWidth;
@@ -54,6 +54,7 @@
 	$: storeOuterHeight.set(outerHeight);
 	$: windowHeight.set(isMobile.ios() || isTablet.ipad() ? outerHeight : innerHeight);
 	$: windowWidth.set(innerWidth);
+	$: domain.set(window.pageInfo["marketInfo.domain"]);
 
 	let scrollY = 0;
   let throttledY = 0;

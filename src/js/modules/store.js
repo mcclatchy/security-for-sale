@@ -41,3 +41,6 @@ export const storeOuterHeight = writable(window.outerHeight);
 
 // MAP STYLING
 export const layersDrawn = writable([])
+
+// AML REPLACING LINK
+export const domain = writable(window.pageInfo["marketInfo.domain"]);

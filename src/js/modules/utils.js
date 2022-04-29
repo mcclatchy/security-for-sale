@@ -358,6 +358,13 @@ export function getBBoxAspectRatio(bbox) {
   return aspectRatio;
 }
 
+export function replaceLinkDomain(link, newDomain, oldDomain) {
+  if (!newDomain || !oldDomain) {
+    return link;
+  }
+  const replacedLink = link.replaceAll(`www.${oldDomain}.com`, `www.${newDomain}.com`);
+  return replacedLink;
+}
 
 function getDistanceFromLatLonInKm(lon1, lat1, lon2, lat2) {
   var R = 6371; // Radius of the earth in km
