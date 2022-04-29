@@ -14,7 +14,8 @@
 
 	let oldDomain = "charlotteobserver"
 	let replaceableDomains = [
-		"newsobserver"
+		"newsobserver",
+		"heraldsun"
 	]
 
 	let buttonText = `Read Story &nbsp;0${index} &nbsp; >`
