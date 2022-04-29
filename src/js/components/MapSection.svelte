@@ -15,6 +15,9 @@
 	export let top = 0;
 	export let left = 0;
 	export let visibility = "visible";
+	export let progress = null;
+	export let progressStart = null;
+	export let progressEnd = null;
 
 	let boxWidth = 600;
 
@@ -47,9 +50,14 @@
 
 	$: isInView && !section.pitch && !section.bearing && $isPortrait && $windowWidth && debounce(fitBounds(map, section.bounds, speed, section?.padding), 500)
 
+	// TODO: generalize some of this very specific code
 	$: if (isInView) {
 		statewideZoom.set(section.boundsId)
-		activeTimelineSection.set(section);
+	}
+	$: if (progress && progress >= progressStart && progress <= progressEnd) {
+		if (section && section?.text !== $activeTimelineSection?.text) {
+			activeTimelineSection.set(section);
+		} 
 	}
 
 	// IF POSITION IS STATIC

@@ -74,8 +74,6 @@
     throttledParallaxShift = Math.round(topPctShift * ((endPixel - startPixel)) - topPctShift * ($windowHeight));;
   }, 0);
   $: shouldParallaxText && updateParallaxShift(progressPixel)
-
-  $: console.log(horizontalPosition)
 </script>
 
 <div

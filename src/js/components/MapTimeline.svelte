@@ -124,11 +124,11 @@
 
   let startTimestamp = 1339113600
   let endTimestamp = 1615939200
-  let oneYear = 31536000 / 2
+  let sixMonths = 31536000 / 2
   $: currentTimestamp = Math.round(startTimestamp + progress * (endTimestamp - startTimestamp));
   $: filterTimestamp = currentTimestamp <= endTimestamp ? currentTimestamp : endTimestamp;
-  $: highlighted = timestamps.filter((x) => x <= filterTimestamp && x >= (filterTimestamp - oneYear));
-  $: faded = timestamps.filter((x) => x <= (filterTimestamp - oneYear));
+  $: highlighted = timestamps.filter((x) => x <= filterTimestamp && x >= (filterTimestamp - sixMonths));
+  $: faded = timestamps.filter((x) => x <= (filterTimestamp - sixMonths));
   $: currentDate = new Date(currentTimestamp * 1000);
 
 
@@ -351,6 +351,9 @@
               top={textCanvasCoords.y}
               left={textCanvasCoords.x}
               visibility={'hidden'}
+              {progress}
+              progressStart={i === (sections.length - 1) ? 0.88 :  Math.round(i / sections.length * 100) / 100}
+              progressEnd={i === (sections.length - 1) ? 2 : i === (sections.length - 2) ? 0.88 :  Math.round((i + 1) / sections.length * 100) / 100}
             />
           </div>
         {/each}
