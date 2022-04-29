@@ -5,7 +5,7 @@
 	export let palette = ["red", "green", "blue", "yellow"]
     export let splits = ["1", "2", "3", "4", "5"]
     export let annotations = [{label: "Left", class: 'left'}, {label: "Middle", tick: 2}, {label: "Right", class: 'right'}]
-    export let position = "fixed";
+    export let position = "absolute";
     export let opacity = 0;
     export let legendWidth = 250
     export let padding = 3; //pixels
@@ -67,12 +67,12 @@
 <style>
 .legend-container {
     width: 100%;
-    height: 100vh;
+    height: 100%;
     margin: 0 auto;
     display: block;
     pointer-events: none;
     text-align: center;
-    position: fixed;
+    position: sticky;
     top: 0;
     left: 0;
     z-index: 9999999999999;

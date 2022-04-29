@@ -1,5 +1,5 @@
 <script>
-  import { makeColors } from "../modules/utils.js";
+  import { makeColors, isMobile } from "../modules/utils.js";
 
   let primaryColor = "#ffa4b1"
   let colors = ["#eecb9b", "#e7b48f", "#e09c85", "#da867b", "#c16677"] //makeColors(primaryColor, 1, 3, 0.1, 0.8)
@@ -38,30 +38,30 @@
       'text-color': "#333",
       'text-halo-color': "rgba(255,255,255,0.8)",
       "text-halo-width": 2,
-      'text-opacity': ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0]
+      'text-opacity': isMobile.any() ? ["interpolate",["linear"],["zoom"],7,0,8,1,12,1,14,0] : ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0]
     },
     'small-city-names': {
       'text-color': "#333",
       'text-halo-color': "rgba(255,255,255,0.8)",
       "text-halo-width": 2,
-      'text-opacity': ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0]
+      'text-opacity': isMobile.any() ? 0 : ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0]
     },
     'zoom-city-names': {
       'text-color': "#333",
       'text-halo-color': "rgba(255,255,255,0.8)",
       "text-halo-width": 2,
-      'text-opacity': ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0]
+      'text-opacity': isMobile.any() ? ["interpolate",["linear"],["zoom"],7,0,8,1,12,1,14,0] : ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0]
     },
 		"area-names": {
       'text-color': "rgba(90,90,90,1)",
       'text-halo-color': "rgba(255,255,255,0.8)",
       "text-halo-width": 2,
-      'text-opacity': ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0]
+      'text-opacity': isMobile.any() ? ["interpolate",["linear"],["zoom"],7,0,8,1,12,1,14,0] : ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0]
 		},
     "icons": {
       'text-color': '#b1b1b1',
-      'text-opacity': ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0],
-      'icon-opacity': ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0],
+      'text-opacity': isMobile.any() ? ["interpolate",["linear"],["zoom"],7,0,8,1,12,1,14,0] : ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0],
+      'icon-opacity': isMobile.any() ? ["interpolate",["linear"],["zoom"],7,0,8,1,12,1,14,0] : ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0],
       'icon-color': ['match', ['get', 'type'], 'airport', '#b1b1b1','#b1b1b1']
     },
 		'north-carolina-outline': {
@@ -90,22 +90,22 @@
     'mecklenburg-highway': {
       'line-color': "white",
       'line-width': ['match', ['get','rsu'], 0, 0, 1, 4.5, 0],
-      'line-opacity': ["interpolate", ["linear"], ["zoom"], 3, 0, 8, 0, 9, 1, 14, 1]
+      'line-opacity': isMobile.any() ? ["interpolate",["linear"],["zoom"],7,0,8,1,12,1,14,0] : ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0]
     },
 		'mecklenburg-highway-border': {
       'line-color': 'rgba(150,150,150,1)',
       'line-width': ['match', ['get','rsu'], 0, 0, 1, 5.5, 0],
-      'line-opacity': ["interpolate", ["linear"], ["zoom"], 3, 0, 8, 0, 9, 1, 14, 1]
+      'line-opacity': isMobile.any() ? ["interpolate",["linear"],["zoom"],7,0,8,1,12,1,14,0] : ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0]
     },
     'triangle-highway': {
       'line-color': "white",
       'line-width': ['match', ['get','rsu'], 0, 0, 1, 4.5, 0],
-      'line-opacity': ["interpolate", ["linear"], ["zoom"], 3, 0, 8, 0, 9, 1, 14, 1]
+      'line-opacity': isMobile.any() ? ["interpolate",["linear"],["zoom"],7,0,8,1,12,1,14,0] : ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0]
     },
 		'triangle-highway-border': {
       'line-color': 'rgba(150,150,150,1)',
       'line-width': ['match', ['get','rsu'], 0, 0, 1, 5.5, 0],
-      'line-opacity': ["interpolate", ["linear"], ["zoom"], 3, 0, 8, 0, 9, 1, 14, 1]
+      'line-opacity': isMobile.any() ? ["interpolate",["linear"],["zoom"],7,0,8,1,12,1,14,0] : ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0]
     },
     'highway': {
       'line-color': "white",
@@ -115,36 +115,44 @@
     'mecklenburg-outline': {
 			'line-color': 'rgba(150,150,150,1)',
 			'line-width': 2,
-			'line-opacity': ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0]
+			'line-opacity': isMobile.any() ? ["interpolate",["linear"],["zoom"],7,0,8,1,12,1,14,0] : ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0]
 		},
     'the-triangle-outline': {
 			'line-color': 'rgba(150,150,150,1)',
 			'line-width': 2,
-			'line-opacity': ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0]
+			'line-opacity': isMobile.any() ? ["interpolate",["linear"],["zoom"],7,0,8,1,12,1,14,0] : ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0]
 		},
     'street': {
     	'line-color': "white",
-			'line-width': ['match', ['get','highway'],'residential', 8.5,'turning_circle', 10.5,'service', 8.5,'secondary', 12.5,0],
-			'line-opacity': ["interpolate", ["linear"], ["zoom"],3,0,8,0,14,1,15,1]
+			'line-width': isMobile.any() ?
+        ['match', ['get','highway'],'residential', 3.5,'turning_circle', 4.5,'service', 3.5,'secondary', 5.5,0] :
+        ['match', ['get','highway'],'residential', 8.5,'turning_circle', 10.5,'service', 8.5,'secondary', 12.5,0],
+			'line-opacity': isMobile.any() ? ["interpolate", ["linear"], ["zoom"],3,0,8,0,9,0,13,1] : ["interpolate", ["linear"], ["zoom"],3,0,8,0,14,1]
     },
     'street-border': {
-      'line-color': 'rgba(150,150,150,1)',
-      'line-width': ['match', ['get','highway'],'residential', 9.5,'turning_circle', 11.5,'service', 9.5,'secondary', 13.5,0],
-      'line-opacity': ["interpolate", ["linear"], ["zoom"],3,0,8,0,14,0,15,0.8]
+      'line-color': isMobile.any() ? 'rgba(200,200,200,1)' : 'rgba(150,150,150,1)',
+      'line-width': isMobile.any() ?
+        ['match', ['get','highway'],'residential', 4.5,'turning_circle', 5.5,'service', 4.5,'secondary', 6.5,0] :
+        ['match', ['get','highway'],'residential', 9.5,'turning_circle', 11.5,'service', 9.5,'secondary', 13.5,0],
+      'line-opacity': isMobile.any() ? ["interpolate", ["linear"], ["zoom"],3,0,8,0,9,0,13,0,14,0.8] : ["interpolate", ["linear"], ["zoom"],3,0,8,0,14,0,15,0.8]
     },
     'turning-circle-border': {
-    	'circle-color': 'rgba(150,150,150,1)',
+    	'circle-color': isMobile.any() ? 'rgba(200,200,200,1)' : 'rgba(150,150,150,1)',
 			'circle-opacity': 0,
-			'circle-radius': ["interpolate",["linear"],["zoom"],3,2,10,2,14,9],
+			'circle-radius': isMobile.any() ?
+        ["interpolate",["linear"],["zoom"],3,2,10,2,14,3] :
+        ["interpolate",["linear"],["zoom"],3,2,10,2,14,9],
 			"circle-opacity-transition": {"duration": 300,"delay": 0},
 			"circle-stroke-width": 1,
-			"circle-stroke-color": 'rgba(150,150,150,1)',
-			"circle-stroke-opacity": ["interpolate", ["linear"], ["zoom"],3,0,8,0,14,0,15,0.7]
+			"circle-stroke-color": isMobile.any() ? 'rgba(200,200,200,1)' : 'rgba(150,150,150,1)',
+			"circle-stroke-opacity": isMobile.any() ? ["interpolate", ["linear"], ["zoom"],3,0,8,0,9,0,13,0,14,0.7] : ["interpolate", ["linear"], ["zoom"],3,0,8,0,14,0,15,0.7]
     },
     "turning-circle-fill": {
     	'circle-color': "white",
-			'circle-opacity': ["interpolate",["linear"],["zoom"],3,0,8,0,14,0,15,1],
-			'circle-radius': ["interpolate",["linear"],["zoom"],3,2,10,2,14,9],
+			'circle-opacity': isMobile.any() ? ["interpolate", ["linear"], ["zoom"],3,0,8,0,9,0,13,1] : ["interpolate",["linear"],["zoom"],3,0,8,0,14,0,15,1],
+			'circle-radius': isMobile.any() ?
+        ["interpolate",["linear"],["zoom"],3,2,10,2,14,3] :
+        ["interpolate",["linear"],["zoom"],3,2,10,2,14,9],
 			"circle-opacity-transition": {"duration": 300, "delay": 0}
     },
     "surrounding-state-fill": {
@@ -161,33 +169,33 @@
     },
     "mecklenburg-grid-fill": {
 			'fill-color': hexagonFillColor,
-			'fill-opacity': ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0],
+			'fill-opacity': isMobile.any() ? ["interpolate",["linear"],["zoom"],7,0,8,1,12,1,14,0] : ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0],
 			"fill-opacity-transition": {"duration": 300,"delay": 0}
     },
     "mecklenburg-grid-line": {
     	'line-color': 'rgba(230,230,230,1)',
 			'line-width': 0.5,
-			'line-opacity': ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0]
+			'line-opacity': isMobile.any() ? ["interpolate",["linear"],["zoom"],7,0,8,1,12,1,14,0] : ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0]
     },
     "the-triangle-grid-fill": {
     	'fill-color': hexagonFillColor,
-			'fill-opacity':  ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0],
+			'fill-opacity': isMobile.any() ? ["interpolate",["linear"],["zoom"],7,0,8,1,12,1,14,0] : ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0],
 			"fill-opacity-transition": {"duration": 300,"delay": 0}
 
     },
     "the-triangle-grid-line": {
 			'line-color': 'rgba(230,230,230,1)',
 			'line-width': 0.5,
-			'line-opacity': ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0]
+			'line-opacity': isMobile.any() ? ["interpolate",["linear"],["zoom"],7,0,8,1,12,1,14,0] : ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0]
     },
     "investor-sfr-hexagon-fill": {
 			'fill-color': ['get', 'color'],
-			'fill-opacity': ["interpolate",["linear"],["zoom"],8,1,9,0,14,0],
+			'fill-opacity': isMobile.any() ? ["interpolate",["linear"],["zoom"],7,1,8,0,14,0] : ["interpolate",["linear"],["zoom"],8,1,9,0,14,0],
 			"fill-opacity-transition": {"duration": 300,"delay": 0}
     },
     "investor-sfr-hexagon-line": {
 			'line-color': hexagonOutlineColor, //'#D7D0D4',
-			"line-opacity": ["interpolate",["linear"],["zoom"],8,0.2,10,0,14,0],
+			"line-opacity": isMobile.any() ? ["interpolate",["linear"],["zoom"],7,0.2,8,0,10,0,14,0] : ["interpolate",["linear"],["zoom"],8,0.2,9,0,10,0,14,0],
 			'line-width': 1
     },
     "home-fill": {
@@ -202,32 +210,32 @@
     },
     "zoomed-hexagon-fill": {
 			'fill-color': ['get', 'color'],
-			'fill-opacity':  ["interpolate",["linear"],["zoom"],8,0,9,0,10,1,12,1,14,0],
+			'fill-opacity':  isMobile.any() ? ["interpolate",["linear"],["zoom"],7,0,8,1,12,1,14,0] : ["interpolate",["linear"],["zoom"],8,0,9,0,10,1,12,1,14,0],
 			"fill-opacity-transition": {"duration": 300,"delay": 0}
     },
     "zoomed-hexagon-line": {
 			'line-color': 'white', //'#D7D0D4',
-			"line-opacity": ["interpolate",["linear"],["zoom"],8,0,9,0,10,1,12,1,14,0],
+			"line-opacity": isMobile.any() ? ["interpolate",["linear"],["zoom"],7,0,8,1,12,1,14,0] : ["interpolate",["linear"],["zoom"],8,0,9,0,10,1,12,1,14,0],
 			'line-width': 0.1
     },
     "mecklenburg-hexagon-fill": {
 			'fill-color': ['get', 'color'],
-			'fill-opacity':  ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0],
+			'fill-opacity':  isMobile.any() ? ["interpolate",["linear"],["zoom"],7,0,8,1,12,1,14,0] : ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0],
 			"fill-opacity-transition": {"duration": 300,"delay": 0}
     },
    	"mecklenburg-hexagon-line": {
 			'line-color': hexagonOutlineColor, //'#D7D0D4',
-			"line-opacity": ["interpolate",["linear"],["zoom"],8,0,9,0.3,12,0.3,14,0],
+			"line-opacity": isMobile.any() ? ["interpolate",["linear"],["zoom"],7,0,8,0.3,12,0.3,14,0] : ["interpolate",["linear"],["zoom"],8,0,9,0.3,12,0.3,14,0],
 			'line-width': 0.1
    	},
     "the-triangle-hexagon-fill": {
 			'fill-color': ['get', 'color'],
-			'fill-opacity':  ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0],
+			'fill-opacity':  isMobile.any() ? ["interpolate",["linear"],["zoom"],7,0,8,1,12,1,14,0] : ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0],
 			"fill-opacity-transition": {"duration": 300,"delay": 0}
     },
    	"the-triangle-hexagon-line": {
 			'line-color': hexagonOutlineColor, //'#D7D0D4',
-			"line-opacity": ["interpolate",["linear"],["zoom"],8,0,9,0.3,12,0.3,14,0],
+			"line-opacity": isMobile.any() ? ["interpolate",["linear"],["zoom"],7,0,8,0.3,12,0.3,14,0] : ["interpolate",["linear"],["zoom"],8,0,9,0.3,12,0.3,14,0],
 			'line-width': 0.1
    	}
 	}
@@ -318,7 +326,7 @@
 		},
     'icons': {
       "text-font": ["Lato Regular"],
-      "text-size": ["interpolate", ["linear"], ["zoom"],3,5,5,6,6,10],
+      "text-size": isMobile.any() ? ["interpolate", ["linear"], ["zoom"],3,5,5,6,6,7] : ["interpolate", ["linear"], ["zoom"],3,5,5,6,6,10],
       'text-field': ['format', ['upcase', ['get', 'description']]],
       'text-offset': ['match', ['get', 'type'], 'interstate', ["literal", [0, 0.125]], 'intrastate', ["literal", [0, 0]], ["literal", [0, 0.25]]],
       "visibility": "visible",
@@ -330,7 +338,7 @@
       'text-anchor': ['get', 'anchor'],
       'icon-anchor': ['get', 'anchor'],
       'icon-image': ['get', 'type'],
-      'icon-size': 0.13
+      'icon-size': isMobile.any() ? 0.08 : 0.13
     }
 	}
 

@@ -39,7 +39,7 @@
   };
 
   $: if ($isPortrait) {
-    bounds.north_carolina = [[-81.931,33.613 ], [-77.076,36.547]];
+    bounds.north_carolina = [[-81.931,33.603 ], [-77.6351,36.547]];
   } else {
     bounds.north_carolina = [[ -84.521988, 33.645 ], [-75.1994, 37.2881695]];
   }
@@ -461,7 +461,8 @@
   @media only screen and (max-width:  600px) {
     .static-text {
       width: 100%;
-      padding: 20px 40px;
+      padding: 10px 20px;
+      background: none;
       font-size: 16px;
       line-height: 24px;
       font-weight: 400;

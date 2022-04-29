@@ -34,15 +34,20 @@
     neighborhood_zoom: [[-80.882474,35.294037], [-80.878985,35.293901]],
     neighborhood: [[-80.88741,35.29696], [-80.87243,35.28751]],
     raleigh: [[-79.1445,36.1579], [-78.1306,35.4883]],
+    raleigh: [[-79.1445,36.1579], [-78.1306,35.4883]],
     fuquay: [[-78.916888, 35.697333], [-78.687336, 35.527515]]
   };
 
   $: if ($isPortrait) {
     bounds.north_carolina = [[-81.606,33.613 ], [-77.460,36.547]];
+    bounds.neighborhood = [[-80.88675,35.29707], [-80.87697,35.28754]];
     bounds.neighborhood_zoom = [[-80.878612,35.294037], [-80.880125,35.293901]];
+    bounds.raleigh = [[-79.0864,36.1579], [-78.2025,35.4883]];
   } else {
     bounds.north_carolina = [[ -84.521988, 33.645 ], [-75.1994, 37.2881695]];
+    bounds.neighborhood = [[-80.88741,35.29696], [-80.87243,35.28751]];
     bounds.neighborhood_zoom = [[-80.882474,35.294037], [-80.878985,35.293901]];
+    bounds.raleigh = [[-79.1445,36.1579], [-78.1306,35.4883]];
   }
 
   // ALL COLOR STYLING HERE
@@ -263,7 +268,6 @@
   
   let videoOpacity = 0;
   $: mapOpacity = 1 - videoOpacity;
-
 </script>
 
 <MapStatewideStyles
@@ -301,7 +305,7 @@
         palette={["#8ce38f", "#2c719f", "#ffa4b1", "#1f8166", "#cf307a", "#8dcaf0", "#d5cc80"]}
         splits={["Tricon Residential", "American Homes 4 Rent", "Progress Residential", "Firstkey", "Invitation Homes", "Amherst Residential", "Other"]}
         annotations={null}
-        opacity={["neighborhood_zoom"].includes($statewideZoom) ? 1 : 0}
+        opacity={["neighborhood_zoom", "neighborhood"].includes($statewideZoom) || mapOpacity === 0 ? 1 : 0}
         legendWidth={600}
       />
       <div class="map" use:inview="{options}" on:change="{handleChange}" style={`opacity: ${mapOpacity}`}>
@@ -352,14 +356,14 @@
             legendWidth={450}
           />
 
-          <MapLegendDiscrete
+<!--           <MapLegendDiscrete
             legendTitle="Institutionally Owned Single-Family Homes<br class='mobile'/> in Mecklenburg County Neighborhood"
             palette={["#8ce38f", "#2c719f", "#ffa4b1", "#1f8166", "#cf307a", "#8dcaf0", "#d5cc80"]}
             splits={["Tricon Residential", "American Homes 4 Rent", "Progress Residential", "Firstkey", "Invitation Homes", "Amherst Residential", "Other"]}
             annotations={null}
             opacity={["neighborhood"].includes($statewideZoom) ? 1 : 0}
             legendWidth={600}
-          />
+          /> -->
 
           <!-- STATE NAMES -->
           <MapSource

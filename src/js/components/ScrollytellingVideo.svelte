@@ -39,13 +39,15 @@
 		offsetElement = videoElement;
 	}  
 
+	$: offsetMultiplier = isMobile.any() ? 0.4 : 0.5;
+
   onMount(() => {
   	if (!offsetElement && videoElement) {
 			offsetElement = videoElement;
 		}  
   	if (offsetElement) {
 	  	if (videoElement !== offsetElement && offsetElement.offsetTop === 0 && offsetElement?.offsetParent) {
-				videoOffset = offsetElement.offsetParent.offsetParent.offsetParent.offsetTop - 0.75 * $windowHeight
+				videoOffset = offsetElement.offsetParent.offsetParent.offsetParent.offsetTop - offsetMultiplier * $windowHeight
 	  	} else {
 	  		videoOffset = offsetElement.offsetTop
 	  	}
@@ -55,7 +57,7 @@
 	
   $: if (offsetElement) {
   	if (videoElement !== offsetElement && offsetElement.offsetTop === 0 && offsetElement?.offsetParent) {
-			videoOffset = offsetElement.offsetParent.offsetParent.offsetParent.offsetTop + offsetElement.offsetParent.offsetTop - 0.75 * $windowHeight
+			videoOffset = offsetElement.offsetParent.offsetParent.offsetParent.offsetTop + offsetElement.offsetParent.offsetTop - offsetMultiplier * $windowHeight
   	} else {
   		videoOffset = offsetElement.offsetTop
   	}
@@ -65,7 +67,7 @@
 		const elements = entries.map(entry => entry.target);
   	execResizeCallbackWithSuspend(elements, resizeObserver, () => {
 			if (videoElement !== offsetElement && offsetElement?.offsetTop === 0 && offsetElement?.offsetParent) {
-				videoOffset = offsetElement.offsetParent.offsetParent.offsetParent.offsetTop + offsetElement.offsetParent.offsetTop - 0.75 * $windowHeight
+				videoOffset = offsetElement.offsetParent.offsetParent.offsetParent.offsetTop + offsetElement.offsetParent.offsetTop - offsetMultiplier * $windowHeight
 	  	} else {
 	  		videoOffset = offsetElement.offsetTop
 	  	}
