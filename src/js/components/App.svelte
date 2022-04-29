@@ -5,7 +5,6 @@
 	import Fonts from './Fonts.svelte';
 	import Intro from './Intro.svelte';
 	import PageLoader from './PageLoader.svelte';
-  import MapLegendDiscrete from './MapLegendDiscrete.svelte';
 	import MapStatewide from './MapStatewide.svelte';
 	import MapTimeline from './MapTimeline.svelte';
 	import MultimediaSection from './MultimediaSection.svelte';
@@ -173,15 +172,6 @@
 		{videoPath}
 		{scrollY}
 		videoData={getArrayItemById('drone', data.videos)}
-	/>
-
-	<MapLegendDiscrete
-	  legendTitle="Institutionally Owned Single-Family Homes<br class='mobile'/> in Mecklenburg County Neighborhood"
-	  palette={["#8ce38f", "#2c719f", "#ffa4b1", "#1f8166", "#cf307a", "#8dcaf0", "#d5cc80"]}
-	  splits={["Tricon Residential", "American Homes 4 Rent", "Progress Residential", "Firstkey", "Invitation Homes", "Amherst Residential", "Other"]}
-	  annotations={null}
-	  opacity={["neighborhood_zoom"].includes($statewideZoom) ? 1 : 0}
-	  legendWidth={600}
 	/>
 
 	<MultimediaSection

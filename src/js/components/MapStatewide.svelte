@@ -190,8 +190,6 @@
   }
 
 
-
-
   let map = null;
   let mapId = "statewide-map"
   let paintStyles;
@@ -225,7 +223,6 @@
     "the-triangle-hexagon-line",
     "home-line",
 
-
     "investor-sfr-hexagon-fill",
     "mecklenburg-hexagon-fill",
     "the-triangle-hexagon-fill",
@@ -236,11 +233,8 @@
     'triangle-highway',
     'triangle-highway-border',
 
-
-
     "zoomed-hexagon-line",
     "zoomed-hexagon-fill",
-
 
     "mecklenburg-grid-line",
     "the-triangle-grid-line",
@@ -257,7 +251,6 @@
     'highway-border',
     'street-border',
     'turning-circle-border',
-
   
     'north-carolina-fill'
   ]
@@ -274,6 +267,9 @@
     setupIcon(`${assetPath}/interstate.svg`, 'interstate')
     setupIcon(`${assetPath}/intrastate.svg`, 'intrastate', 200, 171)
   }
+  
+  let videoOpacity = 0;
+  $: mapOpacity = 1 - videoOpacity;
 
 </script>
 
@@ -293,7 +289,7 @@
     <div slot="background" style={`width: 100%; height: ${$windowHeight}px; pointer-events: ${pointerEvents}`}>
 
       {#if $droneTriggerElement}
-        <div class="transition-container" style={`height: 100%; width: 100%; position: fixed; top: 0; left: 0; z-index: 10; pointer-events: none;`}>
+        <div class="transition-container" style={`height: 100%; width: 100%; position: fixed; top: 0; left: 0; z-index: 1; pointer-events: none;`}>
           <ScrollytellingVideo
             {assetPath}
             {videoPath}
@@ -303,11 +299,19 @@
             offsetElement={$droneTriggerElement}
             fade={true}
             pointerEvents="none"
+            bind:opacity={videoOpacity}
           />
         </div>
       {/if}
-
-      <div class="map" use:inview="{options}" on:change="{handleChange}">
+      <MapLegendDiscrete
+        legendTitle="Institutionally Owned Single-Family Homes<br class='mobile'/> in Mecklenburg County Neighborhood"
+        palette={["#8ce38f", "#2c719f", "#ffa4b1", "#1f8166", "#cf307a", "#8dcaf0", "#d5cc80"]}
+        splits={["Tricon Residential", "American Homes 4 Rent", "Progress Residential", "Firstkey", "Invitation Homes", "Amherst Residential", "Other"]}
+        annotations={null}
+        opacity={["neighborhood_zoom"].includes($statewideZoom) ? 1 : 0}
+        legendWidth={600}
+      />
+      <div class="map" use:inview="{options}" on:change="{handleChange}" style={`opacity: ${mapOpacity}`}>
         {#if allDataLoaded && (isInView || shouldLoad)}
 
         <Map id={mapId} style={styleUrl} location={{bounds: bounds.north_carolina}} bind:map={map} interactive={false} controls={false} attribution={"bottom-left"} customAttribution={customAttribution} padding={{top: 100, bottom:0, left: 0, right: 0}}>
@@ -363,9 +367,6 @@
             opacity={["neighborhood"].includes($statewideZoom) ? 1 : 0}
             legendWidth={600}
           />
-
-
-          <!-- <MapStatewideTitle/> -->
 
           <!-- STATE NAMES -->
           <MapSource

@@ -25,9 +25,9 @@
 	export let pointerEvents = "all";
 	export let visibility;
 	export let shouldParallaxText = false;
+	export let opacity = 1;
 
   let videoFinished = false;
-	let opacity = 1;
 	$: opacity = fade && videoOffset && (videoFinished || scrollY < videoOffset || scrollY > (videoOffset + height + $windowHeight)) ? 0 : 1
 	$: visibility = fade && videoOffset && (videoFinished || scrollY < videoOffset || scrollY > (videoOffset + height + $windowHeight)) ? 'hidden' : 'visible'
 
