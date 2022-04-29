@@ -15,7 +15,7 @@
         For corporate landlords,<br class="mobile"> a post-recession boom
     </div> 
     <div  class={`subtitle${classSuffix}`}>
-        <img class="inline" src={`${assetPath}/hexagon.svg`}/>&nbsp; = &nbsp;Each point is a home purchased by an investor. <br class="mobile">Some properties may have been resold.
+        <img class="inline" src={`${assetPath}/hexagon.svg`}/>&nbsp; = &nbsp;Each point is a home purchased by an investor. <br class="mobile">Some properties may have been resold over time.
     </div>
 </div>
 

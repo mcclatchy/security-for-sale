@@ -26,20 +26,6 @@
     return defaultValue;
   }
 
-  $: stylePrefix = $isPortrait ? "portrait" : "landscape";
-  $: videoStyles = stylePrefix && videoData[stylePrefix];
-  $: textStyles = stylePrefix && scrollingText[stylePrefix];
-
-  $: fontSize = getAttribute("fontSize", textStyles, videoStyles, 20);
-  $: fontColor = getAttribute("fontColor", textStyles, videoStyles, "black");
-  $: lineHeight = 1.5
-  $: backgroundColor = getAttribute("backgroundColor", textStyles, videoStyles, "white");
-  $: borderColor = getAttribute("borderColor", textStyles, videoStyles, "black");
-  $: borderWidth = getAttribute("borderWidth", textStyles, videoStyles, 1);
-  $: horizontalPosition = getAttribute("horizontalPosition", textStyles, videoStyles, "center");
-  $: boxWidth = getAttribute("boxWidth", textStyles, videoStyles, 600);
-  $: left = getAttribute("left", textStyles, videoStyles, "0%");
-  $: width = getAttribute("width", textStyles, videoStyles, "100%");
 
   $: seconds = $isPortrait ? scrollingText.portraitSeconds : scrollingText.seconds;
   $: endSeconds = shouldParallaxText && $isPortrait ? scrollingText.portraitEndSeconds : scrollingText.endSeconds;
@@ -50,6 +36,24 @@
 
   $: startPixel = (duration && height && offsetHeight) && Math.round(offsetHeight + (height) * (seconds / duration));
   $: endPixel = shouldParallaxText && (duration && height && offsetHeight) && Math.round(offsetHeight + (height) * (endSeconds / duration));
+
+
+  $: stylePrefix = $isPortrait ? "portrait" : "landscape";
+  $: videoStyles = stylePrefix && videoData[stylePrefix];
+  $: textStyles = stylePrefix && scrollingText[stylePrefix];
+
+  $: fontSize = getAttribute("fontSize", textStyles, videoStyles, 20);
+  $: fontColor = getAttribute("fontColor", textStyles, videoStyles, "black");
+  $: lineHeight = 1.5
+  $: backgroundColor = getAttribute("backgroundColor", textStyles, videoStyles, "white");
+  $: borderColor = getAttribute("borderColor", textStyles, videoStyles, "black");
+  $: borderWidth = getAttribute("borderWidth", textStyles, videoStyles, 1);
+  $: borderRadius = getAttribute("borderRadius", textStyles, videoStyles, 0);
+  $: horizontalPosition = !endPixel && getAttribute("horizontalPosition", textStyles, videoStyles, "center");
+  $: boxWidth = getAttribute("boxWidth", textStyles, videoStyles, 600);
+  $: left = getAttribute("left", textStyles, videoStyles, "0%");
+  $: width = getAttribute("width", textStyles, videoStyles, "100%");
+
 
   let pctLimit = 1.1
   $: opacity = shouldParallaxText && topPct > pctLimit ? 0 : 1
@@ -71,10 +75,11 @@
   }, 0);
   $: shouldParallaxText && updateParallaxShift(progressPixel)
 
+  $: console.log(horizontalPosition)
 </script>
 
 <div
-  class={`scroll-box`}
+  class={`scroll-box ${horizontalPosition}`}
   style={`
     top: ${startPixel}px;
     transition: transform .01s ease-in-out;
@@ -89,6 +94,7 @@
     <div class="scroll-text" style={`
       border-color: ${borderColor};
       border-width: ${borderWidth}px;
+      border-radius: ${borderRadius}px;
       background: ${backgroundColor};
     `}
       >
@@ -151,8 +157,8 @@
   }
 
   .center {
-    left: 50%;
-    transform: translate(-50%, 0);
+    left: 50% !important;
+    transform: translate(-50%, 0) !important;
     max-width: 100%;
   }
 

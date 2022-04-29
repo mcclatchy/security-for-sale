@@ -157,7 +157,7 @@
     <div style=\"padding-left: 10px; padding-bottom: 10px;\">
       <span style="font-weight: bold">Map:</span> <a href=\"https://www2.census.gov/geo/tiger/TIGER2021/\" target=\"_blank\">U.S. Census Bureau</a>
       <br>
-      <span style="font-weight: bold">Data:</span> Zillow, <a href='https://acdatacollective.org/' target='_blank'>Anti-Corruption Data Collective</a>, <a href=\"https://github.com/mcclatchy-southeast/security_for_sale\" target=\"_blank\">N&O/Observer analysis</a>
+      <span style="font-weight: bold">Data:</span> <a href='https://acdatacollective.org/' target='_blank'>Anti-Corruption Data Collective</a>, <a href=\"https://github.com/mcclatchy-southeast/security_for_sale\" target=\"_blank\">N&O/Observer analysis</a>
     </div>
   `
 
