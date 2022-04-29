@@ -16,7 +16,7 @@
   import Scroller from "./Scroller.svelte";
   import ScrollytellingVideo from "./ScrollytellingVideo.svelte";
   import { windowWidth, windowHeight, isPortrait, statewideZoom, droneTriggerElement } from '../modules/store.js';
-  import { getJsonData, formatTopojsonLayer, getAndFormatTopojsonData, makeColors } from "../modules/utils.js";
+  import { getJsonData, formatTopojsonLayer, getAndFormatTopojsonData, makeColors, setupIcon } from "../modules/utils.js";
 
   export let assetPath;
   export let dataPath;
@@ -255,17 +255,10 @@
     'north-carolina-fill'
   ]
 
-  function setupIcon(filepath, imageName, width=200, height=200, sdf=false) {
-    let img = new Image(width, height)
-    img.crossOrigin = "Anonymous";
-    img.onload = ()=>map.addImage(imageName, img, {sdf})
-    img.src = filepath
-  }
-
   $: if (map) {
-    setupIcon(`${assetPath}/airport.svg`, 'airport')
-    setupIcon(`${assetPath}/interstate.svg`, 'interstate')
-    setupIcon(`${assetPath}/intrastate.svg`, 'intrastate', 200, 171)
+    setupIcon(map, `${assetPath}/airport.svg`, 'airport')
+    setupIcon(map, `${assetPath}/interstate.svg`, 'interstate')
+    setupIcon(map, `${assetPath}/intrastate.svg`, 'intrastate', 200, 171)
   }
   
   let videoOpacity = 0;

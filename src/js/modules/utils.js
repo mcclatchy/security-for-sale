@@ -411,3 +411,10 @@ export function nearestDate(dates, target, sorted=true) {
   }
   return winner
 }
+
+export function setupIcon(map, filepath, imageName, width=200, height=200, sdf=false) {
+  let img = new Image(width, height)
+  img.crossOrigin = "Anonymous";
+  img.onload = ()=> map.addImage(imageName, img, {sdf})
+  img.src = filepath
+}

@@ -8,22 +8,25 @@
       "text-halo-color": "rgba(255,255,255,0.7)",
       "text-halo-width": 0.8
 		},
-		[`${mapId}-city-names`]: {
+		[`${mapId}-city-circles`]: {
+      'circle-color': 'white',
+      'circle-opacity': 1,
+      'circle-radius': 3,
+      "circle-opacity-transition": {"duration": 300,"delay": 0},
+      "circle-stroke-width": 1,
+      "circle-stroke-color": 'black',
+      "circle-stroke-opacity": 1
+		},
+    [`${mapId}-city-names`]: {
       'text-color':"#333",
       'text-halo-color':"rgba(255,255,255,0.8)",
       "text-halo-width": 2
-		},
-		// [`${mapId}-investor-sfrs`]: {
-	 //    'circle-color': "#c16677",
-	 //    'circle-opacity': ['case', ['==', ['feature-state', 'highlighted'], true], 0.5,0],
-	 //    'circle-radius': 3,
-	 //    'circle-stroke-color': "#c16677",
-	 //    'circle-stroke-opacity': ['case', ['==', ['feature-state', 'highlighted'], true], 0.9,0],
-	 //    'circle-stroke-width': 1,
-	 //    "circle-opacity-transition": {"duration": 300,"delay": 0}
-		// },
+    },
     [`${mapId}-investor-sfrs`]: {
-      'icon-opacity': ['case', ['==', ['feature-state', 'highlighted'], true], 0.9,0]
+      'icon-opacity': ['case', ['==', ['feature-state', 'highlighted'], true], 1,0]
+    },
+    [`${mapId}-investor-sfrs-faded`]: {
+      'icon-opacity': ['case', ['==', ['feature-state', 'highlighted'], true], 1,0]
     },
 		[`${mapId}-north-carolina-outline`]: {
       'line-color': "black",
@@ -31,7 +34,7 @@
     },
 		[`${mapId}-county-line`]: {
       'line-color': "#FFF5F5",
-      'line-width': 1.5,
+      'line-width': 2,
     },
 		[`${mapId}-north-carolina-fill`]: {
       'fill-color': "#ffe9e9",
@@ -79,6 +82,12 @@
       'icon-allow-overlap': true,
       'icon-anchor': "center",
       'icon-image': 'hexagon',
+      'icon-size': 0.3
+    },
+    [`${mapId}-investor-sfrs-faded`]: {
+      'icon-allow-overlap': true,
+      'icon-anchor': "center",
+      'icon-image': 'hexagon_fade',
       'icon-size': 0.3
     }
 	}

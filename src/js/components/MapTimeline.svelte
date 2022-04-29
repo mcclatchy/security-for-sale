@@ -16,7 +16,7 @@
   import ProgressBar from "./ProgressBar.svelte";
   import Scroller from "./Scroller.svelte";
   import { windowWidth, windowHeight, isPortrait, aspectRatio, activeTimelineSection } from '../modules/store.js';
-  import { getAndFormatTopojsonData, formatTopojsonLayer, getJsonData, getBBoxAspectRatio, getDivAspectRatio, execResizeCallbackWithSuspend } from "../modules/utils.js";
+  import { getAndFormatTopojsonData, formatTopojsonLayer, getJsonData, getBBoxAspectRatio, getDivAspectRatio, execResizeCallbackWithSuspend, setupIcon } from "../modules/utils.js";
 
   export let dataPath;
   export let assetPath;
@@ -69,6 +69,7 @@
   let labels;
   let stateNames;
   let cityNames;
+  let cityCircles;
   let counties;
   let surroundingStates;
   let residences;
@@ -78,6 +79,7 @@
     labels = await getJsonData(`${dataPath}/labelsTimeline.json`, "state");
     stateNames = await formatTopojsonLayer(labels, "state");
     cityNames = await formatTopojsonLayer(labels, "city");
+    cityCircles = await formatTopojsonLayer(labels, "city-circle");
     counties = await getAndFormatTopojsonData(`${dataPath}/counties.json`, "counties");
     surroundingStates = await getAndFormatTopojsonData(`${dataPath}/surroundingStates.json`, "surroundingStates");
     residences = await getAndFormatTopojsonData(`${dataPath}/timeline.json`, "timeline")
@@ -122,8 +124,11 @@
 
   let startTimestamp = 1339113600
   let endTimestamp = 1615939200
-  $: currentTimestamp = Math.round(startTimestamp + progress * (endTimestamp - startTimestamp))
-  $: highlighted = timestamps.filter((x) => x <= currentTimestamp);
+  let oneYear = 31536000 / 2
+  $: currentTimestamp = Math.round(startTimestamp + progress * (endTimestamp - startTimestamp));
+  $: filterTimestamp = currentTimestamp <= endTimestamp ? currentTimestamp : endTimestamp;
+  $: highlighted = timestamps.filter((x) => x <= filterTimestamp && x >= (filterTimestamp - oneYear));
+  $: faded = timestamps.filter((x) => x <= (filterTimestamp - oneYear));
   $: currentDate = new Date(currentTimestamp * 1000);
 
 
@@ -136,11 +141,13 @@
   let layerOrder = [
     `${mapId}-state-names`,
     `${mapId}-city-names`,
+    `${mapId}-city-circles`,
 
     `${mapId}-north-carolina-outline`,
     `${mapId}-surrounding-state-line`,
     `${mapId}-surrounding-state-fill`,
     `${mapId}-investor-sfrs`,
+    `${mapId}-investor-sfrs-faded`,
     `${mapId}-county-line`,
     `${mapId}-north-carolina-fill`
   ]
@@ -177,11 +184,8 @@
 
   let imageLoaded = false;
   $: if(map) {
-    let img = new Image(20,20)
-    img.crossOrigin = "Anonymous";
-    img.onload = ()=>map.addImage('hexagon', img)
-    img.src = `${assetPath}/hexagon.svg`
-    imageLoaded = true;
+    setupIcon(map, `${assetPath}/hexagon.svg`, 'hexagon', 20, 20)
+    setupIcon(map, `${assetPath}/hexagon_fade.svg`, 'hexagon_fade', 20, 20)
   }
   let activeSection;
 </script>
@@ -249,6 +253,17 @@
                       <MapLayerType {layerOrder} layerType="symbol" {mapId} {paintStyles} {layoutStyles} id={`${mapId}-city-names`}/>
                     </MapSource>
 
+                    <!-- CITY CIRCLES -->
+                    <MapSource
+                      {mapId}
+                      id="cities-circles"
+                      type="geojson"
+                      data={cityCircles}
+                      promoteId={"description"}
+                      maxzoom={24}>
+                      <MapLayerType {layerOrder} layerType="circle" {mapId} {paintStyles} {layoutStyles} id={`${mapId}-city-circles`}/>
+                    </MapSource>
+
                     <!-- SURROUNDING STATES -->
                     <MapSource
                       {mapId}
@@ -292,6 +307,16 @@
                       promoteId={"timestamp"}
                       maxzoom={24}>
                       <MapLayerType layerType="symbol" mapId={mapId} highlighted={highlighted} id={`${mapId}-investor-sfrs`} {paintStyles} {layoutStyles} {layerOrder}/>
+                    </MapSource>   
+
+                    <MapSource
+                      mapId={mapId}
+                      id="residences-faded"
+                      type="geojson"
+                      data={residences}
+                      promoteId={"timestamp"}
+                      maxzoom={24}>
+                      <MapLayerType layerType="symbol" mapId={mapId} highlighted={faded} id={`${mapId}-investor-sfrs-faded`} {paintStyles} {layoutStyles} {layerOrder}/>
                     </MapSource>
                   {/if}
                 {/if}
