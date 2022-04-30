@@ -36,15 +36,15 @@
 		<img class="contain" src={`${assetPath}/intro_logo.png`}>
 	</div>
 	<div class='story-link-container'>
-		<p class="part current">Story &nbsp;01</p>
+		<p class="part current">Story &nbsp;1</p>
 		{#if showStoryTwo}
 			<a href={storyTwoLink} target="_blank">
-				<p class="part outlink">Story &nbsp;02</p>
+				<p class="part outlink">Story &nbsp;2</p>
 			</a>
 		{/if}
 		{#if showStoryThree}
 			<a href={storyThreeLink} target="_blank">
-				<p class="part outlink">Story &nbsp;03</p>
+				<p class="part outlink">Story &nbsp;3</p>
 			</a>
 		{/if}
 	</div>
@@ -68,15 +68,55 @@
 		font-size: 20px;
 	}
 	.outlink {
-		color: gray !important;
-		font-weight: 400 !important;
-		font-size: 18px;
+		margin: auto;
+		background: transparent;
+		height: 30px;
+		color: rgb(150,150,150) !important;
+		font-size: 14px;
+		font-family: 'Libre Franklin';
+		font-weight: normal;
+		/*letter-spacing: .3px;*/
+		font-weight: 600;
+		padding: 0px;
+		line-height: 30px;
+		text-align: center;
+		border:  1px solid transparent;
+		/*border-bottom:  1px solid rgb(150,150,150);*/
+		border-radius: 0px;
+		/*text-transform: uppercase;*/
+
+		transition: border-bottom .2s;
+		transition: font-weight .2s;
 	}
+	a:hover .outlink {
+	  /*background-color: #D93A4C;*/
+	  border-bottom:  1px solid #D93A4C;
+	  text-transform: scale(1.03);
+	  color: #D93A4C !important;
+	  font-weight: 600;
+	  font-size: 20px;
+	  cursor: pointer;
+	}
+
+	a {
+		margin: 0 !important;
+		color:  gray;
+		text-decoration: none;
+	}
+	.current {
+		font-weight: 600 !important;
+		font-size: 20px !important;
+		color: #d7384c !important;
+	}
+
 	.part {
-		color: #d7384c;
+		color: white;
 		font-family: "Libre Franklin";
-		text-transform: uppercase;
-		font-weight: 400;
+		/*text-transform: uppercase;*/
+		font-weight: 300;
+		line-height: 30px;
+		letter-spacing: 0.2px;
+		font-size: 20px;
 	}
 	.intro-container {
 		transition: opacity 0.4s;
@@ -169,10 +209,10 @@
 			padding-bottom: 30px;
 		}
 		.current {
-			font-size: 14px;
+			font-size: 16px !important;
 		}
 		.outlink {
-			font-size: 13px;
+			font-size: 15px !important;
 		}
 	}
 </style>
