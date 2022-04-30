@@ -1,6 +1,6 @@
 <script>
 	import { domain } from '../modules/store.js';
-	import { amlToHTML } from "../modules/utils.js";
+	import { amlToHTML, isMobile } from "../modules/utils.js";
 	import { inview } from 'svelte-inview';
 
 	export let assetPath;
@@ -29,13 +29,16 @@
 	$: storyTwoLink = `https://www.${$domain}.com/news/business/article260606272.html`
 	$: storyThreeLink = `https://www.${$domain}.com/news/business/article260606412.html`
 	$: opacity = isInView ? 1 : 0
+
+	$: minWidth = showStoryThree ? 600 : 440;
+	$: minMobileWidth = showStoryThree ? 350 : 250;
 </script>
 
 <div class="intro-container" style={`opacity: ${opacity}`} use:inview={options} on:enter={handleChange}>
 	<div class="title-logo">
 		<img class="contain" src={`${assetPath}/intro_logo.png`}>
 	</div>
-	<div class='story-link-container'>
+	<div class='story-link-container' style={`max-width: min(${isMobile.any() ? minMobileWidth : minWidth}px, 100%);`}>
 		<p class="part current">Story &nbsp;1</p>
 		{#if showStoryTwo}
 			<a href={storyTwoLink} target="_blank">
@@ -167,7 +170,6 @@
 		justify-content: space-evenly;
 		padding-bottom: 15px;
     padding-top: 20px;
-    max-width: min(600px, 100%);
 	}
 
 	.story-link-container p {
