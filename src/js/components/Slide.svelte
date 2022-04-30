@@ -52,6 +52,11 @@
 		text-decoration-color: #D93A4C;
 		text-underline-offset: 5px;
 	}*/
+	@media only screen and (max-width: 1000px) {
+		.slide {
+			width: min(90%, 600px);
+		}
+	}
 	@media only screen and (max-width: 700px) {
 		:global(.marker-highlight) {
 			padding: 3px 5px;

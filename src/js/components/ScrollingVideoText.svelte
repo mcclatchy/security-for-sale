@@ -39,8 +39,8 @@
 
 
   $: stylePrefix = $isPortrait ? "portrait" : "landscape";
-  $: videoStyles = stylePrefix && videoData[stylePrefix];
-  $: textStyles = stylePrefix && scrollingText[stylePrefix];
+  $: videoStyles = stylePrefix && videoData[$isPortrait && isTablet.any() && videoData.hasOwnProperty("ipad") && !isMobile.any() ? "ipad" : stylePrefix];
+  $: textStyles = stylePrefix && scrollingText[$isPortrait && isTablet.any() && scrollingText.hasOwnProperty("ipad") && !isMobile.any() ? "ipad" : stylePrefix];
 
   $: fontSize = getAttribute("fontSize", textStyles, videoStyles, 20);
   $: fontColor = getAttribute("fontColor", textStyles, videoStyles, "black");

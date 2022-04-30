@@ -302,7 +302,7 @@
         </div>
       {/if}
       <MapLegendDiscrete
-        legendTitle="Corporate landlords rental homes<br class='mobile'/> in Charlotte Neighborhood"
+        legendTitle="Corporate landlord rental homes<br class='mobile'/> in Charlotte Neighborhood"
         palette={["#8ce38f", "#2c719f", "#ffa4b1", "#1f8166", "#cf307a", "#8dcaf0", "#d5cc80"]}
         splits={["Tricon Residential", "American Homes 4 Rent", "Progress Residential", "Firstkey", "Invitation Homes", "Amherst Residential", "Other"]}
         annotations={null}
@@ -320,7 +320,7 @@
 
           <MapLegendSwatches
             {progress}
-            legendTitle="Corporate landlords rental homes<br class='mobile'/> in North Carolina"
+            legendTitle="Corporate landlord rental homes<br class='mobile'/> in North Carolina"
             palette={colors}
             splits={breaks}
             annotations={[{label: "Lower Density", class: 'left'}, {label: "Higher Density", class: 'right'}]}
@@ -331,7 +331,7 @@
 
           <MapLegendSwatches
             {progress}
-            legendTitle="Corporate landlords rental homes<br class='mobile'/> in Mecklenburg County"
+            legendTitle="Corporate landlord rental homes<br class='mobile'/> in Mecklenburg County"
             palette={colors}
             splits={zoomedBreaks}
             annotations={[{label: "Lower Density", class: 'left'}, {label: "Higher Density", class: 'right'}]}
@@ -340,7 +340,7 @@
           />
           <MapLegendSwatches
             {progress}
-            legendTitle="Corporate landlords rental homes<br class='mobile'/> in The Triangle"
+            legendTitle="Corporate landlord rental homes<br class='mobile'/> in The Triangle"
             palette={colors}
             splits={zoomedBreaks}
             annotations={[{label: "Lower Density", class: 'left'}, {label: "Higher Density", class: 'right'}]}
@@ -349,7 +349,7 @@
           />
           <MapLegendSwatches
             {progress}
-            legendTitle="Corporate landlords rental homes<br class='mobile'/> in Southeast Wake County"
+            legendTitle="Corporate landlord rental homes<br class='mobile'/> in Southeast Wake County"
             palette={colors}
             splits={zoomedBreaks}
             annotations={[{label: "Lower Density", class: 'left'}, {label: "Higher Density", class: 'right'}]}
