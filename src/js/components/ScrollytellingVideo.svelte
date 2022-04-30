@@ -110,7 +110,7 @@
   	videoData.landscape.height + $windowHeight;
 	
 	let portraitBreakpoint = 0.8
-  $: titleOpacity = tweenProgress(-0.25, 0, progress, 0, 1)
+  $: titleOpacity = tweenProgress(-0.15, 0, progress, 0, 1)
   let progress;
 </script>
 
