@@ -4,6 +4,8 @@
   export let highlightColor = "black"
   export let left = 0;
   export let width = 4;
+
+  $: progressPct = progress >= 1 ? 100 : progress * 100;
 </script>
 
 <div>
@@ -17,7 +19,7 @@
   <div class="progress-bar" style={`
     top: 0;
     left: ${left};
-    height: ${progress * 100}%;
+    height: ${progressPct}%;
     background-color: ${highlightColor};
     width: ${width}px;
   `}>

@@ -54,7 +54,7 @@
 	$: if (isInView) {
 		statewideZoom.set(section.boundsId)
 	}
-	$: if (progress && progress >= progressStart && progress <= progressEnd) {
+	$: if (progress && progress > progressStart && progress <= progressEnd) {
 		if (section && section?.text !== $activeTimelineSection?.text) {
 			activeTimelineSection.set(section);
 		} 

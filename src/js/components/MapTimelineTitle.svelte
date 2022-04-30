@@ -90,7 +90,7 @@
         font-family: 'Libre Franklin';
         text-align: center;
         font-weight: normal;
-        color: #888;
+        color: black;
         padding-top: 10px;
         line-height: 16px;
         height: 24px;

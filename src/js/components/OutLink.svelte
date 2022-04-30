@@ -18,7 +18,7 @@
 		"heraldsun"
 	]
 
-	let buttonText = `Read Story &nbsp;0${index} &nbsp; >`
+	let buttonText = `Read Story &nbsp;${index} &nbsp; >`
 </script>
 
 <div class="preview-outer" class:is-last-of-mulitple={isLastOfMultiple}>
