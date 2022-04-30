@@ -105,7 +105,7 @@
     width: 100%;
     height: 120px;
     z-index: 1;
-    background: linear-gradient(180deg, white 20%, #ffffffAA 80%, transparent);
+    background: linear-gradient(to bottom, rgba(255,255,255, 1), rgba(255,255,255,.8) 80%, rgba(255,255,255,0));
 }
 
 .legend-header {

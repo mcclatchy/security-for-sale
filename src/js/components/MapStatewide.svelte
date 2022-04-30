@@ -16,7 +16,7 @@
   import Scroller from "./Scroller.svelte";
   import ScrollytellingVideo from "./ScrollytellingVideo.svelte";
   import { windowWidth, windowHeight, isPortrait, statewideZoom, droneTriggerElement } from '../modules/store.js';
-  import { getJsonData, formatTopojsonLayer, getAndFormatTopojsonData, makeColors, setupIcon } from "../modules/utils.js";
+  import { getJsonData, formatTopojsonLayer, getAndFormatTopojsonData, makeColors, setupIcon, isTablet } from "../modules/utils.js";
 
   export let assetPath;
   export let dataPath;
@@ -200,8 +200,9 @@
   let paintStyles;
   let layoutStyles;
   let topLayerDrawn = false;
-  let customAttribution = `
-    <div style=\"padding-left: 10px; padding-bottom: 10px;\">
+  $: paddingBottom = isTablet.ipad() ? 80 : 10;
+  $: customAttribution = `
+    <div style=\"padding-left: 10px; padding-bottom: ${paddingBottom}px;\">
       <span style="font-weight: bold">Map:</span> <a href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\">&copy; OpenStreetMap contributors</a>
       <br>
       <span style="font-weight: bold">Data:</span> <a href='https://www.nconemap.gov/pages/parcels' target='_blank'>NC OneMap</a>, <a href=\"https://github.com/mcclatchy-southeast/security_for_sale\" target=\"_blank\">N&O/Observer analysis</a>
@@ -265,7 +266,7 @@
     setupIcon(map, `${assetPath}/interstate.svg`, 'interstate')
     setupIcon(map, `${assetPath}/intrastate.svg`, 'intrastate', 200, 171)
   }
-  
+  let mapLoaded = false;
   let videoOpacity = 0;
   $: mapOpacity = 1 - videoOpacity;
 </script>
@@ -311,7 +312,7 @@
       <div class="map" use:inview="{options}" on:change="{handleChange}" style={`opacity: ${mapOpacity}`}>
         {#if allDataLoaded && (isInView || shouldLoad)}
 
-        <Map id={mapId} style={styleUrl} location={{bounds: bounds.north_carolina}} bind:map={map} interactive={false} controls={false} attribution={"bottom-left"} customAttribution={customAttribution} padding={{top: 100, bottom:0, left: 0, right: 0}}>
+        <Map id={mapId} style={styleUrl} location={{bounds: bounds.north_carolina}} bind:map={map} interactive={false} controls={false} attribution={"bottom-left"} customAttribution={customAttribution}  bind:loaded={mapLoaded} padding={{top: 100, bottom:0, left: 0, right: 0}}>
 
           <MapScaleBar
             {map}

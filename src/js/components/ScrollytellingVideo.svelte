@@ -165,15 +165,15 @@
 	}
 	.underline {
 		height: 1px;
-		width: 90%;
 		background: black;
 		margin: 0 auto;
+		width: 570px;
 	}
 	:global(.thin) {
 		font-weight: 200;
 	}
 	.title-container {
-		width: fit-content;
+		width: 740px;
     display: block;
     pointer-events: all;
     text-align: center;
@@ -187,27 +187,38 @@
 	}   
 
 	.title {
-	    font-size: 40px;
-	    font-family: "Libre Franklin";
-	    font-weight: 600;
-	    transition: opacity .8s;
-	    -webkit-transition: opacity .8s;
-	    padding-bottom: 25px;
+    font-size: 40px;
+    font-family: "Libre Franklin";
+    font-weight: 600;
+    transition: opacity .8s;
+    -webkit-transition: opacity .8s;
+    padding-bottom: 25px;
 	}
 
 	@media only screen and (max-width:  800px) {
 		.title {
 	    font-size: 30px;
+	    padding-bottom: 15px;
 	  }
+	  .title-container {
+			width: 600px;
+		}
+		.underline {
+			width: 430px;
+		}
 	}
 	@media only screen and (max-width: 600px) {
 		.title-container {
 			padding: 0 10px;
+			width: calc(100% - 20px);
 		}
 		.title {
-	    font-size: 22px;
+	    font-size: 20px;
 	    padding-bottom: 10px;
 	  }
+	 	.underline {
+			width: min(290px, 90%);
+		}
 	  .underline {
 	  	height: 0.5px;
 	  }

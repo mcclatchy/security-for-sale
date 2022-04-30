@@ -16,7 +16,7 @@
   import ProgressBar from "./ProgressBar.svelte";
   import Scroller from "./Scroller.svelte";
   import { windowWidth, windowHeight, isPortrait, aspectRatio, activeTimelineSection } from '../modules/store.js';
-  import { getAndFormatTopojsonData, formatTopojsonLayer, getJsonData, getBBoxAspectRatio, getDivAspectRatio, execResizeCallbackWithSuspend, setupIcon } from "../modules/utils.js";
+  import { getAndFormatTopojsonData, formatTopojsonLayer, getJsonData, getBBoxAspectRatio, getDivAspectRatio, execResizeCallbackWithSuspend, setupIcon, isTablet } from "../modules/utils.js";
 
   export let dataPath;
   export let assetPath;
@@ -153,8 +153,9 @@
   ]
   let progress = 0;
   let pointerEvents = "none";
-  let customAttribution = `
-    <div style=\"padding-left: 10px; padding-bottom: 10px;\">
+  $: paddingBottom = isTablet.ipad() && $isPortrait ? 80 : isTablet.ipad() && !$isPortrait ? 50 : 10;
+  $: customAttribution = `
+    <div style=\"padding-left: 10px; padding-bottom: ${paddingBottom}px;\">
       <span style="font-weight: bold">Map:</span> <a href=\"https://www2.census.gov/geo/tiger/TIGER2021/\" target=\"_blank\">U.S. Census Bureau</a>
       <br>
       <span style="font-weight: bold">Data:</span> <a href='https://acdatacollective.org/' target='_blank'>Anti-Corruption Data Collective</a>, <a href=\"https://github.com/mcclatchy-southeast/security_for_sale\" target=\"_blank\">N&O/Observer analysis</a>

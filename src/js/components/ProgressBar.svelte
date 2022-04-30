@@ -6,9 +6,10 @@
   export let width = 4;
 
   $: progressPct = progress >= 1 ? 100 : progress * 100;
+  $: opacity = progress >= 1.3 ? 0 : 1;
 </script>
 
-<div>
+<div style={`opacity: ${opacity};`}>
   <div class="background-bar" style={`
     top: 0;
     left: ${left};

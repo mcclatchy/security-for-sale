@@ -107,9 +107,9 @@
   }
 
 	let breakpointSE = 375
-	$: introDirectionsBottom = isMobile.ios() && ($windowWidth <= breakpointSE) ? "3vh" : 	
-	isTablet.any() && !$isPortrait ? "15vh" :
-	isMobile.ios() || isTablet.ipad() ? "22vh" :
+	$: introDirectionsBottom = isMobile.ios() && ($windowWidth <= breakpointSE) ? "0vh" : 	
+	isTablet.any() && !$isPortrait ? "2vh" :
+	isMobile.ios() || isTablet.ipad() ? "15vh" :
 	isMobile.any() && !isMobile.ios() ? "3vh" : 
 	"3vh"
 </script>
