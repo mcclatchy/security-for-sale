@@ -85,7 +85,7 @@
     position: ${position};
     max-width: min(100%, ${boxWidth}px) !important;
     width: ${width};
-    left: ${left};
+    left: ${horizontalPosition ? 'unset' : left};
   `}
 >
   {#if scrollingText?.text}
@@ -111,6 +111,10 @@
 </div>
 
 <style>
+  :global(.step) {
+    font-weight: 600;
+  }
+
   .scroll-box {
     height: 1px;
     display: flex;
