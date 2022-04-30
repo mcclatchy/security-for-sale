@@ -133,9 +133,11 @@
 		{#if title}
 			<div class={`title-container`} style={`margin-top: ${.2 * $windowHeight}px; opacity: ${titleOpacity}`}>
 				<div class={`title`}>
-					{title}
+					{@html title}
 				</div>
+				<div class="underline"/>
 			</div>
+			
 		{/if}
 				<div id={`${videoData.id}`}>
 					{#if videoData.scrollingTexts.length > 0}
@@ -161,6 +163,15 @@
     transition: opacity .8s;
   	-webkit-transition: opacity .8s;
 	}
+	.underline {
+		height: 1px;
+		width: 90%;
+		background: black;
+		margin: 0 auto;
+	}
+	:global(.thin) {
+		font-weight: 200;
+	}
 	.title-container {
 		width: fit-content;
     display: block;
@@ -173,18 +184,15 @@
     pointer-events: none;
     z-index: 10000000;
     transform: translate(-50%, 0);
-    
 	}   
-
 
 	.title {
 	    font-size: 40px;
 	    font-family: "Libre Franklin";
-	    font-weight: 200;
+	    font-weight: 600;
 	    transition: opacity .8s;
 	    -webkit-transition: opacity .8s;
-	    padding-bottom: 10px;
-    	border-bottom: 1px solid black;
+	    padding-bottom: 25px;
 	}
 
 	@media only screen and (max-width:  800px) {
@@ -197,7 +205,11 @@
 			padding: 0 10px;
 		}
 		.title {
-	    font-size: 24px;
+	    font-size: 22px;
+	    padding-bottom: 10px;
+	  }
+	  .underline {
+	  	height: 0.5px;
 	  }
 	}
 </style>

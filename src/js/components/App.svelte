@@ -189,7 +189,7 @@
 	<ScrollytellingVideo
 		{assetPath}
 		{videoPath}
-		title="Making a rental-backed security"
+		title="<span class='thin'>Making a</span> Rental-Backed Security"
 		videoData={getArrayItemById('securities', data.videos)}
 		scrollY={throttledY}
 	/>

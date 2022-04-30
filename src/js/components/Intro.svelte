@@ -48,9 +48,9 @@
 			</a>
 		{/if}
 	</div>
-	<div class="title-pipe">
+<!-- 	<div class="title-pipe">
 		<img class="contain" src={`${assetPath}/intro_pipe.png`}>
-	</div>
+	</div> -->
 
 	<div class="text-container">
 		<p class="subtitle">{@html subtitle}</p>
@@ -63,37 +63,33 @@
 		margin: 0 !important;
 		color:  gray;
 	}
-	.current {
-		font-weight: 600 !important;
-		font-size: 20px;
-	}
 	.outlink {
 		margin: auto;
-		background: transparent;
+		/*background: rgb(150,150,150, 0.1);*/
 		height: 30px;
-		color: rgb(150,150,150) !important;
+		color: #D93A4C !important;
 		font-size: 14px;
 		font-family: 'Libre Franklin';
 		font-weight: normal;
 		/*letter-spacing: .3px;*/
-		font-weight: 600;
-		padding: 0px;
+		font-weight: 400;
+		padding: 0px 30px;
 		line-height: 30px;
 		text-align: center;
-		border:  1px solid transparent;
-		/*border-bottom:  1px solid rgb(150,150,150);*/
-		border-radius: 0px;
-		/*text-transform: uppercase;*/
+		/*border:  1px solid transparent;*/
+		border:  1px solid #D93A4C;
+		border-radius: 20px;
+		text-transform: uppercase;
 
 		transition: border-bottom .2s;
 		transition: font-weight .2s;
 	}
 	a:hover .outlink {
-	  /*background-color: #D93A4C;*/
-	  border-bottom:  1px solid #D93A4C;
+	  background-color: #D93A4C;
+	  border:  1px solid #D93A4C;
 	  text-transform: scale(1.03);
-	  color: #D93A4C !important;
-	  font-weight: 600;
+	  color: white !important;
+	  /*font-weight: 600;*/
 	  font-size: 20px;
 	  cursor: pointer;
 	}
@@ -104,19 +100,41 @@
 		text-decoration: none;
 	}
 	.current {
-		font-weight: 600 !important;
-		font-size: 20px !important;
-		color: #d7384c !important;
+		margin: auto;
+		/*background: rgb(150,150,150, 0.1);*/
+		height: 30px;
+		font-family: 'Libre Franklin';
+		font-weight: normal;
+		/*letter-spacing: .3px;*/
+		font-weight: 600;
+		padding: 0px 30px;
+		line-height: 30px;
+		text-align: center;
+		/*border:  1px solid transparent;*/
+		border-radius: 20px;
+		text-transform: uppercase;
+
+		transition: border-bottom .2s;
+		transition: font-weight .2s;
+
+	  background-color: #D93A4C;
+	  border:  1px solid #D93A4C;
+	  text-transform: scale(1.03);
+	  color: white !important;
+	  /*font-weight: 600;*/
+	  font-size: 20px;
+	  cursor: pointer;
+	  pointer-events: none !important;
 	}
 
 	.part {
 		color: white;
 		font-family: "Libre Franklin";
 		/*text-transform: uppercase;*/
-		font-weight: 300;
+		font-weight: 400;
 		line-height: 30px;
 		letter-spacing: 0.2px;
-		font-size: 20px;
+		font-size: 16px !important;
 	}
 	.intro-container {
 		transition: opacity 0.4s;
@@ -142,13 +160,14 @@
 	}
 
 	.story-link-container {
-		max-width: min(540px, 100%);
 		margin: 0 auto;
-		padding: 0 20px;
+		padding: 30px 0px 10px 0px;
 		display: flex;
 		display: -webkit-flex;
 		justify-content: space-evenly;
-		padding-bottom: 20px;
+		padding-bottom: 15px;
+    padding-top: 20px;
+    max-width: min(600px, 100%);
 	}
 
 	.story-link-container p {
@@ -195,6 +214,9 @@
 	}
 
 	@media only screen and (max-width:  600px) {
+		.story-link-container {
+			padding: 5px 5px 5px 5px;
+		}
 		.title-logo {
 			margin-bottom: 0;
 			padding-bottom: 10px;
@@ -209,10 +231,19 @@
 			padding-bottom: 30px;
 		}
 		.current {
-			font-size: 16px !important;
+			font-size: 12px !important;
+			padding: 0px 15px;
+			line-height: 24px;
+			font-weight: 500;
 		}
 		.outlink {
-			font-size: 15px !important;
+			font-size: 12px !important;
+			padding: 0px 15px;
+			line-height: 24px;
+		}
+		.part {
+			height: 24px;
+			font-weight: 500;
 		}
 	}
 </style>

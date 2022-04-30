@@ -53,6 +53,7 @@
 			padding: 10px;
 			max-width: 100%;
     	margin: auto 20px;
+    	padding-bottom: 50px;
 		}
 		.divider {
 			max-width: 100%;

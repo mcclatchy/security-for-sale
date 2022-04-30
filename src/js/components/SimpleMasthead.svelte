@@ -68,7 +68,7 @@ const logoAltText = window.pageInfo["marketInfo.logoAltText"];
   }
   .vertical-divider { 
     height: 22px;
-    margin: 0 9px;
+    margin: 0 11px;
     margin-top: 5px;
   }
 }
