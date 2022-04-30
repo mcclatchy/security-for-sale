@@ -5,7 +5,7 @@
   import ScrollingVideoText from './ScrollingVideoText.svelte';
   import ScrollingVideo from './ScrollingVideo.svelte';
 	import { windowWidth, windowHeight, storeInnerHeight, isPortrait } from '../modules/store.js';
-	import { isMobile, isTablet, execResizeCallbackWithSuspend } from "../modules/utils.js";
+	import { isMobile, isTablet, execResizeCallbackWithSuspend, tweenProgress } from "../modules/utils.js";
 
 	// Resizing more responsively with ResizeObserver to accommodate scrolling videos
   
@@ -26,6 +26,7 @@
 	export let visibility;
 	export let shouldParallaxText = false;
 	export let opacity = 1;
+	export let title = null;
 
   let videoFinished = false;
 	$: opacity = fade && videoOffset && (videoFinished || scrollY < videoOffset || scrollY > (videoOffset + height + $windowHeight)) ? 0 : 1
@@ -107,14 +108,15 @@
   	$isPortrait && isTablet.ipad() ? videoData.portrait.height + $windowHeight : 
   	$isPortrait ? videoData.portrait.height + $windowHeight : 
   	videoData.landscape.height + $windowHeight;
-
+	
+	let portraitBreakpoint = 0.8
+  $: titleOpacity = tweenProgress(-0.25, 0, progress, 0, 1)
   let progress;
 </script>
 
 <div bind:this={videoElement} use:inview="{options}" on:change="{handleChange}"></div>
 <Scroller bottom={1} top={0} bind:progress >
 	<div slot="background" style={`height: ${$windowHeight}px; width: 100%; opacity: ${fade ? opacity : 1}; pointer-events: ${pointerEvents};`}>
-
 		{#if (shouldLoad || isInView || !lazyLoad)}
 	    <ScrollingVideo
 	      {videoData}
@@ -128,6 +130,13 @@
 	   {/if}
 	 </div>
 	<div slot="foreground" style={`height: ${height}px; width: 100%;`}>
+		{#if title}
+			<div class={`title-container`} style={`margin-top: ${.2 * $windowHeight}px; opacity: ${titleOpacity}`}>
+				<div class={`title`}>
+					{title}
+				</div>
+			</div>
+		{/if}
 				<div id={`${videoData.id}`}>
 					{#if videoData.scrollingTexts.length > 0}
 						{#each videoData.scrollingTexts as scrollingText, j}
@@ -151,5 +160,44 @@
 		overflow:  hidden;
     transition: opacity .8s;
   	-webkit-transition: opacity .8s;
+	}
+	.title-container {
+		width: fit-content;
+    display: block;
+    pointer-events: all;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    padding: 0 30px;
+    pointer-events: none;
+    z-index: 10000000;
+    transform: translate(-50%, 0);
+    
+	}   
+
+
+	.title {
+	    font-size: 40px;
+	    font-family: "Libre Franklin";
+	    font-weight: 200;
+	    transition: opacity .8s;
+	    -webkit-transition: opacity .8s;
+	    padding-bottom: 10px;
+    	border-bottom: 1px solid black;
+	}
+
+	@media only screen and (max-width:  800px) {
+		.title {
+	    font-size: 30px;
+	  }
+	}
+	@media only screen and (max-width: 600px) {
+		.title-container {
+			padding: 0 10px;
+		}
+		.title {
+	    font-size: 24px;
+	  }
 	}
 </style>
