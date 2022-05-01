@@ -42,7 +42,8 @@
 
 
     .title {
-        font-size: 25px;
+        font-size: 30px;
+        line-height: 41px;
         font-family: "Libre Franklin";
         font-weight: bold;
         width: 100%;
@@ -71,31 +72,52 @@
         width: 100%;
         padding:  0;
         padding: 20px;
-        padding-top: 10%;
+        padding-top: 7%;
         padding-bottom: 35px;
         z-index:  10000000;
         margin: 0 auto;
         text-align: center;
     }
     .title-portrait {
-        font-size: 20px;
+        font-size: 30px;
         font-family: "Libre Franklin";
         font-weight: bold;
         width: 100%;
-        line-height: 21px;
+        line-height: 41px;
     }
     .subtitle-portrait {
-        font-size: 13px;
+        font-size: 14px;
         font-style: italic;
         font-family: 'Libre Franklin';
         text-align: center;
         font-weight: normal;
         color: black;
+        margin: 0 auto;
         padding-top: 10px;
-        line-height: 16px;
+        max-width: 500px;
         height: 24px;
+        line-height: 20px;
     }
     .subtitle-portrait img {
         margin-top: -2px;
+    }
+
+    @media only screen and (max-width:  800px) {
+        .title {
+            font-size: 20px;
+            line-height: 21px;
+        }
+        .subtitle {
+            font-size: 13px;
+            line-height: 16px;
+        }
+        .title-portrait {
+            font-size: 20px;
+            line-height: 21px;
+        }
+        .subtitle-portrait {
+            font-size: 13px;
+            line-height: 16px;
+        }
     }
 </style>

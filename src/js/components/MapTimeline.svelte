@@ -12,7 +12,6 @@
   import MapSection from './MapSection.svelte';
   import MapSource from './MapSource.svelte';
   import MapTimelineTitle from './MapTimelineTitle.svelte';
-  import MapTooltip from './MapTooltip.svelte';
   import ProgressBar from "./ProgressBar.svelte";
   import Scroller from "./Scroller.svelte";
   import { windowWidth, windowHeight, isPortrait, aspectRatio, activeTimelineSection } from '../modules/store.js';
@@ -39,14 +38,14 @@
   };
 
   $: if ($isPortrait) {
-    bounds.north_carolina = [[-81.931,33.603 ], [-77.6351,36.547]];
+    bounds.north_carolina = [[-82.580,33.803 ], [-77.6351,36.547]];
   } else {
     bounds.north_carolina = [[ -84.521988, 33.645 ], [-75.1994, 37.2881695]];
   }
 
   let innerMapHeight = 100;
   let innerMapWidth = 100;
-  let padding = 100;
+  $: padding = $isPortrait ? 200 : 150;
   let bufferWidth = 0;
   // $: textCoords = $isPortrait ? [-79.677,33.732] : [-84.324,34.777];
   $: textCoords = [-77.970,33.503];
@@ -153,7 +152,7 @@
   ]
   let progress = 0;
   let pointerEvents = "none";
-  $: paddingBottom = isTablet.ipad() && $isPortrait ? 80 : isTablet.ipad() && !$isPortrait ? 50 : 10;
+  $: paddingBottom = 10;
   $: customAttribution = `
     <div style=\"padding-left: 10px; padding-bottom: ${paddingBottom}px;\">
       <span style="font-weight: bold">Map:</span> <a href=\"https://www2.census.gov/geo/tiger/TIGER2021/\" target=\"_blank\">U.S. Census Bureau</a>
@@ -199,7 +198,7 @@
 
 <div id="timeline-scroller">
   <Scroller bind:progress>
-    <div slot="background" class={`background`} style={`width: 100%; height: ${$windowHeight}px; pointer-events: ${pointerEvents}; padding: 0px 0px;`}>
+    <div slot="background" class={`background`} style={`width: 100%; height: ${isTablet.ipad() ? $windowHeight - 50 : $windowHeight}px; pointer-events: ${pointerEvents}; padding: 0px 0px;`}>
       <MapTimelineTitle
         {assetPath}
       />
@@ -224,7 +223,7 @@
         {#if innerMapHeight && innerMapWidth}
           <div class={`map`} use:inview="{options}" on:change="{handleChange}">
             {#if allDataLoaded && paintStyles && layoutStyles && (isInView || shouldLoad)}
-              <Map id={mapId} style={styleUrl} bind:loaded={mapLoaded} location={{bounds: bounds.north_carolina}} bind:map={map} interactive={false} controls={false} attribution={"bottom-left"} customAttribution={customAttribution} resize={true} padding={{top: 100, bottom:100, left: 0, right: 0}}>
+              <Map id={mapId} style={styleUrl} bind:loaded={mapLoaded} location={{bounds: bounds.north_carolina}} bind:map={map} interactive={false} controls={false} attribution={"bottom-left"} customAttribution={customAttribution} resize={true} padding={{top: padding, bottom: padding, left: 0, right: 0}}>
 
               <MapScaleBar
                 {map}
@@ -327,8 +326,8 @@
           {/if}
           {#if $activeTimelineSection && textCanvasCoords}
             <div class="static-text" style={`
-                bottom: ${$isPortrait ? "15%" : "unset" };
-                top:  ${$isPortrait ? "unset" : textCanvasCoords.y + "px"};
+
+                top:  ${textCanvasCoords.y + "px"};
               `}
             >
               {$activeTimelineSection.text}
