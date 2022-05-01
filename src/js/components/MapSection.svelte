@@ -102,7 +102,7 @@
 		</div>
 	</section>
 {:else}
-	<section class:no-opacity={section.text === ""} class={isTablet ? "center" : section.horizontalPosition} id={section.id} bind:this={element} use:inview={options} on:change={handleChange}>
+	<section class:no-opacity={section.text === ""} class={isTablet.any() ? "center" : section.horizontalPosition} id={section.id} bind:this={element} use:inview={options} on:change={handleChange}>
 		<p style={`background-color: rgba(255, 255, 255, 1)`}>
 			{@html amlToHTML(section.text)}
 		</p>
