@@ -1,7 +1,7 @@
 <script>
 	import debounce from 'underscore/modules/debounce';
 	import { inview } from 'svelte-inview';
-	import { amlToHTML } from '../modules/utils.js'
+	import { amlToHTML, isTablet } from '../modules/utils.js'
 	import { isPortrait, windowHeight, windowWidth, droneTriggerElement, statewideZoom, activeTimelineSection } from '../modules/store.js';
 
 	export let section;
@@ -102,7 +102,7 @@
 		</div>
 	</section>
 {:else}
-	<section class:no-opacity={section.text === ""} class={section.horizontalPosition} id={section.id} bind:this={element} use:inview={options} on:change={handleChange}>
+	<section class:no-opacity={section.text === ""} class={isTablet ? "center" : section.horizontalPosition} id={section.id} bind:this={element} use:inview={options} on:change={handleChange}>
 		<p style={`background-color: rgba(255, 255, 255, 1)`}>
 			{@html amlToHTML(section.text)}
 		</p>
@@ -119,8 +119,9 @@
 	}
 
 	section {
-		max-width: 100%;
 		margin: 0 !important;
+    width: 600px;
+    max-width: 100%;
 	}
 
 	section p {
@@ -138,12 +139,17 @@
   	margin: 20px;
 	}
 
+	.center {
+		position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+	}
+
   .left {
   	position: absolute;
     left: 40px;
     transform: translate(0%, 0);
-    width: 600px;
-    max-width: 100%;
+
   }
 
 	:global(.highlighter) {

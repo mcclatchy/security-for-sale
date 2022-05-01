@@ -200,7 +200,7 @@
   let paintStyles;
   let layoutStyles;
   let topLayerDrawn = false;
-  $: paddingBottom = isTablet.ipad() ? 80 : 10;
+  $: paddingBottom = 10;
   $: customAttribution = `
     <div style=\"padding-left: 10px; padding-bottom: ${paddingBottom}px;\">
       <span style="font-weight: bold">Map:</span> <a href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\">&copy; OpenStreetMap contributors</a>
@@ -284,7 +284,7 @@
  -->
 <div id="statewide-scroller">
   <Scroller bind:progress>
-    <div slot="background" style={`width: 100%; height: ${$windowHeight}px; pointer-events: ${pointerEvents}`}>
+    <div slot="background" style={`width: 100%; height: ${isTablet.ipad() ? $windowHeight - 50 : $windowHeight}px; pointer-events: ${pointerEvents}`}>
 
       {#if $droneTriggerElement}
         <div class="transition-container" style={`height: 100%; width: 100%; position: fixed; top: 0; left: 0; z-index: 1; pointer-events: none;`}>
