@@ -7,9 +7,11 @@
 
 <div class="outro" id="outro">
 	{#each sections as section,i}
-		<h5 style={i === 0 && "margin-top: 10px"}>
-			{section.title}	
-		</h5>
+		{#if section?.title}
+			<h5 style={i === 0 && "margin-top: 10px"}>
+				{section.title}	
+			</h5>
+		{/if}
 		<p>
 			{@html amlToHTML(section.text)}
 		</p>
