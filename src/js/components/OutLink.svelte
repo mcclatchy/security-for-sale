@@ -24,6 +24,9 @@
 <div class="preview-outer" class:is-last-of-mulitple={isLastOfMultiple}>
 		<a href={replaceableDomains.includes($domain) ? replaceLinkDomain(link, $domain, oldDomain) : link} target="_blank">
 			<div class="preview">
+				<div class="text-centered">
+					<p class="preview-title">{title}</p>
+				</div>
 				<div class="preview-image">
 					<img
 						src={`${assetPath}/${imageFilename}`}
@@ -31,7 +34,7 @@
 					/>
 				</div>
 				<div class="text-centered">
-					<p class="preview-title">{title}</p>
+					<p class="preview-summary">{summary}</p>
 				</div>
 				<div class="preview-container">
 					<button class="preview-outlink">{@html buttonText}</button>
@@ -69,6 +72,19 @@
 
 	.preview-title {
 		font-family: "Libre Franklin";
+		font-size: 24px;
+		font-weight: 700;
+		line-height: 1.3;
+		color:  black;
+		padding: 0 20px;
+		padding-top: 15px;
+		max-width: 300px;
+		margin: 0;
+		padding-bottom: 15px;
+	}
+
+	.preview-summary {
+		font-family: "Libre Franklin";
 		font-size: 15px;
 		font-weight: 400;
 		line-height: 1.3;
@@ -77,20 +93,6 @@
 		padding-top: 15px;
 		max-width: 300px;
 		margin: 0;
-	}
-
-	.preview-summary {
-		font-family: "Libre Franklin";
-		font-size: 15px;
-		font-weight: 300;
-		margin: 20px 0 0 0;
-		max-height: 145px;
-		overflow: hidden;
-    display: -webkit-box;
-    max-width: 490px;
-    -webkit-line-clamp: 6;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
 	}
 
 	.preview-image {
@@ -157,6 +159,10 @@
 	@media only screen and (max-width: 500px) {
 		.is-last-of-mulitple {
 			padding-top: 30px;
+		}
+		.preview-summary {
+			max-width: 300px;
+			margin: 0 auto;
 		}
 		.preview-title {
 			max-width: 300px;
