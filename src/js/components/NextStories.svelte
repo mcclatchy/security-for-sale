@@ -8,8 +8,8 @@
 	let nowEasternTime = Date.parse(new Date().toLocaleString("en-US", {timeZone: "America/New_York"}));
 
 	let publishDates = [
-		Date.parse(new Date('5/1/2022, 6:00:00 AM').toLocaleString("en-US", {timeZone: "America/New_York"})),
-		Date.parse(new Date('5/1/2022, 6:00:00 AM').toLocaleString("en-US", {timeZone: "America/New_York"}))
+		Date.parse(new Date('5/2/2022, 6:00:00 AM').toLocaleString("en-US", {timeZone: "America/New_York"})),
+		Date.parse(new Date('5/3/2022, 6:00:00 AM').toLocaleString("en-US", {timeZone: "America/New_York"}))
 	]
 
 	let activeItems = items.filter((item, i) =>  nowEasternTime >= publishDates[i])
