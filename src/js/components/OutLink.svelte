@@ -34,7 +34,7 @@
 					/>
 				</div>
 				<div class="text-centered">
-					<p class="preview-summary">{summary}</p>
+					<p class="preview-summary">{@html summary}</p>
 				</div>
 				<div class="preview-container">
 					<button class="preview-outlink">{@html buttonText}</button>
