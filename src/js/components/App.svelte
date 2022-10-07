@@ -42,9 +42,9 @@
 	// $: $isRotated && isTablet.any() && window.location.reload();
 
 	let projectName = "security-for-sale"
-	const dataPath = import.meta.env.PROD ? `https://media.mcclatchy.com/static/2022/${projectName}/data/` : "../../src/data"
-	const assetPath = import.meta.env.PROD ? `https://media.mcclatchy.com/static/2022/${projectName}/` : "../../"
-	const videoPath = import.meta.env.PROD ? `https://www.${$domain}.com/static/hi/2022/${projectName}/` : "../../"
+	const dataPath = true ? `https://www.${$domain}.com/static/hi/2022/${projectName}/data` : "../../src/data"
+	const assetPath = true ? `https://www.${$domain}.com/static/hi/2022/${projectName}` : "../../"
+	const videoPath = true ? `https://www.${$domain}.com/static/hi/2022/${projectName}` : "../../"
 
 	let innerHeight = window.innerHeight;
 	let innerWidth = window.innerWidth;
@@ -65,8 +65,8 @@
 
   async function initPage() {
     let url = amlURL;
-    if (import.meta.env.PROD) {
-      url = `https://media.mcclatchy.com/static/2022/${projectName}/assets/aml-story.json`;
+    if (true) {
+      url = `https://www.${$domain}.com/static/hi/2022/${projectName}/assets/aml-story.json`;
     }
     return await fetch(url)
       .then(response => response.json())

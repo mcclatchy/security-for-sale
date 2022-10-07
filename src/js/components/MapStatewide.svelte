@@ -51,7 +51,9 @@
   }
 
   // ALL COLOR STYLING HERE
-  let primaryColor = "#ffa4b1"
+  // let primaryColor = "#1c745c" 
+  // let primaryColor = "#ffa4b1" 
+  let primaryColor = "#d93a4c" 
   let colors = makeColors(primaryColor, 1, 3, 0.1, 0.8)
   let backgroundColors = ["#FAFAFA", "#F4F4F4", "#EFEFEF", "#EAEAEA","#EAEAEA", "#EAEAEA", "#EAEAEA"]
   // let breaks = [1, 2, 50, 150, 250, 10000]
@@ -335,7 +337,7 @@
             palette={colors}
             splits={zoomedBreaks}
             annotations={[{label: "Lower Density", class: 'left'}, {label: "Higher Density", class: 'right'}]}
-            opacity={["charlotte", "raleigh", "fuquay"].includes($statewideZoom) ? 1 : 0}
+            opacity={["charlotte"].includes($statewideZoom) ? 1 : 0}
             legendWidth={450}
           />
           <MapLegendSwatches
@@ -452,7 +454,7 @@
               promoteId={"GEOID"}
               maxzoom={24}>
               <MapLayerType {layerOrder} layerType="line" {mapId} id="north-carolina-outline" {paintStyles}/>
-              <MapLayerType {layerOrder} layerType="fill" {mapId} id="north-carolina-fill" {paintStyles}/>
+              <!-- <MapLayerType {layerOrder} layerType="fill" {mapId} id="north-carolina-fill" {paintStyles}/> -->
             </MapSource>
 
             <!-- NC HIGHWAYS -->

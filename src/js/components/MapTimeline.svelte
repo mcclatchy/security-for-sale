@@ -204,7 +204,7 @@
       />
       <ProgressBar
         {progress}
-        highlightColor="#c16677"
+        highlightColor="#d93a4c"
       />
       {#if timelineCanvasCoords && progress >= 0 && progress < 2}
         <div class={`timeline${classSuffix}`} style={`
@@ -432,11 +432,11 @@
     }
   }
   .month {
-    color: #dba1a7;
+    color: #eda3ab;
     letter-spacing: 2px;
   }
   .year {
-    color: #c16677;
+    color: #c33444;
   }
   .chart-map-container {
     height: 100%;

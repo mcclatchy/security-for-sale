@@ -33,16 +33,16 @@
       'line-width': 0.5,
     },
 		[`${mapId}-county-line`]: {
-      'line-color': "#FFF5F5",
-      'line-width': 2,
+      'line-color': "#d93a4c",
+      'line-width': 0,
     },
 		[`${mapId}-north-carolina-fill`]: {
       'fill-color': "#ffe9e9",
-      'fill-opacity': 1
+      'fill-opacity': 0
     },
     [`${mapId}-surrounding-state-fill`]: {
       'fill-color': '#ffffff',
-      'fill-opacity': 0.99,
+      'fill-opacity': 0.8,
       "fill-opacity-transition": {
         "duration": 300,
         "delay": 0

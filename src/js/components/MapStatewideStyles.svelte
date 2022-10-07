@@ -157,7 +157,7 @@
     },
     "surrounding-state-fill": {
       'fill-color': '#FCFCFC',
-      'fill-opacity': 0.99,
+      'fill-opacity': 0.85,
       "fill-opacity-transition": {
         "duration": 300,
         "delay": 0
@@ -169,7 +169,7 @@
     },
     "mecklenburg-grid-fill": {
 			'fill-color': hexagonFillColor,
-			'fill-opacity': isMobile.any() ? ["interpolate",["linear"],["zoom"],7,0,8,1,12,1,14,0] : ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0],
+      'fill-opacity': isMobile.any() ? ["interpolate",["linear"],["zoom"],7,0,8,0.7,12,0.7,14,0] : ["interpolate",["linear"],["zoom"],8,0,9,0.7,12,0.7,14,0],
 			"fill-opacity-transition": {"duration": 300,"delay": 0}
     },
     "mecklenburg-grid-line": {
@@ -179,7 +179,7 @@
     },
     "the-triangle-grid-fill": {
     	'fill-color': hexagonFillColor,
-			'fill-opacity': isMobile.any() ? ["interpolate",["linear"],["zoom"],7,0,8,1,12,1,14,0] : ["interpolate",["linear"],["zoom"],8,0,9,1,12,1,14,0],
+      'fill-opacity': isMobile.any() ? ["interpolate",["linear"],["zoom"],7,0,8,0.7,12,0.3,14,0] : ["interpolate",["linear"],["zoom"],8,0,9,0.7,12,0.3,14,0],
 			"fill-opacity-transition": {"duration": 300,"delay": 0}
 
     },
