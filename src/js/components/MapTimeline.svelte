@@ -22,7 +22,7 @@
   export let scrollY;
   export let mapData;
 
-  let styleUrl = import.meta.env.PROD ? `${dataPath}/style.json` : `${dataPath}/styleDev.json`
+  let styleUrl = import.meta.env.PROD ? `${dataPath}/styleTimeline.json` : `${dataPath}/styleTimelineDev.json`
   
   let hovered;
   let outerMapContainer;
